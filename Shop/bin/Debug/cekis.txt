@@ -5,5 +5,5 @@ Duona               1,10
 Makaronai           1,05
 Vanduo              0,40
 Sviestas            1,99
-Sûris               2,10
-Pomidorø padaşas    0,90
+SÃ»ris               2,10
+PomidorÃ¸ padaÃ¾as    0,90
