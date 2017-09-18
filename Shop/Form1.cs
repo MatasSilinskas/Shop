@@ -20,11 +20,11 @@ namespace Shop
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string path = Environment.CurrentDirectory + "/" + "cekis.txt";
+            string path = "../../" + "cekis.txt";
             using (StreamReader sr = new StreamReader(path))
             {
-                string parduotuvesPavadinimas = sr.ReadLine();
-                richTextBox1.Text = parduotuvesPavadinimas;
+                string shopName = sr.ReadLine();
+                richTextBox1.Text = shopName;
             }
         }
     }
