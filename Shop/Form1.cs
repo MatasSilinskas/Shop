@@ -16,16 +16,23 @@ namespace Shop
         public Form1()
         {
             InitializeComponent();
+            pictureBox1.Width = 600;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click_1(object sender, EventArgs e)
         {
-            string path = Environment.CurrentDirectory + "/" + "cekis.txt";
-            using (StreamReader sr = new StreamReader(path))
-            {
-                string parduotuvesPavadinimas = sr.ReadLine();
-                richTextBox1.Text = parduotuvesPavadinimas;
-            }
+            Form2 f2 = new Form2();
+            f2.ShowDialog(); // Shows Form2
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }
