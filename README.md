@@ -16,7 +16,7 @@ Windows Forms aplikacija, nuskaitanti čekius (įkeliamos nuotraukos iš failų 
 
 2) Optimaliausias pasiūlymas apsipirkti pagal pačio vartotojo pasirenkamus produktus.
 
-3) Pigiausias produktas paga kategoriją. (Pasirenkame specifinį produktą - pateikiama parduotuvė, kurioje pigiausia)
+3) Pigiausias produktas pagal kategoriją. (Pasirenkame specifinį produktą - pateikiama parduotuvė, kurioje pigiausia)
 
 Antrasis etapas:
 
