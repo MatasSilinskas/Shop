@@ -54,6 +54,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="StoreFromListWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StoreFromListWindow.Designer.cs">
+      <DependentUpon>StoreFromListWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="ScanWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,6 +86,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="StoreFromListWindow.resx">
+      <DependentUpon>StoreFromListWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ScanWindow.resx">
       <DependentUpon>ScanWindow.cs</DependentUpon>
     </EmbeddedResource>

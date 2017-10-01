@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using System.Threading;
 using System.Threading.Tasks;
 using Tesseract;
 using System.IO;
+using System.Globalization;
 
 namespace Logic
 {
+
     public class OCR
     {
         string _imagePath;
@@ -21,7 +24,9 @@ namespace Logic
 
         public bool DoRecognition()
         {
+            Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
             string rezultatas = "";
+            string dbrezultatas = "";
             string shopName;
             try
             {
@@ -49,11 +54,21 @@ namespace Logic
                                         do
                                         {
                                             rezultatas += shopName + " ";
+                                            dbrezultatas += _user + "/" + shopName + "/";
                                             do
                                             {
+                                                decimal price = 0; ;
                                                 rezultatas += iter.GetText(PageIteratorLevel.Word) + " ";
+                                                if(decimal.TryParse(iter.GetText(PageIteratorLevel.Word), out price))
+                                                {
+                                                    dbrezultatas = dbrezultatas.TrimEnd();
+                                                    dbrezultatas += "/" + iter.GetText(PageIteratorLevel.Word) + "/";
+                                                }
+                                                else dbrezultatas += iter.GetText(PageIteratorLevel.Word) + " ";
+
                                             } while (iter.Next(PageIteratorLevel.TextLine, PageIteratorLevel.Word));
                                             rezultatas += Environment.NewLine;
+                                            dbrezultatas += Environment.NewLine;
                                         } while (iter.Next(PageIteratorLevel.Para, PageIteratorLevel.TextLine));
                                     } while (iter.Next(PageIteratorLevel.Block, PageIteratorLevel.Para));
                                 } while (iter.Next(PageIteratorLevel.Block));
@@ -63,11 +78,17 @@ namespace Logic
                     }
                 }
                 using (System.IO.StreamWriter file =
-          new System.IO.StreamWriter(@"../../" + _user + ".txt", true))
+                new System.IO.StreamWriter(@"../../" + _user + ".txt", true))
                 {
                     file.Write(rezultatas);
+                    using (System.IO.StreamWriter file2 =
+                    new System.IO.StreamWriter(@"../../" + "database.txt", true))
+                    {
+                        file2.Write(dbrezultatas);
+                    }
                     return true;
                 }
+                
             }
             catch (Exception e)
             {
@@ -81,3 +102,4 @@ namespace Logic
         }
     }
 }
+
