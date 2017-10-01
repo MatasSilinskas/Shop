@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Tesseract;
+using Logic;
 
 namespace Shop
 {
@@ -86,6 +87,13 @@ namespace Shop
         private void button4_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Top5Window top5 = new Top5Window(_user);
+            top5.Show();
+            //MessageBox.Show(String.Join("\n", top.TakeDataFromFile()), "List", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
     }
 }

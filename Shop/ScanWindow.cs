@@ -46,5 +46,10 @@ namespace Shop
                 this.Close();
             }
         }
+
+        private void bill_path_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
