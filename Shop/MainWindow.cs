@@ -87,5 +87,11 @@ namespace Shop
         {
             Application.Exit();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            StoreFromListWindow list = new StoreFromListWindow(_user);
+            list.Show();
+        }
     }
 }
