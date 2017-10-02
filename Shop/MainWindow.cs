@@ -89,11 +89,18 @@ namespace Shop
             Application.Exit();
         }
 
+
         private void button2_Click(object sender, EventArgs e)
         {
             Top5Window top5 = new Top5Window(_user);
             top5.Show();
             //MessageBox.Show(String.Join("\n", top.TakeDataFromFile()), "List", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            StoreFromListWindow list = new StoreFromListWindow(_user);
+            list.Show();
+
         }
     }
 }

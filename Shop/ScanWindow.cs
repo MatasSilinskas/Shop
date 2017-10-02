@@ -19,12 +19,6 @@ namespace Shop
             InitializeComponent();
             _user = username;
         }
-
-        private void ScanWindow_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             OpenFileDialog OpenFd = new OpenFileDialog();
