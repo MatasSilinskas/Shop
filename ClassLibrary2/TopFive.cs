@@ -64,22 +64,5 @@ namespace Logic
 
             return top5;
         }
-
-        public string ShopRecommendation()
-        {
-            var options = new Dictionary<string, int>();
-            foreach (Item item in top5)
-            {
-               if (options.ContainsKey(item.CheapestPrice().Key))
-                {
-                    options[item.CheapestPrice().Key]++;
-                }
-               else
-                {
-                    options.Add(item.CheapestPrice().Key, 1);
-                }            
-            }
-            return options.OrderByDescending(key => key.Value).First().Key;
-        }
     }
 }
