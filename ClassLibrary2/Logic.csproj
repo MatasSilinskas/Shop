@@ -46,8 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Authentication.cs" />
-
     <Compile Include="Item.cs" />
+    <Compile Include="Items.cs" />
     <Compile Include="StoreList.cs" />
     <Compile Include="OCR.cs" />
     <Compile Include="Registration.cs" />

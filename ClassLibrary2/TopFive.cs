@@ -67,6 +67,8 @@ namespace Logic
 
         public string ShopRecommendation()
         {
+            Items items = new Items();
+
             var options = new Dictionary<string, int>();
             foreach (Item item in top5)
             {

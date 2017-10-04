@@ -94,7 +94,7 @@ namespace Shop
         {
             Top5Window top5 = new Top5Window(_user);
             top5.Show();
-            //MessageBox.Show(String.Join("\n", top.TakeDataFromFile()), "List", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
 
         private void button3_Click(object sender, EventArgs e)
         {
