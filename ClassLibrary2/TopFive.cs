@@ -11,7 +11,7 @@ namespace Logic
     public class TopFive
     {
         Dictionary<string, Item> items = new Dictionary<string, Item>();    //all bought items
-        ArrayList top5 = new ArrayList();
+        Items top5 = new Items();
         string _user;
 
         public TopFive(string username)
@@ -19,7 +19,7 @@ namespace Logic
             _user = username;
         }
 
-        public ArrayList ObtainData()
+        public Items ObtainData()
         {
             string[] readLines = File.ReadAllLines(@"../../" + _user + ".txt");
 
@@ -67,8 +67,6 @@ namespace Logic
 
         public string ShopRecommendation()
         {
-            Items items = new Items();
-
             var options = new Dictionary<string, int>();
             foreach (Item item in top5)
             {

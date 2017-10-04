@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Logic
 {
-    class Items : IList<Item>
+    public class Items : IList<Item>
     {
         private List<Item> _items = new List<Item>();
 
