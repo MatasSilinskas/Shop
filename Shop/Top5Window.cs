@@ -47,7 +47,8 @@ namespace Shop
             price4.Text = (items[3] as Item).CheapestPrice().Value.ToString();
             price5.Text = (items[4] as Item).CheapestPrice().Value.ToString();
 
-            recommend.Text = top.ShopRecommendation();
+            recommend.Text = "It is recommended that you shop in " 
+                + top.ShopRecommendation();
 
 
         }

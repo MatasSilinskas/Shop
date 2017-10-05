@@ -56,7 +56,7 @@
             this.top5Table.ColumnCount = 3;
             this.top5Table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60.69652F));
             this.top5Table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 39.30348F));
-            this.top5Table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
+            this.top5Table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 91F));
             this.top5Table.Controls.Add(this.item, 0, 5);
             this.top5Table.Controls.Add(this.price, 2, 5);
             this.top5Table.Controls.Add(this.cheapestAt, 1, 5);
@@ -106,7 +106,7 @@
             // price
             // 
             this.price.AutoSize = true;
-            this.price.Location = new System.Drawing.Point(307, 0);
+            this.price.Location = new System.Drawing.Point(306, 0);
             this.price.Name = "price";
             this.price.Size = new System.Drawing.Size(31, 13);
             this.price.TabIndex = 2;
@@ -115,7 +115,7 @@
             // cheapestAt
             // 
             this.cheapestAt.AutoSize = true;
-            this.cheapestAt.Location = new System.Drawing.Point(188, 0);
+            this.cheapestAt.Location = new System.Drawing.Point(187, 0);
             this.cheapestAt.Name = "cheapestAt";
             this.cheapestAt.Size = new System.Drawing.Size(64, 13);
             this.cheapestAt.TabIndex = 3;
@@ -132,7 +132,7 @@
             // shopName1
             // 
             this.shopName1.AutoSize = true;
-            this.shopName1.Location = new System.Drawing.Point(188, 20);
+            this.shopName1.Location = new System.Drawing.Point(187, 20);
             this.shopName1.Name = "shopName1";
             this.shopName1.Size = new System.Drawing.Size(35, 13);
             this.shopName1.TabIndex = 5;
@@ -141,7 +141,7 @@
             // price1
             // 
             this.price1.AutoSize = true;
-            this.price1.Location = new System.Drawing.Point(307, 20);
+            this.price1.Location = new System.Drawing.Point(306, 20);
             this.price1.Name = "price1";
             this.price1.Size = new System.Drawing.Size(35, 13);
             this.price1.TabIndex = 6;
@@ -158,7 +158,7 @@
             // shopName2
             // 
             this.shopName2.AutoSize = true;
-            this.shopName2.Location = new System.Drawing.Point(188, 40);
+            this.shopName2.Location = new System.Drawing.Point(187, 40);
             this.shopName2.Name = "shopName2";
             this.shopName2.Size = new System.Drawing.Size(35, 13);
             this.shopName2.TabIndex = 8;
@@ -167,7 +167,7 @@
             // price2
             // 
             this.price2.AutoSize = true;
-            this.price2.Location = new System.Drawing.Point(307, 40);
+            this.price2.Location = new System.Drawing.Point(306, 40);
             this.price2.Name = "price2";
             this.price2.Size = new System.Drawing.Size(35, 13);
             this.price2.TabIndex = 9;
@@ -184,7 +184,7 @@
             // shopName3
             // 
             this.shopName3.AutoSize = true;
-            this.shopName3.Location = new System.Drawing.Point(188, 60);
+            this.shopName3.Location = new System.Drawing.Point(187, 60);
             this.shopName3.Name = "shopName3";
             this.shopName3.Size = new System.Drawing.Size(35, 13);
             this.shopName3.TabIndex = 11;
@@ -193,7 +193,7 @@
             // price3
             // 
             this.price3.AutoSize = true;
-            this.price3.Location = new System.Drawing.Point(307, 60);
+            this.price3.Location = new System.Drawing.Point(306, 60);
             this.price3.Name = "price3";
             this.price3.Size = new System.Drawing.Size(35, 13);
             this.price3.TabIndex = 12;
@@ -210,7 +210,7 @@
             // shopName4
             // 
             this.shopName4.AutoSize = true;
-            this.shopName4.Location = new System.Drawing.Point(188, 80);
+            this.shopName4.Location = new System.Drawing.Point(187, 80);
             this.shopName4.Name = "shopName4";
             this.shopName4.Size = new System.Drawing.Size(41, 13);
             this.shopName4.TabIndex = 14;
@@ -219,7 +219,7 @@
             // price4
             // 
             this.price4.AutoSize = true;
-            this.price4.Location = new System.Drawing.Point(307, 80);
+            this.price4.Location = new System.Drawing.Point(306, 80);
             this.price4.Name = "price4";
             this.price4.Size = new System.Drawing.Size(41, 13);
             this.price4.TabIndex = 15;
@@ -236,7 +236,7 @@
             // shopName5
             // 
             this.shopName5.AutoSize = true;
-            this.shopName5.Location = new System.Drawing.Point(188, 100);
+            this.shopName5.Location = new System.Drawing.Point(187, 100);
             this.shopName5.Name = "shopName5";
             this.shopName5.Size = new System.Drawing.Size(41, 13);
             this.shopName5.TabIndex = 17;
@@ -245,7 +245,7 @@
             // price5
             // 
             this.price5.AutoSize = true;
-            this.price5.Location = new System.Drawing.Point(307, 100);
+            this.price5.Location = new System.Drawing.Point(306, 100);
             this.price5.Name = "price5";
             this.price5.Size = new System.Drawing.Size(41, 13);
             this.price5.TabIndex = 18;
@@ -256,9 +256,9 @@
             this.recommend.AutoSize = true;
             this.recommend.Location = new System.Drawing.Point(47, 175);
             this.recommend.Name = "recommend";
-            this.recommend.Size = new System.Drawing.Size(174, 13);
+            this.recommend.Size = new System.Drawing.Size(125, 13);
             this.recommend.TabIndex = 1;
-            this.recommend.Text = "It is recommended that you shop in ";
+            this.recommend.Text = "recommended shop label";
             // 
             // Top5Window
             // 
