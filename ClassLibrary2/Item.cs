@@ -11,12 +11,12 @@ namespace Logic
     {
         public string Name { get; }
         public int AmountOfTimesBought { get; set; } = 1;
-        Dictionary<string, double> shopsAndPrices= new Dictionary<string, double>();
+        public Dictionary<string, double> ShopsAndPrices { get; set; } = new Dictionary<string, double>();
       
         public Item(string name, string shopName, double price)
         {
             Name = name;
-            shopsAndPrices.Add(shopName, price);
+            ShopsAndPrices.Add(shopName, price);
         }
 
         public override string ToString()
@@ -30,19 +30,19 @@ namespace Logic
         public void BoughtAgain(string shopName, double price)
         {
             AmountOfTimesBought++;
-            if(shopsAndPrices.ContainsKey(shopName))
+            if(ShopsAndPrices.ContainsKey(shopName))
             {
-                shopsAndPrices[shopName] = price;
+                ShopsAndPrices[shopName] = price;
             }
             else
             {
-                shopsAndPrices.Add(shopName, price);
+                ShopsAndPrices.Add(shopName, price);
             }
         }
 
         public KeyValuePair<string, double> CheapestPrice()
         {
-            return shopsAndPrices.OrderBy(key => key.Value).First();
+            return ShopsAndPrices.OrderBy(key => key.Value).First();
         }
     }
 }
