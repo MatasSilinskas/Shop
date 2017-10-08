@@ -30,7 +30,7 @@ namespace Shop
         private void button2_Click(object sender, EventArgs e)
         {
             OCR recognition = new OCR(bill_path.Text, _user);
-            if (!recognition.DoRecognition())
+            if (!recognition.DoRecognition(new WriteToFile()))
             {
                 MessageBox.Show("Scanning Failed: Check Settings", "Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
