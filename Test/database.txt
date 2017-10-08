@@ -7,6 +7,6 @@ kaspis/IKI/Avižiniai dribsniai/1.55/
 kaspis/IKI/Pepsi Cola/1.63/
 kaspis/IKI/Sviestas/2.12/
 kaspis/IKI/Kiaušiniai/0.98/
-kaspis/maxima/Cola/1.63/
-kaspis/maxima/Sviestas/2/
-kaspis/maxima/Kiaušiniai/0.8/
+kaspis/maxima/Duona/1/
+kaspis/maxima/Pepsi Cola/2/
+kaspis/maxima/Sviestas/2.1/

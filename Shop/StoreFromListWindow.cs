@@ -38,7 +38,7 @@ namespace Shop
             else
             {
                 StoreList store = new Logic.StoreList(shoppingList);
-                textBox2.Text = store.SearchDatabase();
+                textBox2.Text = store.ReturnStoreName();
 
             }
         }
@@ -46,6 +46,12 @@ namespace Shop
         private void StoreFromListWindow_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            StoreList store = new StoreList(shoppingList);
+            textBox3.Text = store.ReturnPrice().ToString();
         }
     }
 }

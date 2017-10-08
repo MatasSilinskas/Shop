@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -10,72 +11,77 @@ namespace Logic
 {
     public class StoreList
     {
-        List <string> _itemsFromList;
+        List<string> _itemsFromList;
         string[] data;
-        string _pathToDatabase = @"../../" + "database.txt";
-        public StoreList (List <string> list)
+        string _name;
+        double _price;
+        Dictionary<string, double> Stores = new Dictionary<string, double>();
+        static string _pathToDatabase = @"../../" + "database.txt";
+        string[] readLines = File.ReadAllLines(_pathToDatabase);
+        public StoreList(List<string> list)
         {
             _itemsFromList = list;
         }
-        public string SearchDatabase()
+        public void AssignStoresAndPrices()
+        {
+            foreach (string line in readLines)
+            {
+                data = line.Split('/');
+                if (!Stores.ContainsKey(data[1]))
+                {
+                    Stores.Add(data[1], CalculatePrice(data[1]));
+                }
+            }
+        }
+        public double CalculatePrice(string store)
         {
             Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
-            List<string> Stores = new List<string>();
-            string line;
-            int i = 0;
-            int count = 0;
-            string store = "";
-            float price = 0f;
-            while (i<_itemsFromList.Count())
+            double price = 0;
+            int foundItemsInStore = 0;
+            foreach (string line in readLines)
             {
-                System.IO.StreamReader file = new System.IO.StreamReader(_pathToDatabase);
-                while((line = file.ReadLine()) != null)
+                data = line.Split('/');
+                if ((store == data[1]) && (_itemsFromList.Contains(data[2])))
                 {
-                     data = line.Split('/');
-                     if(_itemsFromList[i]==data[2])
-                     {
-                        if (price==0)
-                        {
-                            store = data[1];
-                            price = float.Parse(data[3]);
-                        }
-                        else if (price>float.Parse(data[3]))
-                        {
-                            store = data[1];
-                            price = float.Parse(data[3]);
-                        }
-                     }
+                    price += double.Parse(data[3]);
+                    foundItemsInStore++;
                 }
-                if (store!="")
-                {
-                    Stores.Add(store);
-                    count++;
-                }
-                store = "";
-                price = 0f;
-                i++;
             }
-            if (count==0)
+            if (_itemsFromList.Count() == foundItemsInStore)
+                return price;
+            else return 0;
+        }
+        public void FindCheapestStore()
+        {
+            AssignStoresAndPrices();
+            var storeMinValue = Stores.Min(x => x.Value);
+            var storeMaxValue = Stores.Max(x => x.Value);
+            if (storeMinValue != 0)
             {
-                return "too little data in database. please try again after scanning a check";
+                _name = Stores.FirstOrDefault(x => x.Value == storeMinValue).Key;
+                _price = storeMinValue;
+            }
+            else if (storeMinValue == storeMaxValue)
+            {
+                _name = "Too little data in database. Please try again after scanning a check.";
+                _price = 0;
             }
             else
             {
-                string j;
-                var groupsWithCounts = from s in Stores
-                                       group s by s into g
-                                       select new
-                                       {
-                                           Item = g.Key,
-                                           Count = g.Count()
-                                       };
-
-                var groupsSorted = groupsWithCounts.OrderByDescending(g => g.Count);
-                string mostFrequest = groupsSorted.First().Item;
-                return mostFrequest;
+                _name = Stores.FirstOrDefault(x => x.Value != 0).Key;
+                _price = Stores.FirstOrDefault(x => x.Value != 0).Value;
             }
-            
-           
         }
+        public string ReturnStoreName()
+        {
+            FindCheapestStore();
+            return _name;
+        }
+        public double ReturnPrice()
+        {
+            FindCheapestStore();
+            return _price;
+        }
+
     }
 }
