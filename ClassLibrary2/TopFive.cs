@@ -11,7 +11,7 @@ namespace Logic
     public class TopFive
     {
         Dictionary<string, Item> items = new Dictionary<string, Item>();    //all bought items
-        ArrayList top5 = new ArrayList();
+        Items top5 = new Items();
         string _user;
 
         public TopFive(string username)
@@ -19,7 +19,7 @@ namespace Logic
             _user = username;
         }
 
-        public ArrayList ObtainData()
+        public Items ObtainData()
         {
             string[] readLines = File.ReadAllLines(@"../../" + _user + ".txt");
 
@@ -63,25 +63,6 @@ namespace Logic
             }
 
             return top5;
-        }
-
-        public string ShopRecommendation()
-        {
-            Items items = new Items();
-
-            var options = new Dictionary<string, int>();
-            foreach (Item item in top5)
-            {
-               if (options.ContainsKey(item.CheapestPrice().Key))
-                {
-                    options[item.CheapestPrice().Key]++;
-                }
-               else
-                {
-                    options.Add(item.CheapestPrice().Key, 1);
-                }            
-            }
-            return options.OrderByDescending(key => key.Value).First().Key;
         }
     }
 }
