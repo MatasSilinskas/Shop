@@ -7,7 +7,7 @@ using System.IO;
 
 namespace Logic
 {
-    public class WriteToFile
+    public class WriteLogic
     {
         public void Write(string _user, string rezultatas)
         {

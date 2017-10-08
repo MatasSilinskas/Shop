@@ -12,7 +12,7 @@ using System.Globalization;
 namespace Logic
 {
 
-    public class OCR
+    public class OCR : IRecongnize
     {
         string _imagePath;
         string _user;
@@ -25,7 +25,7 @@ namespace Logic
             _user = username;
         }
 
-        public bool DoRecognition(WriteToFile writer)
+        public bool DoRecognition(WriteLogic writer)
         {
             Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
             try
@@ -85,6 +85,12 @@ namespace Logic
                 writer.Write(_user, e.Message);
                 return false;
             }
+        }
+
+        public double ReturnAccuracy()
+        {
+            // To be implemented
+            throw new NotImplementedException();
         }
     }
 }
