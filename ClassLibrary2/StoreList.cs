@@ -9,15 +9,29 @@ using System.Threading.Tasks;
 
 namespace Logic
 {
-    public class StoreList
+    public class StoreList: IShowCheapestShop
     {
-        List<string> _itemsFromList;
+        private List<string> _itemsFromList;
+        public List<string> itemsFromList
+        {
+            get
+            {
+                return _itemsFromList;
+            }
+        }
         string[] data;
         string _name;
         double _price;
         Dictionary<string, double> Stores = new Dictionary<string, double>();
         static string _pathToDatabase = @"../../" + "database.txt";
-        string[] readLines = File.ReadAllLines(_pathToDatabase);
+        private string[] _readLines = File.ReadAllLines(_pathToDatabase);
+        public string[] readLines
+        {
+            get
+            {
+                return _readLines;
+            }
+        }
         public StoreList(List<string> list)
         {
             _itemsFromList = list;
