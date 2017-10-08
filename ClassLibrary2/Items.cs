@@ -25,7 +25,10 @@ namespace Logic
             get { return _items.Count; }
         }
 
-        public bool IsReadOnly => throw new NotImplementedException();  //_items.IsReadOnly doesnt exist?
+        public bool IsReadOnly
+        {
+            get { return false; }
+        }
 
         public void Add(Item item)
         {
