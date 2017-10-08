@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Logic
 {
+
     public class Items : IList<Item>
     {
         private List<Item> _items = new List<Item>();
@@ -29,6 +30,7 @@ namespace Logic
         public void Add(Item item)
         {
             _items.Add(item);
+            
             foreach(var shop in item.ShopsAndPrices)
             {
                 if(!_allShopNames.Contains(shop.Key))
