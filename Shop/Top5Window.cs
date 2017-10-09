@@ -14,12 +14,10 @@ namespace Shop
     public partial class Top5Window : Form
     {
         string _user;
-        public Top5Window(string username)
+        public Top5Window(string user)
         {
             InitializeComponent();
-
-            _user = username;
-
+            _user = user;
         }
 
         private void top5Table_Paint(object sender, PaintEventArgs e)

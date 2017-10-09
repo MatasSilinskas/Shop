@@ -53,6 +53,7 @@ namespace Logic
             }
             catch (Exception e)
             {
+                writer.Write(_user, e.Message);
                 return false;
             }
         }

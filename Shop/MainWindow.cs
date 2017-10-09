@@ -14,46 +14,17 @@ namespace Shop
 {
     public partial class MainWindow : Form
     {
-        LoginWindow loginWindow;
+        LoginWindow _loginWindow;
         string _user;
 
         public string User { get => _user; }
 
-        public MainWindow(string username, LoginWindow login)
+        public MainWindow(string user, LoginWindow loginWindow)
         {
             InitializeComponent();
-            loginWindow = login;
-            var testImagePath = @"..\..\example.jpg";
-            _user = username;
-            label1.Text = "Hello, " + username + "!";
-
-            try
-            {
-                using (var engine = new TesseractEngine(@"..\..\..\", "eng", EngineMode.Default))
-                {
-                    using (var img = Pix.LoadFromFile(testImagePath))
-                    {
-                        using (var page = engine.Process(img))
-                        {
-                          //  var text = page.GetText();
-                           // textBox1.Text = text;
-                        }
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-              //  Trace.TraceError(e.ToString());
-               // Console.WriteLine("Unexpected Error: " + e.Message);
-             //   Console.WriteLine("Details: ");
-              //  Console.WriteLine(e.ToString());
-            }
-            //Console.Write("Press any key to continue . . . ");
-            //Console.ReadKey(true);
-        }
-
-        private void MainWindow_Load(object sender, EventArgs e)
-        {
+            _loginWindow = loginWindow;
+            _user = user;
+            HelloLabel.Text = "Hello, " + _user + "!";
 
         }
 
@@ -78,25 +49,25 @@ namespace Shop
             
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void ScanButton_Click(object sender, EventArgs e)
         {
             ScanWindow scan = new ScanWindow(_user);
             scan.Show();
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void CloseProgramButton_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
 
-        private void button2_Click(object sender, EventArgs e)
+        private void Top5Button_Click(object sender, EventArgs e)
         {
             Top5Window top5 = new Top5Window(_user);
             top5.Show();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void RandomPickedButton_Click(object sender, EventArgs e)
         {
             StoreFromListWindow list = new StoreFromListWindow(_user);
             list.Show();

@@ -14,12 +14,12 @@ namespace Shop
     public partial class ScanWindow : Form
     {
         string _user;
-        public ScanWindow(string username)
+        public ScanWindow(string user)
         {
             InitializeComponent();
-            _user = username;
+            _user = user;
         }
-        private void button1_Click(object sender, EventArgs e)
+        private void BrowseButton_Click(object sender, EventArgs e)
         {
             OpenFileDialog OpenFd = new OpenFileDialog();
             OpenFd.Filter = "Images only. |*.jpg; *.jpeg; *.png; *.gif;";
@@ -27,9 +27,9 @@ namespace Shop
             bill_path.Text = OpenFd.FileName;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void ScanButton_Click(object sender, EventArgs e)
         {
-            if (radioButton1.Checked)
+            if (tesseractOption.Checked)
             {
                 OCR recognition = new OCR(bill_path.Text, _user);
                 if (!recognition.DoRecognition(new WriteLogic()))
@@ -44,7 +44,7 @@ namespace Shop
             }
             else
             {
-                if (radioButton2.Checked)
+                if (visionOption.Checked)
                 {
                     GoogleRecognition google = new GoogleRecognition(bill_path.Text, _user);
                     if (!google.DoRecognition(new WriteLogic()))
@@ -58,11 +58,6 @@ namespace Shop
                     }
                 }
             }
-        }
-
-        private void bill_path_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

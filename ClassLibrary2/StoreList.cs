@@ -19,7 +19,7 @@ namespace Logic
                 return _itemsFromList;
             }
         }
-        string[] data;
+        string[] _data;
         string _name;
         double _price;
         Dictionary<string, double> Stores = new Dictionary<string, double>();
@@ -40,10 +40,10 @@ namespace Logic
         {
             foreach (string line in readLines)
             {
-                data = line.Split('/');
-                if (!Stores.ContainsKey(data[1]))
+                _data = line.Split('/');
+                if (!Stores.ContainsKey(_data[1]))
                 {
-                    Stores.Add(data[1], CalculatePrice(data[1]));
+                    Stores.Add(_data[1], CalculatePrice(_data[1]));
                 }
             }
         }
@@ -54,10 +54,10 @@ namespace Logic
             int foundItemsInStore = 0;
             foreach (string line in readLines)
             {
-                data = line.Split('/');
-                if ((store == data[1]) && (_itemsFromList.Contains(data[2])))
+                _data = line.Split('/');
+                if ((store == _data[1]) && (_itemsFromList.Contains(_data[2])))
                 {
-                    price += double.Parse(data[3]);
+                    price += double.Parse(_data[3]);
                     foundItemsInStore++;
                 }
             }

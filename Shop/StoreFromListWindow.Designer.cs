@@ -28,90 +28,97 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.button3 = new System.Windows.Forms.Button();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.ProductsTextBox = new System.Windows.Forms.RichTextBox();
+            this.addList = new System.Windows.Forms.TextBox();
+            this.AddToList = new System.Windows.Forms.Button();
+            this.ChooseStore = new System.Windows.Forms.Button();
+            this.storeName = new System.Windows.Forms.TextBox();
+            this.EstimatePrice = new System.Windows.Forms.Button();
+            this.totalPrice = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // richTextBox1
+            // ProductsTextBox
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(43, 25);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(276, 178);
-            this.richTextBox1.TabIndex = 0;
-            this.richTextBox1.Text = "";
+            this.ProductsTextBox.Location = new System.Drawing.Point(57, 31);
+            this.ProductsTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.ProductsTextBox.Name = "ProductsTextBox";
+            this.ProductsTextBox.Size = new System.Drawing.Size(367, 218);
+            this.ProductsTextBox.TabIndex = 0;
+            this.ProductsTextBox.Text = "";
             // 
-            // textBox1
+            // addList
             // 
-            this.textBox1.Location = new System.Drawing.Point(43, 226);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(140, 20);
-            this.textBox1.TabIndex = 1;
+            this.addList.Location = new System.Drawing.Point(57, 278);
+            this.addList.Margin = new System.Windows.Forms.Padding(4);
+            this.addList.Name = "addList";
+            this.addList.Size = new System.Drawing.Size(185, 22);
+            this.addList.TabIndex = 1;
             // 
-            // button1
+            // AddToList
             // 
-            this.button1.Location = new System.Drawing.Point(212, 226);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(107, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Add to list";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.AddToList.Location = new System.Drawing.Point(283, 278);
+            this.AddToList.Margin = new System.Windows.Forms.Padding(4);
+            this.AddToList.Name = "AddToList";
+            this.AddToList.Size = new System.Drawing.Size(143, 28);
+            this.AddToList.TabIndex = 2;
+            this.AddToList.Text = "Add to list";
+            this.AddToList.UseVisualStyleBackColor = true;
+            this.AddToList.Click += new System.EventHandler(this.AddToList_Click);
             // 
-            // button2
+            // ChooseStore
             // 
-            this.button2.Location = new System.Drawing.Point(43, 266);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(140, 40);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Choose a store";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.ChooseStore.Location = new System.Drawing.Point(57, 327);
+            this.ChooseStore.Margin = new System.Windows.Forms.Padding(4);
+            this.ChooseStore.Name = "ChooseStore";
+            this.ChooseStore.Size = new System.Drawing.Size(187, 49);
+            this.ChooseStore.TabIndex = 3;
+            this.ChooseStore.Text = "Choose a store";
+            this.ChooseStore.UseVisualStyleBackColor = true;
+            this.ChooseStore.Click += new System.EventHandler(this.ChooseStore_Click);
             // 
-            // textBox2
+            // storeName
             // 
-            this.textBox2.Location = new System.Drawing.Point(43, 326);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(140, 20);
-            this.textBox2.TabIndex = 4;
+            this.storeName.Location = new System.Drawing.Point(57, 401);
+            this.storeName.Margin = new System.Windows.Forms.Padding(4);
+            this.storeName.Name = "storeName";
+            this.storeName.Size = new System.Drawing.Size(185, 22);
+            this.storeName.TabIndex = 4;
             // 
-            // button3
+            // EstimatePrice
             // 
-            this.button3.Location = new System.Drawing.Point(212, 266);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(107, 40);
-            this.button3.TabIndex = 5;
-            this.button3.Text = "Estimate price";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.EstimatePrice.Location = new System.Drawing.Point(283, 327);
+            this.EstimatePrice.Margin = new System.Windows.Forms.Padding(4);
+            this.EstimatePrice.Name = "EstimatePrice";
+            this.EstimatePrice.Size = new System.Drawing.Size(143, 49);
+            this.EstimatePrice.TabIndex = 5;
+            this.EstimatePrice.Text = "Estimate price";
+            this.EstimatePrice.UseVisualStyleBackColor = true;
+            this.EstimatePrice.Click += new System.EventHandler(this.EstimatePrice_Click);
             // 
-            // textBox3
+            // totalPrice
             // 
-            this.textBox3.Location = new System.Drawing.Point(212, 325);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(107, 20);
-            this.textBox3.TabIndex = 6;
+            this.totalPrice.Location = new System.Drawing.Point(283, 400);
+            this.totalPrice.Margin = new System.Windows.Forms.Padding(4);
+            this.totalPrice.Name = "totalPrice";
+            this.totalPrice.Size = new System.Drawing.Size(141, 22);
+            this.totalPrice.TabIndex = 6;
             // 
             // StoreFromListWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.ClientSize = new System.Drawing.Size(353, 466);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.richTextBox1);
+            this.ClientSize = new System.Drawing.Size(471, 574);
+            this.Controls.Add(this.totalPrice);
+            this.Controls.Add(this.EstimatePrice);
+            this.Controls.Add(this.storeName);
+            this.Controls.Add(this.ChooseStore);
+            this.Controls.Add(this.AddToList);
+            this.Controls.Add(this.addList);
+            this.Controls.Add(this.ProductsTextBox);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "StoreFromListWindow";
-            this.Text = "Form1";
-            this.Load += new System.EventHandler(this.StoreFromListWindow_Load);
+            this.Text = "StoreFromListWindow";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -119,12 +126,12 @@
 
         #endregion
 
-        private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.RichTextBox ProductsTextBox;
+        private System.Windows.Forms.TextBox addList;
+        private System.Windows.Forms.Button AddToList;
+        private System.Windows.Forms.Button ChooseStore;
+        private System.Windows.Forms.TextBox storeName;
+        private System.Windows.Forms.Button EstimatePrice;
+        private System.Windows.Forms.TextBox totalPrice;
     }
 }
