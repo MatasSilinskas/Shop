@@ -12,22 +12,22 @@ using System.Globalization;
 namespace Logic
 {
 
-    public class OCR
+    public class OCR : IRecongnize
     {
         string _imagePath;
         string _user;
+        string _rezultatas = "";
+        string _dbrezultatas = "";
+        string _shopName;
         public OCR(string pathToImage, string username)
         {
             _imagePath = pathToImage;
             _user = username;
         }
 
-        public bool DoRecognition()
+        public bool DoRecognition(WriteLogic writer)
         {
             Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
-            string rezultatas = "";
-            string dbrezultatas = "";
-            string shopName;
             try
             {
                 using (var engine = new TesseractEngine("../../../tessdata", "lit", EngineMode.Default))
@@ -42,7 +42,7 @@ namespace Logic
                                 using (StreamWriter sw = new StreamWriter(@"../../kasparas.txt", true))
                                 {
                                     iter.Begin();
-                                    shopName = iter.GetText(PageIteratorLevel.Word);
+                                    _shopName = iter.GetText(PageIteratorLevel.Word);
                                     iter.Next(PageIteratorLevel.Word);
                                 }
           
@@ -53,22 +53,22 @@ namespace Logic
                                     {
                                         do
                                         {
-                                            rezultatas += shopName + " ";
-                                            dbrezultatas += _user + "/" + shopName + "/";
+                                            _rezultatas += _shopName + " ";
+                                            _dbrezultatas += _user + "/" + _shopName + "/";
                                             do
                                             {
                                                 decimal price = 0; ;
-                                                rezultatas += iter.GetText(PageIteratorLevel.Word) + " ";
+                                                _rezultatas += iter.GetText(PageIteratorLevel.Word) + " ";
                                                 if(decimal.TryParse(iter.GetText(PageIteratorLevel.Word), out price))
                                                 {
-                                                    dbrezultatas = dbrezultatas.TrimEnd();
-                                                    dbrezultatas += "/" + iter.GetText(PageIteratorLevel.Word) + "/";
+                                                    _dbrezultatas = _dbrezultatas.TrimEnd();
+                                                    _dbrezultatas += "/" + iter.GetText(PageIteratorLevel.Word) + "/";
                                                 }
-                                                else dbrezultatas += iter.GetText(PageIteratorLevel.Word) + " ";
+                                                else _dbrezultatas += iter.GetText(PageIteratorLevel.Word) + " ";
 
                                             } while (iter.Next(PageIteratorLevel.TextLine, PageIteratorLevel.Word));
-                                            rezultatas += Environment.NewLine;
-                                            dbrezultatas += Environment.NewLine;
+                                            _rezultatas += Environment.NewLine;
+                                            _dbrezultatas += Environment.NewLine;
                                         } while (iter.Next(PageIteratorLevel.Para, PageIteratorLevel.TextLine));
                                     } while (iter.Next(PageIteratorLevel.Block, PageIteratorLevel.Para));
                                 } while (iter.Next(PageIteratorLevel.Block));
@@ -77,28 +77,20 @@ namespace Logic
                         }
                     }
                 }
-                using (System.IO.StreamWriter file =
-                new System.IO.StreamWriter(@"../../" + _user + ".txt", true))
-                {
-                    file.Write(rezultatas);
-                    using (System.IO.StreamWriter file2 =
-                    new System.IO.StreamWriter(@"../../" + "database.txt", true))
-                    {
-                        file2.Write(dbrezultatas);
-                    }
-                    return true;
-                }
-                
+                writer.Write(_user, _rezultatas, _dbrezultatas);
+                return true;
             }
             catch (Exception e)
             {
-                using (System.IO.StreamWriter file =
-                new System.IO.StreamWriter(@"../../" + _user + ".txt", true))
-                {
-                    file.Write(e.Message);
-                    return false;
-                }
+                writer.Write(_user, e.Message);
+                return false;
             }
+        }
+
+        public double ReturnAccuracy()
+        {
+            // To be implemented
+            throw new NotImplementedException();
         }
     }
 }

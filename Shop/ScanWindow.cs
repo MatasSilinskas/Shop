@@ -29,15 +29,34 @@ namespace Shop
 
         private void button2_Click(object sender, EventArgs e)
         {
-            OCR recognition = new OCR(bill_path.Text, _user);
-            if (!recognition.DoRecognition())
+            if (radioButton1.Checked)
             {
-                MessageBox.Show("Scanning Failed: Check Settings", "Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                OCR recognition = new OCR(bill_path.Text, _user);
+                if (!recognition.DoRecognition(new WriteLogic()))
+                {
+                    MessageBox.Show("Scanning Failed: Check Settings", "Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    MessageBox.Show("Scanned successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
+                }
             }
             else
             {
-                MessageBox.Show("Scanned successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Close();
+                if (radioButton2.Checked)
+                {
+                    GoogleRecognition google = new GoogleRecognition(bill_path.Text, _user);
+                    if (!google.DoRecognition(new WriteLogic()))
+                    {
+                        MessageBox.Show("Scanning Failed: Check Settings", "Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Scanned successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.Close();
+                    }
+                }
             }
         }
 
