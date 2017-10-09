@@ -19,10 +19,10 @@ namespace Logic
         string _rezultatas = "";
         string _dbrezultatas = "";
         string _shopName;
-        public OCR(string pathToImage, string username)
+        public OCR(string imagePath, string user)
         {
-            _imagePath = pathToImage;
-            _user = username;
+            _imagePath = imagePath;
+            _user = user;
         }
 
         public bool DoRecognition(WriteLogic writer)
@@ -38,14 +38,9 @@ namespace Logic
                         {
                             using (var iter = page.GetIterator())
                             {
-
-                                using (StreamWriter sw = new StreamWriter(@"../../kasparas.txt", true))
-                                {
                                     iter.Begin();
                                     _shopName = iter.GetText(PageIteratorLevel.Word);
                                     iter.Next(PageIteratorLevel.Word);
-                                }
-          
                                 do
                                 {
                                     

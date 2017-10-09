@@ -15,7 +15,7 @@ namespace Logic
         string _email;
         string _gender;
         string _password;
-        static string _usersTextFilePath = @"..\..\users.txt";
+        static string _usersTextFilePath = @"..\..\..\Shop\users.txt";
         public bool Authenticated => _authenticated;
         public string Username { get => _username; }
 
@@ -35,6 +35,7 @@ namespace Logic
 
                 var user = separated[0];
                 var pass = separated[1];
+
                     if (user == username && pass == password)
                     {
                         _username = username;

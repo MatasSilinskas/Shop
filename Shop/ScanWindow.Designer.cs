@@ -30,10 +30,10 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.bill_path = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.BrowseButton = new System.Windows.Forms.Button();
+            this.ScanButton = new System.Windows.Forms.Button();
+            this.tesseractOption = new System.Windows.Forms.RadioButton();
+            this.visionOption = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // label1
@@ -52,51 +52,50 @@
             this.bill_path.Name = "bill_path";
             this.bill_path.Size = new System.Drawing.Size(276, 22);
             this.bill_path.TabIndex = 1;
-            this.bill_path.TextChanged += new System.EventHandler(this.bill_path_TextChanged);
             // 
-            // button1
+            // BrowseButton
             // 
-            this.button1.Location = new System.Drawing.Point(312, 132);
-            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 38);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Browse...";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.BrowseButton.Location = new System.Drawing.Point(312, 132);
+            this.BrowseButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.BrowseButton.Name = "BrowseButton";
+            this.BrowseButton.Size = new System.Drawing.Size(75, 38);
+            this.BrowseButton.TabIndex = 2;
+            this.BrowseButton.Text = "Browse...";
+            this.BrowseButton.UseVisualStyleBackColor = true;
+            this.BrowseButton.Click += new System.EventHandler(this.BrowseButton_Click);
             // 
-            // button2
+            // ScanButton
             // 
-            this.button2.Location = new System.Drawing.Point(163, 263);
-            this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(91, 32);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Scan";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.ScanButton.Location = new System.Drawing.Point(163, 263);
+            this.ScanButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ScanButton.Name = "ScanButton";
+            this.ScanButton.Size = new System.Drawing.Size(91, 32);
+            this.ScanButton.TabIndex = 3;
+            this.ScanButton.Text = "Scan";
+            this.ScanButton.UseVisualStyleBackColor = true;
+            this.ScanButton.Click += new System.EventHandler(this.ScanButton_Click);
             // 
-            // radioButton1
+            // tesseractOption
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(17, 212);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(92, 21);
-            this.radioButton1.TabIndex = 4;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Tesseract";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.tesseractOption.AutoSize = true;
+            this.tesseractOption.Location = new System.Drawing.Point(17, 212);
+            this.tesseractOption.Name = "tesseractOption";
+            this.tesseractOption.Size = new System.Drawing.Size(92, 21);
+            this.tesseractOption.TabIndex = 4;
+            this.tesseractOption.TabStop = true;
+            this.tesseractOption.Text = "Tesseract";
+            this.tesseractOption.UseVisualStyleBackColor = true;
             // 
-            // radioButton2
+            // visionOption
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(115, 212);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(303, 21);
-            this.radioButton2.TabIndex = 5;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Google Vision API (not recommended ATM)";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.visionOption.AutoSize = true;
+            this.visionOption.Location = new System.Drawing.Point(115, 212);
+            this.visionOption.Name = "visionOption";
+            this.visionOption.Size = new System.Drawing.Size(303, 21);
+            this.visionOption.TabIndex = 5;
+            this.visionOption.TabStop = true;
+            this.visionOption.Text = "Google Vision API (not recommended ATM)";
+            this.visionOption.UseVisualStyleBackColor = true;
             // 
             // ScanWindow
             // 
@@ -104,10 +103,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(420, 367);
-            this.Controls.Add(this.radioButton2);
-            this.Controls.Add(this.radioButton1);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.visionOption);
+            this.Controls.Add(this.tesseractOption);
+            this.Controls.Add(this.ScanButton);
+            this.Controls.Add(this.BrowseButton);
             this.Controls.Add(this.bill_path);
             this.Controls.Add(this.label1);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -122,9 +121,9 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox bill_path;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.Button BrowseButton;
+        private System.Windows.Forms.Button ScanButton;
+        private System.Windows.Forms.RadioButton tesseractOption;
+        private System.Windows.Forms.RadioButton visionOption;
     }
 }

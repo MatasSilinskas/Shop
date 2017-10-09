@@ -10,13 +10,13 @@ namespace Logic
 {
     public class TopFive
     {
-        Dictionary<string, Item> items = new Dictionary<string, Item>();    //all bought items
-        Items top5 = new Items();
+        Dictionary<string, Item> _items = new Dictionary<string, Item>();    //all bought items
+        Items _top5 = new Items();
         string _user;
 
-        public TopFive(string username)
+        public TopFive(string user)
         {
-            _user = username;
+            _user = user;
         }
 
         public Items ObtainData()
@@ -45,24 +45,24 @@ namespace Logic
                     price = Convert.ToDouble(container[container.Length - 2]);
                 }
 
-                if (items.ContainsKey(itemName))
+                if (_items.ContainsKey(itemName))
                 {
-                    items[itemName].BoughtAgain(shopName, price);
+                    _items[itemName].BoughtAgain(shopName, price);
                 }
                 else
                 {
-                    items.Add(itemName, new Item(itemName, shopName, price));
+                    _items.Add(itemName, new Item(itemName, shopName, price));
                 }   
             }
 
-            var dictTop5 = items.OrderByDescending(pair => pair.Value.AmountOfTimesBought).Take(5).ToList();
+            var dictTop5 = _items.OrderByDescending(pair => pair.Value.AmountOfTimesBought).Take(5).ToList();
   
             foreach (var item in dictTop5)
             {
-                top5.Add(item.Value);
+                _top5.Add(item.Value);
             }
 
-            return top5;
+            return _top5;
         }
     }
 }
