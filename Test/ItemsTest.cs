@@ -11,7 +11,6 @@ namespace Test
         [TestMethod]
         public void Test_ShopRecommendation()
         {
-            //Testas grąžina neigiamą rezultatą, rodo, kad 2.86 != 2.86 :D
             //arange
             KeyValuePair<string, double> expected = new KeyValuePair<string, double>("Maxima", 2.86);
             Items items = new Items
@@ -26,7 +25,9 @@ namespace Test
             KeyValuePair<string, double> actual = items.ShopRecommendation();
 
             //assert
-            Assert.AreEqual(expected, actual);
+            Assert.AreEqual(expected.Key, actual.Key);
+            Assert.AreEqual(expected.Value, actual.Value, 0.001);
+
         }
     }
 }
