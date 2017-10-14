@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.ComponentModel;
 using System.Data;
+using System.Text.RegularExpressions;
 
 namespace Logic
 {
@@ -18,7 +19,16 @@ namespace Logic
 
         public Registration(string username, string email, string password, string gender)
         {
-            WriteToFile(PrepareStringToWrite(username,email,password,gender));
+            Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+            Match match = regex.Match(email);
+            if (match.Success)
+            {
+                WriteToFile(PrepareStringToWrite(username, email, password, gender));
+            }
+            else
+            {
+                _registeredSuccessfully = false;
+            }
         }
 
         public Registration()
