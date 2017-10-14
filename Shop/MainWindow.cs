@@ -41,7 +41,7 @@ namespace Shop
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
               //  Trace.TraceError(e.ToString());
                // Console.WriteLine("Unexpected Error: " + e.Message);

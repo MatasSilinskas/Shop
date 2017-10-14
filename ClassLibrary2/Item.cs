@@ -42,7 +42,10 @@ namespace Logic
 
         public KeyValuePair<string, double> CheapestPrice()
         {
-            return ShopsAndPrices.OrderBy(key => key.Value).First();
+            //return ShopsAndPrices.OrderBy(key => key.Value).First();
+            return (from shopAndPrice in ShopsAndPrices
+                    orderby shopAndPrice.Value
+                    select shopAndPrice).FirstOrDefault();
         }
     }
 }

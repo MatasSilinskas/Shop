@@ -11,7 +11,7 @@ namespace Logic
     public class TopFive
     {
         Dictionary<string, Item> items = new Dictionary<string, Item>();    //all bought items
-        Items top5 = new Items();
+        ItemContainer top5 = new ItemContainer();
         string _user;
 
         public TopFive(string username)
@@ -19,50 +19,58 @@ namespace Logic
             _user = username;
         }
 
-        public Items ObtainData()
+        public ItemContainer ObtainData()
         {
             string[] readLines = File.ReadAllLines(@"../../" + _user + ".txt");
 
-            foreach (string line in readLines)
-            {
-                string[] container = line.Split(' ');
+            if (readLines.Length > 5)
+            {    
+                foreach (string line in readLines)
+                {
+                    string[] container = line.Split(' ');
 
-                /* gets the name of the item */
-                string itemName = container[1];
-                for (int i = 2; i < container.Length - 2; i++)
-                {
-                    itemName += " " + container[i];
-                }
- 
-                string shopName = container[0];
-                double price;
-                try
-                {
-                    price = Convert.ToDouble(container[container.Length - 2].Replace('.', ','));
-                }
-                catch (Exception e)
-                {
-                    price = Convert.ToDouble(container[container.Length - 2]);
+                    /* gets the name of the item */
+                    string itemName = container[1];
+                    for (int i = 2; i < container.Length - 2; i++)
+                    {
+                        itemName += " " + container[i];
+                    }
+
+                    string shopName = container[0];
+                    double price;
+                    try
+                    {
+                        price = Convert.ToDouble(container[container.Length - 2].Replace('.', ','));
+                    }
+                    catch (Exception)
+                    {
+                        price = Convert.ToDouble(container[container.Length - 2]);
+                    }
+
+                    if (items.ContainsKey(itemName))
+                    {
+                        items[itemName].BoughtAgain(shopName, price);
+                    }
+                    else
+                    {
+                        items.Add(itemName, new Item(itemName, shopName, price));
+                    }
                 }
 
-                if (items.ContainsKey(itemName))
+                var dictTop5 = (from item in items
+                                orderby item.Value.AmountOfTimesBought descending
+                                select item).Take(5);
+
+                foreach (var item in dictTop5)
                 {
-                    items[itemName].BoughtAgain(shopName, price);
+                    top5.Add(item.Value);
                 }
-                else
-                {
-                    items.Add(itemName, new Item(itemName, shopName, price));
-                }   
+                return top5;
             }
-
-            var dictTop5 = items.OrderByDescending(pair => pair.Value.AmountOfTimesBought).Take(5).ToList();
-  
-            foreach (var item in dictTop5)
+            else
             {
-                top5.Add(item.Value);
+                return null;
             }
-
-            return top5;
         }
     }
 }
