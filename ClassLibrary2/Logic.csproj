@@ -107,10 +107,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Authentication.cs" />
+    <Compile Include="Store.cs" />
+    <Compile Include="Split.cs" />
+    <Compile Include="ReadLogic.cs" />
     <Compile Include="GoogleRecognition.cs" />
     <Compile Include="IRecognize.cs" />
     <Compile Include="WriteLogic.cs" />
-	<Compile Include="IShowCheapestShop.cs" />
+    <Compile Include="IShowCheapestShop.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Items.cs" />
     <Compile Include="StoreList.cs" />
