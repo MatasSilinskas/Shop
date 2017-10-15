@@ -9,37 +9,33 @@ namespace Logic
     public class Store
     {
         string _name;
+        string _rating;
         enum Ratings {low, med, high};
-        int[] _ratingArray = new int [3];
-        public Store (string name)
+        
+        List<int> _ratingArray = new List<int>();
+        
+                
+        public Store (string name, string rating)
         {
             _name = name;
+            _rating = rating;
         }
-        public double Rate (string rating)
+        public double CountAvg (string rating)
         {
-            Ratings ratings = new Ratings();
-            for (int i = 0; i < 3; i++)
+            if (rating == "low")
             {
-                if (rating.Equals(Ratings.GetName(typeof(Ratings), i).ToString()))//&&(ratingArray[i]!=null))
-                {
-                    _ratingArray[i]++;
-                }
-               
-                /*else if ((rating.Equals(Ratings.GetName(typeof(Ratings), i).ToString())) && (ratingArray[i] == null))
-                {
-                    ratingArray[i] = 1;
-                }
-                else if ((!rating.Equals(Ratings.GetName(typeof(Ratings), i).ToString())) && (ratingArray[i] == null))
-                {
-                    ratingArray[i] = 0;
-                }*/
+                _ratingArray.Add((int)Ratings.low);
             }
-            double low = (int)Ratings.low;
-            double med = (int)Ratings.med;
-            double high = (int)Ratings.high;
-            return ((low * _ratingArray[0]) + (med * _ratingArray[1]) + (high * _ratingArray[2]))/3;
-
-
+            else if (rating == "med")
+            {
+                _ratingArray.Add((int)Ratings.med);
+            }
+            else if (rating == "high")
+            {
+                _ratingArray.Add((int)Ratings.high);
+            }
+            return _ratingArray.Average();
         }
+       
     }
 }

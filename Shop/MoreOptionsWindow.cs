@@ -47,8 +47,8 @@ namespace Shop
         private void RatingButton_Click(object sender, EventArgs e)
         {
             string rating = textBox2.Text;
-            Store store = new Store(textBox1.Text);
-            double avg = store.Rate(rating);
+            Store store = new Store(textBox1.Text, rating);
+            double avg = store.CountAvg(rating);
             textBox3.Text = avg.ToString();
         }
     }
