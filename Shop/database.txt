@@ -1,8 +1,8 @@
-﻿kasparas/IKI/Juoda Duona/0.89/
+kasparas/IKI/Juoda Duona/0.89/
 kasparas/IKI/Pienas/0.60/
 kasparas/IKI/Juodasis šokoladas/1.43/
 kasparas/IKI/Maltas kiaulienos kumpis/1.8/
 kasparas/IKI/Vištienos krūtinėlė/2/
 kasparas/IKI/Avižiniai dribsniai/1.55/
 kasparas/IKI/Pepsi Cola/1.63/
-kasparas/Maxima/Sviestas/2.12/
+kasparas/IKI/Sviestas/2.12/

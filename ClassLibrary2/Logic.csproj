@@ -160,7 +160,7 @@
     <Compile Include="MainLogic\Item.cs" />
     <Compile Include="MainLogic\Items.cs" />
     <Compile Include="MainLogic\StoreList.cs" />
-    <Compile Include="Recognition\OCR.cs" />
+    <Compile Include="Recognition\TesseractRecognition.cs" />
     <Compile Include="Accounts\Registration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MainLogic\TopFive.cs" />
