@@ -68,6 +68,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MoreOptionsWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MoreOptionsWindow.Designer.cs">
+      <DependentUpon>MoreOptionsWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="StoreFromListWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -106,6 +112,9 @@
     <Compile Include="Top5Window.Designer.cs">
       <DependentUpon>Top5Window.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="MoreOptionsWindow.resx">
+      <DependentUpon>MoreOptionsWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="StoreFromListWindow.resx">
       <DependentUpon>StoreFromListWindow.cs</DependentUpon>
     </EmbeddedResource>

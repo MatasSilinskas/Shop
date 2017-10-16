@@ -36,7 +36,8 @@ namespace Shop
             }
             else
             {
-                StoreList store = new Logic.StoreList(_shoppingList);
+                MoreOptionsWindow more = new MoreOptionsWindow(_user);
+                StoreList store = new Logic.StoreList(_shoppingList, more._date);
                 storeName.Text = store.ReturnStoreName();
 
             }
@@ -44,7 +45,8 @@ namespace Shop
 
         private void EstimatePrice_Click(object sender, EventArgs e)
         {
-            StoreList store = new StoreList(_shoppingList);
+            MoreOptionsWindow more = new MoreOptionsWindow(_user);
+            StoreList store = new StoreList(_shoppingList, more._date);
             totalPrice.Text = store.ReturnPrice().ToString();
         }
     }

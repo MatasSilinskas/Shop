@@ -19,12 +19,14 @@ namespace Logic
                 return _itemsFromList;
             }
         }
-        string[] _data;
+        Split split = new Split();
         string _name;
+        DateTime _date;
         double _price;
         Dictionary<string, double> Stores = new Dictionary<string, double>();
         static string _pathToDatabase = @"../../" + "database.txt";
-        private string[] _readLines = File.ReadAllLines(_pathToDatabase);
+        static ReadLogic read = new ReadLogic();
+        string[] _readLines = read.ReadFile(_pathToDatabase);
         public string[] readLines
         {
             get
@@ -32,15 +34,17 @@ namespace Logic
                 return _readLines;
             }
         }
-        public StoreList(List<string> list)
+        public StoreList(List<string> list, DateTime date)
         {
             _itemsFromList = list;
+            _date = date;
         }
         public void AssignStoresAndPrices()
         {
             foreach (string line in readLines)
             {
-                _data = line.Split('/');
+                string[] _data;
+                _data = split.SplitLine(line);
                 if (!Stores.ContainsKey(_data[1]))
                 {
                     Stores.Add(_data[1], CalculatePrice(_data[1]));
@@ -52,16 +56,21 @@ namespace Logic
             Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
             double price = 0;
             int foundItemsInStore = 0;
-            foreach (string line in readLines)
+            string[] _data;
+            int count = _itemsFromList.Count();
+            List<string> items = new List<string>(_itemsFromList);
+            for(int i = readLines.Length-1; i>=0; i--)
             {
-                _data = line.Split('/');
-                if ((store == _data[1]) && (_itemsFromList.Contains(_data[2])))
+                _data = split.SplitLine(readLines[i]);
+                if ((store == _data[1]) && (items.Contains(_data[2])) && (_date <= DateTime.Parse(_data[4])))
                 {
+                    
                     price += double.Parse(_data[3]);
                     foundItemsInStore++;
+                    items.Remove(_data[2]);
                 }
             }
-            if (_itemsFromList.Count() == foundItemsInStore)
+            if (count == foundItemsInStore)
                 return price;
             else return 0;
         }

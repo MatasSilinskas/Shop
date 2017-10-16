@@ -73,5 +73,11 @@ namespace Shop
             list.Show();
 
         }
+
+        private void MoreOptionsButton_Click(object sender, EventArgs e)
+        {
+            MoreOptionsWindow moreOptions = new MoreOptionsWindow(_user);
+            moreOptions.Show();
+        }
     }
 }
