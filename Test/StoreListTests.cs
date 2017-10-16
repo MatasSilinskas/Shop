@@ -20,7 +20,7 @@ namespace Logic.Tests
             List<string> items = new List<string>();
             items.Add("Duona");
             items.Add("Sviestas");
-            StoreList storeList = new StoreList(items);
+            StoreList storeList = new StoreList(items, DateTime.Today.Date);
             double actual = storeList.CalculatePrice("maxima");
             Assert.AreEqual(expected, actual);
         }

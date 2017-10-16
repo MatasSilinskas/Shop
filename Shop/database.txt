@@ -7,3 +7,12 @@ kasparas IKI Avižiniai dribsniai 1.55 10/16/2017
 kasparas IKI Pepsi Cola 1.63 10/16/2017
 kasparas IKI Sviestas 2.12 10/16/2017
 kasparas IKI Kiaušiniai 0.98 10/16/2017
+kaspis IKI Juoda Duona 0.89 10/15/2017
+kaspis IKI Pienas 0.60 10/15/2017
+kaspis IKI Juodasis šokoladas 1.43 10/15/2017
+kaspis IKI Maltas kiaulienos kumpis 1.8 10/15/2017
+kaspis IKI Vištienos krūtinėlė 2 10/15/2017
+kaspis IKI Avižiniai dribsniai 1.55 10/15/2017
+kaspis IKI Pepsi Cola 1.63 10/15/2017
+kaspis IKI Sviestas 2.12 10/15/2017
+kaspis IKI Kiaušiniai 0.98 10/15/2017

@@ -52,7 +52,7 @@ namespace Logic
                                             _dbrezultatas += _user + " " + _shopName + " ";
                                             do
                                             {
-                                                decimal price = 0; ;
+                                               
                                                 _rezultatas += iter.GetText(PageIteratorLevel.Word) + " ";
                                                 _dbrezultatas += iter.GetText(PageIteratorLevel.Word) + " ";
 
