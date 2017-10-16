@@ -8,6 +8,7 @@ using System.Net;
 using System.IO;
 using Newtonsoft.Json.Linq;
 using GMap.NET;
+using Logic.ExtensionMethods;
 
 namespace Logic
 {
@@ -19,7 +20,7 @@ namespace Logic
         GMapControl _gmap;
         ToolStripProgressBar _progressBar;
         ToolStripStatusLabel _progressLabel;
-        GMapOverlay markersOverlay;
+        GMapOverlay _markersOverlay;
 
         public Map(GMapControl gmap, ToolStripProgressBar progressBar, ToolStripStatusLabel progressLabel)
         {
@@ -53,12 +54,12 @@ namespace Logic
                  _deviceLatitude = location.Latitude;
                  _deviceLongitude = location.Longitude;
                  _gmap.Position = new PointLatLng(_deviceLatitude, _deviceLongitude);
-                 markersOverlay = new GMapOverlay("markers");
+                 _markersOverlay = new GMapOverlay("markers");
                  GMapMarker marker = new GMap.NET.WindowsForms.Markers.GMarkerGoogle(_gmap.Position, GMap.NET.WindowsForms.Markers.GMarkerGoogleType.green);
                  marker.ToolTipText = "Your Location";
                  marker.ToolTipMode = MarkerTooltipMode.Always;
-                 markersOverlay.Markers.Add(marker);
-                 _gmap.Overlays.Add(markersOverlay);
+                 _markersOverlay.Markers.Add(marker);
+                 _gmap.Overlays.Add(_markersOverlay);
                  changeProgressBar();
                 }
             }
@@ -95,34 +96,29 @@ namespace Logic
             string _nearest = RetrieveNearestShop(shopName,radius);
             if (_nearest != "-1")
             {
+                // First parameter of extension method specifies desired interval for the Newlines insertion
                 _gmap.SetPositionByKeywords(_nearest);
-                List<char> _fixed = new List<char>();
-                _fixed.AddRange(_nearest);
-                for (int i = 0; i < _fixed.Count - 7; i += 18)
+                _nearest = _nearest.DivideWithNewlines(18);
+                if (_markersOverlay.Markers.Count > 1)
                 {
-                    _fixed.Insert(i, '\n');
-                }
-                _nearest = string.Join(" ", _fixed.ToArray());
-                if (markersOverlay.Markers.Count > 1)
-                {
-                    markersOverlay.Markers.RemoveAt(1);
-                    _gmap.Overlays.Add(markersOverlay);
+                    _markersOverlay.Markers.RemoveAt(1);
+                    _gmap.Overlays.Add(_markersOverlay);
                 }
                 GMapMarker marker = new GMap.NET.WindowsForms.Markers.GMarkerGoogle(_gmap.Position, GMap.NET.WindowsForms.Markers.GMarkerGoogleType.red);
                 marker.ToolTipText = _nearest;
                 marker.ToolTipMode = MarkerTooltipMode.Always;
-                markersOverlay.Markers.Add(marker);
-                _gmap.Overlays.Add(markersOverlay);
+                _markersOverlay.Markers.Add(marker);
+                _gmap.Overlays.Add(_markersOverlay);
                 var shopLat = _gmap.Position.Lat;
                 var shopLng = _gmap.Position.Lng;
                 _gmap.Position = new PointLatLng((shopLat + _deviceLatitude) / 2, (shopLng + _deviceLongitude) / 2);
             }
             else
             {
-                if (markersOverlay.Markers.Count > 1)
+                if (_markersOverlay.Markers.Count > 1)
                 {
-                    markersOverlay.Markers.RemoveAt(1);
-                    _gmap.Overlays.Add(markersOverlay);
+                     _markersOverlay.Markers.RemoveAt(1);
+                    _gmap.Overlays.Add(_markersOverlay);
                 }
             }
         }

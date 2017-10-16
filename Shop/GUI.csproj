@@ -113,28 +113,28 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="StoreFromListWindow.cs">
+    <Compile Include="FunctionalWindows\StoreFromListWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="StoreFromListWindow.Designer.cs">
+    <Compile Include="FunctionalWindows\StoreFromListWindow.Designer.cs">
       <DependentUpon>StoreFromListWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="ScanWindow.cs">
+    <Compile Include="FunctionalWindows\ScanWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ScanWindow.Designer.cs">
+    <Compile Include="FunctionalWindows\ScanWindow.Designer.cs">
       <DependentUpon>ScanWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="RegisterWindow.cs">
+    <Compile Include="AuthenticationWindows\RegisterWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RegisterWindow.Designer.cs">
+    <Compile Include="AuthenticationWindows\RegisterWindow.Designer.cs">
       <DependentUpon>RegisterWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="LoginWindow.cs">
+    <Compile Include="AuthenticationWindows\LoginWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LoginWindow.Designer.cs">
+    <Compile Include="AuthenticationWindows\LoginWindow.Designer.cs">
       <DependentUpon>LoginWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.cs">
@@ -145,22 +145,22 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Top5Window.cs">
+    <Compile Include="FunctionalWindows\Top5Window.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Top5Window.Designer.cs">
+    <Compile Include="FunctionalWindows\Top5Window.Designer.cs">
       <DependentUpon>Top5Window.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="StoreFromListWindow.resx">
+    <EmbeddedResource Include="FunctionalWindows\StoreFromListWindow.resx">
       <DependentUpon>StoreFromListWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ScanWindow.resx">
+    <EmbeddedResource Include="FunctionalWindows\ScanWindow.resx">
       <DependentUpon>ScanWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RegisterWindow.resx">
+    <EmbeddedResource Include="AuthenticationWindows\RegisterWindow.resx">
       <DependentUpon>RegisterWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LoginWindow.resx">
+    <EmbeddedResource Include="AuthenticationWindows\LoginWindow.resx">
       <DependentUpon>LoginWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
@@ -176,7 +176,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Top5Window.resx">
+    <EmbeddedResource Include="FunctionalWindows\Top5Window.resx">
       <DependentUpon>Top5Window.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
@@ -207,6 +207,7 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="BeforeBuild">
     <NugetContentRestoreTask SolutionDir="$(SolutionDir)" ProjectDir="$(ProjectDir)" />

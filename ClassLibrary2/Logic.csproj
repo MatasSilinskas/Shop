@@ -150,19 +150,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Authentication.cs" />
-    <Compile Include="Map.cs" />
-    <Compile Include="GoogleRecognition.cs" />
-    <Compile Include="IRecognize.cs" />
-    <Compile Include="WriteLogic.cs" />
-    <Compile Include="IShowCheapestShop.cs" />
-    <Compile Include="Item.cs" />
-    <Compile Include="Items.cs" />
-    <Compile Include="StoreList.cs" />
-    <Compile Include="OCR.cs" />
-    <Compile Include="Registration.cs" />
+    <Compile Include="Accounts\Authentication.cs" />
+    <Compile Include="ExtensionMethods\StringDivByNewlines.cs" />
+    <Compile Include="MapAPI\Map.cs" />
+    <Compile Include="Recognition\GoogleRecognition.cs" />
+    <Compile Include="Interfaces\IRecognize.cs" />
+    <Compile Include="IO\WriteLogic.cs" />
+    <Compile Include="Interfaces\IShowCheapestShop.cs" />
+    <Compile Include="MainLogic\Item.cs" />
+    <Compile Include="MainLogic\Items.cs" />
+    <Compile Include="MainLogic\StoreList.cs" />
+    <Compile Include="Recognition\OCR.cs" />
+    <Compile Include="Accounts\Registration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TopFive.cs" />
+    <Compile Include="MainLogic\TopFive.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="x64\liblept1742.dll">
