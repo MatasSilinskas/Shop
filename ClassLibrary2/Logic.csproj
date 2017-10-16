@@ -115,7 +115,7 @@
     <Compile Include="WriteLogic.cs" />
     <Compile Include="IShowCheapestShop.cs" />
     <Compile Include="Item.cs" />
-    <Compile Include="Items.cs" />
+    <Compile Include="ItemContainer.cs" />
     <Compile Include="StoreList.cs" />
     <Compile Include="OCR.cs" />
     <Compile Include="Registration.cs" />

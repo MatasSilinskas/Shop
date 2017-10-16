@@ -12,14 +12,16 @@ namespace Test
         public void Test_ShopRecommendation()
         {
             //arange
-            KeyValuePair<string, double> expected = new KeyValuePair<string, double>("Maxima", 2.86);
-            Items items = new Items
+            KeyValuePair<string, double> expected = new KeyValuePair<string, double>("IKI", 1.98);
+            ItemContainer items = new ItemContainer
             {
                 new Item("Duona", "Maxima", 0.89),
                 new Item("Svogūnai", "Maxima", 0.29),
                 new Item("Ledai", "Maxima", 0.59),
                 new Item("Sultys Cido", "Maxima", 1.09)
             };
+            items[0].BoughtAgain("IKI", 0.01);
+            items.UpdateExistingShops();
 
             //act
             KeyValuePair<string, double> actual = items.ShopRecommendation();
