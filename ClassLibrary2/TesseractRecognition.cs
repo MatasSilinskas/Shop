@@ -12,14 +12,14 @@ using System.Globalization;
 namespace Logic
 {
 
-    public class OCR : IRecongnize
+    public class TesseractRecognition : IRecongnize
     {
         string _imagePath;
         string _user;
         string _rezultatas = "";
         string _dbrezultatas = "";
         string _shopName;
-        public OCR(string imagePath, string user)
+        public TesseractRecognition(string imagePath, string user)
         {
             _imagePath = imagePath;
             _user = user;
@@ -41,27 +41,8 @@ namespace Logic
                                     iter.Begin();
                                     _shopName = iter.GetText(PageIteratorLevel.Word);
                                     iter.Next(PageIteratorLevel.Word);
-                                do
-                                {
-                                    
-                                    do
-                                    {
-                                        do
-                                        {
-                                            _rezultatas += _shopName + " ";
-                                            _dbrezultatas += _user + " " + _shopName + " ";
-                                            do
-                                            {
-                                               
-                                                _rezultatas += iter.GetText(PageIteratorLevel.Word) + " ";
-                                                _dbrezultatas += iter.GetText(PageIteratorLevel.Word) + " ";
-
-                                            } while (iter.Next(PageIteratorLevel.TextLine, PageIteratorLevel.Word));
-                                            _rezultatas +=  Environment.NewLine;
-                                            _dbrezultatas += DateTime.Today.Date.ToString("d") + Environment.NewLine;
-                                        } while (iter.Next(PageIteratorLevel.Para, PageIteratorLevel.TextLine));
-                                    } while (iter.Next(PageIteratorLevel.Block, PageIteratorLevel.Para));
-                                } while (iter.Next(PageIteratorLevel.Block));
+                                    RecognizeIteration(iter);
+                              
                             }
                             
                         }
@@ -81,6 +62,27 @@ namespace Logic
         {
             // To be implemented
             throw new NotImplementedException();
+        }
+        public void RecognizeIteration(ResultIterator iter)
+        {
+            do
+            {
+                _rezultatas += _shopName + " ";
+                _dbrezultatas += _user + " " + _shopName + " ";
+                do
+                {
+                    decimal price = 0; ;
+                    _rezultatas += iter.GetText(PageIteratorLevel.Word) + " ";
+                    if (decimal.TryParse(iter.GetText(PageIteratorLevel.Word), out price))
+                    {
+                        _rezultatas += iter.GetText(PageIteratorLevel.Word) + " ";
+                        _dbrezultatas += iter.GetText(PageIteratorLevel.Word) + " ";
+
+                    }
+                } while (iter.Next(PageIteratorLevel.TextLine, PageIteratorLevel.Word));
+                    _rezultatas += Environment.NewLine;
+                    _dbrezultatas += DateTime.Today.Date.ToString("d") + Environment.NewLine;
+            } while (iter.Next(PageIteratorLevel.Para, PageIteratorLevel.TextLine));
         }
     }
 }
