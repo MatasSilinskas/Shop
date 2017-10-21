@@ -51,7 +51,7 @@ namespace Logic
                 writer.Write(_user, query);
                 return true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 writer.Write(_user, e.Message);
                 return false;

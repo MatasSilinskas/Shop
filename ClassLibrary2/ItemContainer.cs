@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Logic
 {
 
-    public class Items : IList<Item>
+    public class ItemContainer : IList<Item>
     {
         private List<Item> _items = new List<Item>();
         private List<string> _allShopNames = new List<string>();
@@ -33,14 +33,7 @@ namespace Logic
         public void Add(Item item)
         {
             _items.Add(item);
-            
-            foreach(var shop in item.ShopsAndPrices)
-            {
-                if(!_allShopNames.Contains(shop.Key))
-                {
-                    _allShopNames.Add(shop.Key);
-                }
-            }    
+            UpdateExistingShops(item);  
         }
 
         public void Clear()
@@ -128,6 +121,7 @@ namespace Logic
 
         private void FormatWarningMessage(Dictionary<string, List<string>> itemsNotBought)
         {
+            UpdateExistingShops();
             if (itemsNotBought.Count > 0)
             {
                 _warning = "\nNOTE: The displayed information may be incorrect because " +
@@ -139,6 +133,36 @@ namespace Logic
                     {
                         _warning += shopName;
                     }
+                }
+            }
+        }
+
+        /* Updates the existing shop names.
+         * Use only if "BoughtAgain" method was used after adding item to the list.
+         * If only a few items were added to the list, it is not recommended to use this method for
+         * the whole list as it may take quite a while to complete.
+         * Instead, pass the exact items */
+        public void UpdateExistingShops(IList<Item> items = null)
+        {
+            if (items == null)
+            {
+                items = _items;
+            }
+
+            foreach (Item item in items)
+            {
+                UpdateExistingShops(item);
+            }
+        }
+
+        public void UpdateExistingShops(Item item)
+        {
+
+            foreach (var shop in item.ShopsAndPrices.Keys)
+            {
+                if (!_allShopNames.Contains(shop))
+                {
+                    _allShopNames.Add(shop);
                 }
             }
         }
