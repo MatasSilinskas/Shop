@@ -1,9 +1,8 @@
-kasparas IKI Juoda Duona 0.89 10/16/2017
-kasparas IKI Pienas 0.60 10/16/2017
-kasparas IKI Juodasis šokoladas 1.43 10/16/2017
-kasparas IKI Maltas kiaulienos kumpis 1.8 10/16/2017
-kasparas IKI Vištienos krūtinėlė 2 10/16/2017
-kasparas IKI Avižiniai dribsniai 1.55 10/16/2017
-kasparas IKI Pepsi Cola 1.63 10/16/2017
-kasparas IKI Sviestas 2.12 10/16/2017
-kasparas IKI Kiaušiniai 0.98 10/16/2017
+kasparas/IKI/Juoda Duona/0.89/
+kasparas/IKI/Pienas/0.60/
+kasparas/IKI/Juodasis šokoladas/1.43/
+kasparas/IKI/Maltas kiaulienos kumpis/1.8/
+kasparas/IKI/Vištienos krūtinėlė/2/
+kasparas/IKI/Avižiniai dribsniai/1.55/
+kasparas/IKI/Pepsi Cola/1.63/
+kasparas/IKI/Sviestas/2.12/

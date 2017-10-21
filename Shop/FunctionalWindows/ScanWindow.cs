@@ -31,7 +31,7 @@ namespace Shop
         {
             if (tesseractOption.Checked)
             {
-                OCR recognition = new OCR(bill_path.Text, _user);
+                TesseractRecognition recognition = new TesseractRecognition(bill_path.Text, _user);
                 if (!recognition.DoRecognition(new WriteLogic()))
                 {
                     MessageBox.Show("Scanning Failed: Check Settings", "Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
