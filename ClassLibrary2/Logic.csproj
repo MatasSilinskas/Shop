@@ -151,10 +151,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Accounts\Authentication.cs" />
+    <Compile Include="IO\ReadLogic.cs" />
+    <Compile Include="MainLogic\Split.cs" />
     <Compile Include="Recognition\GoogleRecognition.cs" />
     <Compile Include="Interfaces\IRecognize.cs" />
     <Compile Include="IO\WriteLogic.cs" />
-	<Compile Include="Interfaces\IShowCheapestShop.cs" />
+    <Compile Include="Interfaces\IShowCheapestShop.cs" />
     <Compile Include="MainLogic\Item.cs" />
     <Compile Include="MainLogic\ItemContainer.cs" />
     <Compile Include="MainLogic\StoreList.cs" />
