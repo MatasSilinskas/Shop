@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="#3b50ef">
+
+  <Button
+      android:id="@+id/scan_button"
+      android:text="Scan a bill"
+      android:layout_height="wrap_content"
+      android:layout_width="match_parent"
+      android:background="#17b236"
+      android:layout_marginBottom="5dp"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"/>
+  <Button
+      android:id="@+id/top_five"
+      android:text="See top 5 most frequently bought items"
+      android:layout_height="wrap_content"
+      android:layout_width="match_parent"
+      android:background="#17b236"
+      android:layout_marginBottom="5dp"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"/>
+  <Button
+      android:text="Choose items for shop suggestion"
+      android:layout_height="wrap_content"
+      android:layout_width="match_parent"
+      android:background="#17b236"
+      android:layout_marginBottom="5dp"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"/>
+  <Button
+      android:id="@+id/items_by_date"
+      android:text="Select date to see items bought on that day"
+      android:layout_height="wrap_content"
+      android:layout_width="match_parent"
+      android:background="#17b236"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"/>
+
+</LinearLayout>

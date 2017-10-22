@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="vertical">
+    <ImageView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:src="@drawable/cart"
+        android:layout_gravity="center" />
+  <EditText
+    android:id="@+id/register_email"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:inputType="textEmailAddress"
+        android:hint="Email"
+        android:textColorHint="#ffffff" />
+  <EditText
+    android:id="@+id/register_username"
+        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:inputType="text"
+        android:hint="Username"
+        android:textColorHint="#ffffff" />
+  <EditText
+    android:id="@+id/register_password"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:inputType="textPassword"
+        android:hint="Password"   
+        android:textColorHint="#ffffff" />
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/radioMale"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Male" />
+        <RadioButton
+            android:id="@+id/radioFemale"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Female" />
+    </RadioGroup>
+  <Button
+    android:id="@+id/register"
+        android:text="Register"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:background="#17b236"
+        android:layout_margin="8dp"/>
+</LinearLayout>
