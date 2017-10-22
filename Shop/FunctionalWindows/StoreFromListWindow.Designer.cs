@@ -135,7 +135,7 @@
             this.gmap.MarkersEnabled = true;
             this.gmap.MaxZoom = 18;
             this.gmap.MinZoom = 2;
-            this.gmap.MouseWheelZoomEnabled = true;
+           // this.gmap.MouseWheelZoomEnabled = true;
             this.gmap.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
             this.gmap.Name = "gmap";
             this.gmap.NegativeMode = false;

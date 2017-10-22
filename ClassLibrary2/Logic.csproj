@@ -152,23 +152,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Authentication.cs" />
-    <Compile Include="Store.cs" />
-    <Compile Include="Split.cs" />
-    <Compile Include="ReadLogic.cs" />
-    <Compile Include="StringDivByNewlines.cs" />
-    <Compile Include="Map.cs" />
-    <Compile Include="GoogleRecognition.cs" />
-    <Compile Include="IRecognize.cs" />
-    <Compile Include="WriteLogic.cs" />
-    <Compile Include="IShowCheapestShop.cs" />
-    <Compile Include="Item.cs" />
-    <Compile Include="ItemContainer.cs" />
-    <Compile Include="StoreList.cs" />
-    <Compile Include="TesseractRecognition.cs" />
-    <Compile Include="Registration.cs" />
+    <Compile Include="Accounts\Authentication.cs" />
+    <Compile Include="MainLogic\Store.cs" />
+    <Compile Include="MainLogic\Split.cs" />
+    <Compile Include="IO\ReadLogic.cs" />
+    <Compile Include="ExtentionMethods\StringDivByNewlines.cs" />
+    <Compile Include="MapAPI\Map.cs" />
+    <Compile Include="Recognition\GoogleRecognition.cs" />
+    <Compile Include="Interfaces\IRecognize.cs" />
+    <Compile Include="IO\WriteLogic.cs" />
+    <Compile Include="Interfaces\IShowCheapestShop.cs" />
+    <Compile Include="MainLogic\Item.cs" />
+    <Compile Include="MainLogic\ItemContainer.cs" />
+    <Compile Include="MainLogic\StoreList.cs" />
+    <Compile Include="Recognition\TesseractRecognition.cs" />
+    <Compile Include="Accounts\Registration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TopFive.cs" />
+    <Compile Include="MainLogic\TopFive.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="x64\liblept1742.dll">
