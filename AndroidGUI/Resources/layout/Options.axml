@@ -25,6 +25,7 @@
       android:layout_marginLeft="10dp"
       android:layout_marginRight="10dp"/>
   <Button
+      android:id="@+id/custom_items"
       android:text="Choose items for shop suggestion"
       android:layout_height="wrap_content"
       android:layout_width="match_parent"

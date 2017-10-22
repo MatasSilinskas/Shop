@@ -14,12 +14,12 @@ using Logic;
 namespace AndroidGUI
 {
     [Activity(Label = "MyListActivity")]
-    public class MyListActivity : Activity
+    public class TopFiveActivity : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.Top5);
+            SetContentView(Resource.Layout.TopFive);
 
             ListView list = FindViewById<ListView>(Resource.Id.list);
             ItemContainer top5 = (new TopFive(Intent.GetStringExtra("username"))).ObtainData();

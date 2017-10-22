@@ -25,19 +25,36 @@ namespace AndroidGUI
 
             Button top5 = FindViewById<Button>(Resource.Id.top_five);
             Button itemsByDate = FindViewById<Button>(Resource.Id.items_by_date);
+            Button scan = FindViewById<Button>(Resource.Id.scan_button);
+            Button customItems = FindViewById<Button>(Resource.Id.custom_items);
+
             top5.Click += delegate
             {
-                var Top5Activity = new Intent(this, typeof(MyListActivity));
+                var Top5Activity = new Intent(this, typeof(TopFiveActivity));
                 Top5Activity.PutExtra("username", _username);
                 StartActivity(Top5Activity);
             };
+
             itemsByDate.Click += delegate
             {
                 var ItemsByDate = new Intent(this, typeof(ItemsByDateActivity));
                 ItemsByDate.PutExtra("username", _username);
                 StartActivity(ItemsByDate);
             };
-            
-        }
+
+            scan.Click += delegate
+            {
+                var scanActivity = new Intent(this, typeof(ScanActivity));
+                scanActivity.PutExtra("username", _username);
+                StartActivity(scanActivity);
+            };
+            customItems.Click += delegate
+            {
+                var scanActivity = new Intent(this, typeof(CustomItemsActivity));
+                scanActivity.PutExtra("username", _username);
+                StartActivity(scanActivity);
+            };
+
+        }    
     }
 }
