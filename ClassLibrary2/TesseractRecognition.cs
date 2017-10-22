@@ -38,13 +38,13 @@ namespace Logic
                         {
                             using (var iter = page.GetIterator())
                             {
-                                    iter.Begin();
-                                    _shopName = iter.GetText(PageIteratorLevel.Word);
-                                    iter.Next(PageIteratorLevel.Word);
-                                    RecognizeIteration(iter);
+                                iter.Begin();
+                                _shopName = iter.GetText(PageIteratorLevel.Word);
+                                iter.Next(PageIteratorLevel.Word);
+                                RecognizeIteration(iter);
 
                             }
-                            
+
                         }
                     }
                 }
@@ -69,21 +69,20 @@ namespace Logic
             do
             {
                 _rezultatas += _shopName + " ";
-                _dbrezultatas += _user + "/" + _shopName + "/";
+                _dbrezultatas += _user + " " + _shopName + " ";
                 do
                 {
-                    decimal price = 0; ;
                     _rezultatas += iter.GetText(PageIteratorLevel.Word) + " ";
-                    if (decimal.TryParse(iter.GetText(PageIteratorLevel.Word), out price))
+                    _dbrezultatas += iter.GetText(PageIteratorLevel.Word) + " ";
+                    if (decimal.TryParse(iter.GetText(PageIteratorLevel.Word), out decimal price))
                     {
-                        _dbrezultatas = _dbrezultatas.TrimEnd();
-                        _dbrezultatas += "/" + iter.GetText(PageIteratorLevel.Word) + "/";
-                    }
-                    else _dbrezultatas += iter.GetText(PageIteratorLevel.Word) + " ";
+                        _rezultatas += iter.GetText(PageIteratorLevel.Word) + " ";
+                        _dbrezultatas += iter.GetText(PageIteratorLevel.Word) + " ";
 
+                    }
                 } while (iter.Next(PageIteratorLevel.TextLine, PageIteratorLevel.Word));
                 _rezultatas += Environment.NewLine;
-                _dbrezultatas += Environment.NewLine;
+                _dbrezultatas += DateTime.Today.Date.ToString("d") + Environment.NewLine;
             } while (iter.Next(PageIteratorLevel.Para, PageIteratorLevel.TextLine));
         }
     }
