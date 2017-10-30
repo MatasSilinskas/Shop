@@ -55,7 +55,7 @@ namespace AndroidGUI
             {
                 picture = MediaStore.Images.Media.GetBitmap(this.ContentResolver, data.Data);
             }
-            if (requestCode == 1)
+            else if (requestCode == 1)
             {
                 picture = (Bitmap) data.Extras.Get("data");
             }

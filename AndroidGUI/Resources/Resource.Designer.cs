@@ -60,68 +60,65 @@ namespace AndroidGUI
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f050001
-			public const int add_item_button = 2131034113;
-			
 			// aapt resource value: 0x7f050002
-			public const int add_item_text = 2131034114;
-			
-			// aapt resource value: 0x7f050006
-			public const int custom_items = 2131034118;
+			public const int add_item_button = 2131034114;
 			
 			// aapt resource value: 0x7f050003
-			public const int estimate = 2131034115;
+			public const int add_item_text = 2131034115;
 			
-			// aapt resource value: 0x7f050007
-			public const int imageView = 2131034119;
+			// aapt resource value: 0x7f050004
+			public const int custom_items = 2131034116;
 			
-			// aapt resource value: 0x7f05000d
-			public const int items_by_date = 2131034125;
-			
-			// aapt resource value: 0x7f050014
-			public const int list = 2131034132;
-			
-			// aapt resource value: 0x7f05000a
-			public const int login = 2131034122;
-			
-			// aapt resource value: 0x7f050009
-			public const int login_password = 2131034121;
-			
-			// aapt resource value: 0x7f050008
-			public const int login_username = 2131034120;
+			// aapt resource value: 0x7f050001
+			public const int estimate = 2131034113;
 			
 			// aapt resource value: 0x7f050005
-			public const int price = 2131034117;
+			public const int imageView = 2131034117;
 			
-			// aapt resource value: 0x7f050012
-			public const int radioFemale = 2131034130;
-			
-			// aapt resource value: 0x7f050011
-			public const int radioMale = 2131034129;
+			// aapt resource value: 0x7f05000b
+			public const int items_by_date = 2131034123;
 			
 			// aapt resource value: 0x7f050013
-			public const int register = 2131034131;
+			public const int list = 2131034131;
 			
-			// aapt resource value: 0x7f05000e
-			public const int register_email = 2131034126;
+			// aapt resource value: 0x7f050008
+			public const int login = 2131034120;
+			
+			// aapt resource value: 0x7f050007
+			public const int login_password = 2131034119;
+			
+			// aapt resource value: 0x7f050006
+			public const int login_username = 2131034118;
 			
 			// aapt resource value: 0x7f050010
-			public const int register_password = 2131034128;
+			public const int radioFemale = 2131034128;
 			
 			// aapt resource value: 0x7f05000f
-			public const int register_username = 2131034127;
+			public const int radioMale = 2131034127;
+			
+			// aapt resource value: 0x7f050012
+			public const int recommendation = 2131034130;
+			
+			// aapt resource value: 0x7f050011
+			public const int register = 2131034129;
+			
+			// aapt resource value: 0x7f05000c
+			public const int register_email = 2131034124;
+			
+			// aapt resource value: 0x7f05000e
+			public const int register_password = 2131034126;
+			
+			// aapt resource value: 0x7f05000d
+			public const int register_username = 2131034125;
 			
 			// aapt resource value: 0x7f050000
 			public const int relative = 2131034112;
 			
-			// aapt resource value: 0x7f05000b
-			public const int scan_button = 2131034123;
+			// aapt resource value: 0x7f050009
+			public const int scan_button = 2131034121;
 			
-			// aapt resource value: 0x7f050004
-			public const int shop = 2131034116;
-			
-			// aapt resource value: 0x7f05000c
-			public const int top_five = 2131034124;
+			// aapt resource value: 0x7f05000a
+			public const int top_five = 2131034122;
 			
 			static Id()
 			{

@@ -9,7 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Logic;
+//using Logic;
 
 namespace AndroidGUI
 {
@@ -22,17 +22,22 @@ namespace AndroidGUI
             SetContentView(Resource.Layout.TopFive);
 
             ListView list = FindViewById<ListView>(Resource.Id.list);
-            ItemContainer top5 = (new TopFive(Intent.GetStringExtra("username"))).ObtainData();
+            TextView text = FindViewById<TextView>(Resource.Id.recommendation);
+            /*ItemContainer top5 = (new TopFive(Intent.GetStringExtra("username"))).ObtainData();
             List<string> items = new List<string>();
             foreach(var item in top5)
             {
                 items.Add(item.Name);
-            }
-            //string[] items = new string[] { "Vegetables", "Fruits", "Flower Buds", "Legumes", "Bulbs", "Tubers" };
+            }*/
+
+            //just an example
+            string[] items = new string[] { "Vegetables", "Fruits", "Flower Buds", "Legumes", "Bulbs" };
             ArrayAdapter<string> adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, items);
             list.Adapter = adapter;
 
-            // Create your application here
+            text.Text = "It is recommended that you shop in maxima.";
+
+            
         }
     }
 }
