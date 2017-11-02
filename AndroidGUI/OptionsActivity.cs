@@ -30,31 +30,26 @@ namespace AndroidGUI
 
             top5.Click += delegate
             {
-                var Top5Activity = new Intent(this, typeof(TopFiveActivity));
-                Top5Activity.PutExtra("username", _username);
-                StartActivity(Top5Activity);
+                SwitchActivity(typeof(TopFiveActivity));
             };
-
             itemsByDate.Click += delegate
             {
-                var ItemsByDate = new Intent(this, typeof(ItemsByDateActivity));
-                ItemsByDate.PutExtra("username", _username);
-                StartActivity(ItemsByDate);
+                SwitchActivity(typeof(ItemsByDateActivity));
             };
-
             scan.Click += delegate
             {
-                var scanActivity = new Intent(this, typeof(ScanActivity));
-                scanActivity.PutExtra("username", _username);
-                StartActivity(scanActivity);
+                SwitchActivity(typeof(ScanActivity));
             };
             customItems.Click += delegate
             {
-                var scanActivity = new Intent(this, typeof(CustomItemsActivity));
-                scanActivity.PutExtra("username", _username);
-                StartActivity(scanActivity);
+                SwitchActivity(typeof(CustomItemsActivity));
             };
-
-        }    
+        }
+        public void SwitchActivity(Type window)
+        {
+            var activity = new Intent(this, window);
+            activity.PutExtra("username", _username);
+            StartActivity(activity);
+        }
     }
 }

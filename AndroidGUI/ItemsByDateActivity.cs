@@ -20,6 +20,13 @@ namespace AndroidGUI
             base.OnCreate(savedInstanceState);
 
             SetContentView(Resource.Layout.ItemsByDate);
+
+            ListView itemsByDate = FindViewById<ListView>(Resource.Id.items_by_date);
+
+            //just an example
+            string[] items = new string[] { "Vegetables", "Fruits", "Flower Buds", "Legumes", "Bulbs", "Bread", "Milk" };
+            ArrayAdapter<string> adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, items);
+            itemsByDate.Adapter = adapter;
         }
     }
 }

@@ -21,7 +21,6 @@ namespace AndroidGUI
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
             AlertDialog.Builder builder = new AlertDialog.Builder(this); // change "this" if necc
             builder.SetTitle("Get the cheque picture from:");
             builder.SetPositiveButton("Gallery", GalleryAction);
