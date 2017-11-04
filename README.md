@@ -15,7 +15,8 @@
 <ol>
   <li>Optimaliausias pasiūlymas apsipirkti pagal TOP5 vartotojo perkamus produktus.</li>
   <li>Optimaliausias pasiūlymas apsipirkti pagal pačio vartotojo pasirenkamus produktus.</li>
-  <li> Pigiausias produktas pagal kategoriją. (Pasirenkame specifinį produktą - pateikiama parduotuvė, kurioje pigiausia) </li>
+  <li>Galimybė gauti informaciją pagal pasirinktos datos intervalą (kainų aktualumas)</li>
+  <li>Maps API, rodoma pasirinktu spinduliu esanti arčiausia parduotuvė, kurioje labiausiai apsimoka apsipirkti</li>
 </ol>
 
 <h2>Antrasis etapas (iki 2017 Lapkričio 20 d.)</h2>
