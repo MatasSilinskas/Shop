@@ -11,7 +11,7 @@ namespace Logic
     {
         public void Write(string _user, string rezultatas)
         {
-            using (StreamWriter file = new System.IO.StreamWriter(@"../../" + _user + ".txt", true))
+            using (StreamWriter file = new System.IO.StreamWriter(@"../../../BackendLogic/Accounts/" + _user + ".txt", true))
             {
                 file.Write(rezultatas);
             }
@@ -19,10 +19,10 @@ namespace Logic
 
         public void Write(string _user, string rezultatas1, string rezultatas2)
         {
-            using (StreamWriter file = new System.IO.StreamWriter(@"../../" + _user + ".txt", true))
+            using (StreamWriter file = new System.IO.StreamWriter(@"../../../BackendLogic/Accounts/" + _user + ".txt", true))
             {
                 file.Write(rezultatas1);
-                using (System.IO.StreamWriter file2 = new System.IO.StreamWriter(@"../../" + "database.txt", true))
+                using (System.IO.StreamWriter file2 = new System.IO.StreamWriter(@"../../../BackendLogic/Accounts/" + "database.txt", true))
                 {
                     file2.Write(rezultatas2);
                 }

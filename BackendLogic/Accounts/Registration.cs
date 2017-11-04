@@ -13,7 +13,7 @@ namespace Logic
     public class Registration
     {
         bool _registeredSuccessfully = false;
-        static string _usersTextFilePath = @"..\..\users.txt";
+        static string _usersTextFilePath = @"..\..\..\BackendLogic\Accounts\users.txt";
 
         public bool RegisteredSuccessfully { get => _registeredSuccessfully; }
 

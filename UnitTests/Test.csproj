@@ -118,7 +118,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary2\Logic.csproj">
+    <ProjectReference Include="..\BackendLogic\Logic.csproj">
       <Project>{4fe5763b-1560-48d1-a3ee-85b096ca0a76}</Project>
       <Name>Logic</Name>
     </ProjectReference>

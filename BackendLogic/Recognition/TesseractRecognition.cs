@@ -30,7 +30,7 @@ namespace Logic
             Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
             try
             {
-                using (var engine = new TesseractEngine("../../../tessdata", "lit", EngineMode.Default))
+                using (var engine = new TesseractEngine("../../../BackendLogic/Recognition/tessdata", "lit", EngineMode.Default))
                 {
                     using (var img = Pix.LoadFromFile(_imagePath))
                     {

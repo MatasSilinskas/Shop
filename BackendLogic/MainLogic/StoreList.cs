@@ -24,7 +24,7 @@ namespace Logic
         DateTime _date;
         double _price;
         Dictionary<string, double> Stores = new Dictionary<string, double>();
-        static string _pathToDatabase = @"../../" + "database.txt";
+        static string _pathToDatabase = @"../../../BackendLogic/Accounts/" + "database.txt";
         static ReadLogic read = new ReadLogic();
         string[] _readLines = read.ReadFile(_pathToDatabase);
         public string[] readLines

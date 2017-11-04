@@ -21,7 +21,7 @@ namespace Logic
 
         public ItemContainer ObtainData()
         {
-            string[] readLines = File.ReadAllLines(@"../../" + _user + ".txt");
+            string[] readLines = File.ReadAllLines(@"../../../BackendLogic/Accounts/" + _user + ".txt");
 
             if (readLines.Length > 5)
             {    

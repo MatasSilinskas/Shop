@@ -15,7 +15,7 @@ namespace Logic
         string _email;
         string _gender;
         string _password;
-        static string _usersTextFilePath = @"..\..\..\Shop\users.txt";
+        static string _usersTextFilePath = @"..\..\..\BackendLogic\Accounts\users.txt";
         public bool Authenticated => _authenticated;
         public string Username { get => _username; }
 
