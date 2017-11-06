@@ -3,10 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#3b50ef">
+    <Button
+        android:id="@+id/gmap"
+        android:text="Open map activity to see closest shops"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#17b236"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="6dp" />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@id/gmap"
         android:id="@+id/relative"
         android:layout_margin="6dp">
         <Button

@@ -25,6 +25,7 @@ namespace AndroidGUI
             ListView customItems = FindViewById<ListView>(Resource.Id.custom_items);
             Button addItem = FindViewById<Button>(Resource.Id.add_item_button);
             Button esitimate = FindViewById<Button>(Resource.Id.estimate);
+            Button gmap = FindViewById<Button>(Resource.Id.gmap);
             EditText editText = FindViewById<EditText>(Resource.Id.add_item_text);
 
             List<string> items = new List<string>();
@@ -51,6 +52,12 @@ namespace AndroidGUI
                      
                 });
                 alert.Show();
+            };
+
+            gmap.Click += delegate
+            {
+                var gmapActivity = new Intent(this, typeof(Map));
+                StartActivity(gmapActivity);
             };
 
             
