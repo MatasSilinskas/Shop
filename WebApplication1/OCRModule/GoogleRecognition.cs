@@ -5,20 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Google.Cloud.Vision.V1;
 using System.Diagnostics;
+using System.Net.Http;
 
-namespace Logic
+namespace Shop.WebAPI.OCRModule
 {
     public class GoogleRecognition : IRecongnize
     {
-        string _imagePath;
-        string _user;
-
-        public GoogleRecognition(string imagePath, string user)
-        {
-            _imagePath = imagePath;
-            _user = user;
-        }
-
 
         public bool DoRecognition(WriteLogic writer)
         {
@@ -27,27 +19,21 @@ namespace Logic
             var client = ImageAnnotatorClient.Create();
             var response = client.DetectText(image);
             string[] container = { };
+            string query = "";
 
             try
             {
 
                 foreach (var annotation in response)
                 {
-                    if (annotation.Description != null && annotation.Description.Length > 15)
+                    if (annotation.Description != null)
                     {
                         container = annotation.Description.Split('\n');
+                        Debug.WriteLine(annotation.Description);
                     }
 
                 }
-                int temp = 1;
-                string query = "";
-                for (int i = container.Length / 2; i < container.Length; i++)
-                {
-
-                    query += container[0] + " " + container[temp] + " " + container[i] + Environment.NewLine;
-                    temp++;
-                }
-
+               
                 writer.Write(_user, query);
                 return true;
             }

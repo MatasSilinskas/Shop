@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace Logic
+namespace Shop.WebAPI.Data
 {
     public class WriteLogic
     {
