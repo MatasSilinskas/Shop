@@ -64,5 +64,23 @@ namespace WEB.Controllers
                 }
             }
         }
+
+        public ActionResult Dashboard()
+        {
+            if (Session["UserID"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+        }
+
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            return RedirectToAction("Login");
+        }
     }
 }
