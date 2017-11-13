@@ -9,5 +9,6 @@ namespace WEB.Models
     public class UserAccountDbContext : DbContext
     {
         public DbSet<UserAccount> userAccount { get; set; }
+        public DbSet<PurchasedItem> purchasedItem { get; set; }
     }
 }

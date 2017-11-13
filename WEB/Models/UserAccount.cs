@@ -25,5 +25,6 @@ namespace WEB.Models
         [Required(ErrorMessage = "Password Confirmation is required!")]
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
+        public virtual List<PurchasedItem> PurchasedItems { get; set; }
     }
 }
