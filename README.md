@@ -1,28 +1,30 @@
 # Prekybos centrų čekių nuskaitymo ir optimaliausio krepšelio patarimo mobilioji programėlė
 
-Komanda (PS 5 grupė / 2 pogrūpis):
+<h1>Komanda (PS 5 grupė / 2 pogrūpis):</h1>
+<ul>
+  <li>Elena Reivytytė</li>
+  <li>Matas Šilinskas</li>
+  <li>Kasparas Taminskas</li>
+</ul>
 
-Elena Reivytytė
+<h2>Pirmasis etapas</h2>
+<h3>Šis etapas - pirmojo Taikomojo Objektinio Programavimo laboratorinio darbo atsiskaitymo apimtis.</h3>
 
-Matas Šilinskas
+<p>Windows Forms aplikacija, nuskaitanti apibrėžto formato čekius (predefined - tikri čekiai dar nepalaikomi( (įkeliamos nuotraukos iš failų sistemos) ir vartotojui pateikianti informaciją:</p>
 
-Kasparas Taminskas
+<ol>
+  <li>Optimaliausias pasiūlymas apsipirkti pagal TOP5 vartotojo perkamus produktus.</li>
+  <li>Optimaliausias pasiūlymas apsipirkti pagal pačio vartotojo pasirenkamus produktus.</li>
+  <li>Galimybė gauti informaciją pagal pasirinktos datos intervalą (kainų aktualumas)</li>
+  <li>Maps API, rodoma pasirinktu spinduliu esanti arčiausia parduotuvė, kurioje labiausiai apsimoka apsipirkti</li>
+</ol>
 
-Pirmasis etapas:
-
-Windows Forms aplikacija, nuskaitanti čekius (įkeliamos nuotraukos iš failų sistemos) ir vartotojui pateikianti informaciją:
-
-1) Optimaliausias pasiūlymas apsipirkti pagal TOP5 vartotojo perkamus produktus.
-
-2) Optimaliausias pasiūlymas apsipirkti pagal pačio vartotojo pasirenkamus produktus.
-
-3) Pigiausias produktas pagal kategoriją. (Pasirenkame specifinį produktą - pateikiama parduotuvė, kurioje pigiausia)
-
-Antrasis etapas:
-
-1) Android integracija
-
-2) Perėjimas iš failinės sistemos į DB.
-
-/// TBDL....
-
+<h2>Antrasis etapas (iki 2017 Lapkričio 20 d.)</h2>
+<h3>Antrojo laboratorinio darbo apimtis.</h3>
+<p>Svarbiausi darbai antrajam etapui:</p>
+<ol>
+  <li>Android integracija - naudojamas XAMARIN Tools</li>
+  <li>WEB API sukūrimas</li>
+  <li>Perėjimas iš failų I/O į SQL duombazes</li>
+  <li>Čekių nuskaitymas, apdorojimas ir supratimas</li>
+</ol>
