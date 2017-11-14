@@ -1,9 +1,0 @@
-Maxima
-Kava                4
-Pienas              1,33
-Duona               1,10
-Makaronai           1,05
-Vanduo              0,40
-Sviestas            1,99
-Sûris               2,10
-Pomidorø padaþas    0,90
