@@ -1,0 +1,33 @@
+﻿
+@{
+	ViewBag.Title = "Scan";
+	Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+
+<ol class="breadcrumb">
+	<li class="breadcrumb-item">
+		<a href="#">Dashboard</a>
+	</li>
+	<li class="breadcrumb-item active">Scan Receipt</li>
+</ol>
+<div class="alert alert-info" role="alert">
+Please select "SCAN" button in order to open your Camera!
+</div>
+@using (Html.BeginForm("Index", "ImageScan", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+	@Html.AntiForgeryToken()
+
+	<div class="form-horizontal">
+		<h4>Scan Form</h4>
+		<img id="scanImage" src="~/Content/images/scan_button.jpg" style="cursor:pointer;display:block;margin:0 auto" />
+		<input type="file" id="imagetoscan" style="display:none" accept="image/*" capture="camera" value="Scan" /> 
+	</div>
+
+}
+<script>
+	$(document).ready(function () {
+		$("#scanImage").click(function () {
+			$("#imagetoscan").trigger('click');
+		});
+	});
+</script>

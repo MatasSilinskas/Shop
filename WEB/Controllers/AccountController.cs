@@ -8,9 +8,7 @@ using WEB.Models;
 namespace WEB.Controllers
 {
     public class AccountController : Controller
-    {
-        // GET: Account
-        
+    {       
         public ActionResult Index()
         {
             return View();
@@ -77,14 +75,21 @@ namespace WEB.Controllers
                 return RedirectToAction("Login");
             }
         }
+
         public ActionResult StoreList()
         {
             return View();
         }
+
         public ActionResult Logout()
         {
             Session.Abandon();
             return RedirectToAction("Login");
+        }
+
+        public ActionResult Scan()
+        {
+            return View();
         }
     }
 }
