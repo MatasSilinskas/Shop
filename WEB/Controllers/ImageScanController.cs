@@ -3,16 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.IO;
 using WEB.Models;
+using WEB.OCRLogic;
 
 namespace WEB.Controllers
 {
     public class ImageScanController : Controller
     {
 
-        public ActionResult Index()
+        public ActionResult Index(string dummy)
         {
-            return View();
+            if (dummy != null)
+            {
+                return View(dummy);
+            }
+            else
+            {
+                return View();
+            }
         }
 
         [HttpPost]
@@ -20,8 +29,19 @@ namespace WEB.Controllers
         {
             if (postedImage != null && postedImage.ContentLength > 0)
             {
-               
-                return View();
+                byte[] image;
+                using (Stream inputStream = postedImage.InputStream)
+                {
+                    MemoryStream memoryStream = inputStream as MemoryStream;
+                    if (memoryStream == null)
+                    {
+                        memoryStream = new MemoryStream();
+                        inputStream.CopyTo(memoryStream);
+                    }
+                    image = memoryStream.ToArray();
+                }
+
+                return View("Index", (object)TesseractOCR.GetOCRObject().DoRecognition(image));
             }
             else
             {

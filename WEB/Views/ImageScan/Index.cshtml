@@ -1,4 +1,4 @@
-﻿@model WEB.Models.Receipt
+﻿@model string
 
 @{
 	ViewBag.Title = "Scan";
@@ -27,7 +27,7 @@
 }
 @if (Model != null && ViewData.ModelState.IsValid)
 {
-	<span>Tekstas: @Model.ShopName</span>
+	<span>Tekstas: @Model</span>
 }
 <script>
 	$(document).ready(function () {
