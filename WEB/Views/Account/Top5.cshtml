@@ -2,10 +2,15 @@
 
 @{
     ViewBag.Title = "Top5";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
 }
 
-<h2>Top 5</h2>
+<ol class="breadcrumb">
+	<li class="breadcrumb-item">
+		<a href="#">Dashboard</a>
+	</li>
+	<li class="breadcrumb-item active">Top 5</li>
+</ol>
 @if (Model != null)
 {
     <table class="table">
