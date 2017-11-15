@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -8,7 +9,9 @@ using WEB.Models;
 namespace WEB.Controllers
 {
     public class AccountController : Controller
-    {       
+    {
+        // GET: Account
+
         public ActionResult Index()
         {
             return View();
@@ -32,7 +35,7 @@ namespace WEB.Controllers
                 ModelState.Clear();
                 ViewBag.Message = user.FirstName + " " + user.LastName + " with username: " + user.Username + " succesfully registered!";
 
-                
+
             }
 
             return View();
@@ -58,7 +61,7 @@ namespace WEB.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("","Bad Login Credentials");
+                    ModelState.AddModelError("", "Bad Login Credentials");
                     return View();
                 }
             }
@@ -75,21 +78,22 @@ namespace WEB.Controllers
                 return RedirectToAction("Login");
             }
         }
-
         public ActionResult StoreList()
         {
             return View();
         }
-
+        public ActionResult Top5()
+        {
+            var items = new Top5(Convert.ToInt32(Session["UserID"]));
+            ViewBag.Warning = items.Warning;
+            ViewBag.Shop = items.Recommendation.Key;
+            ViewBag.Price = items.Recommendation.Value;
+            return View(items.Items);
+        }
         public ActionResult Logout()
         {
             Session.Abandon();
             return RedirectToAction("Login");
-        }
-
-        public ActionResult Scan()
-        {
-            return View();
-        }
+        }       
     }
 }
