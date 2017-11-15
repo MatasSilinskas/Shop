@@ -55,9 +55,6 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -113,6 +110,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\scan_button.jpg" />
     <Content Include="Content\sb-admin.css" />
     <Content Include="Content\sb-admin.min.css" />
     <Content Include="Content\Site.css" />
@@ -202,16 +200,16 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ImageScanController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\PurchasedItem.cs" />
-    <Compile Include="Models\Top5Item.cs" />
-    <Compile Include="Models\Top5.cs" />
+    <Compile Include="Models\Receipt.cs" />
+    <Compile Include="Models\StringModel.cs" />
     <Compile Include="Models\UserAccount.cs" />
     <Compile Include="Models\UserAccountDbContext.cs" />
-    <Compile Include="MoreLinq\MoreEnumerable.MinBy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -224,7 +222,9 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Dashboard.cshtml" />
     <Content Include="Views\Account\StoreList.cshtml" />
-    <Content Include="Views\Account\Top5.cshtml" />
+    <Content Include="Views\Shared\_LayoutDashboard.cshtml" />
+    <Content Include="Views\Account\Scan.cshtml" />
+    <Content Include="Views\ImageScan\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -234,7 +234,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Top5\" />
+    <Folder Include="OCRLogic\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
