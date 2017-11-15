@@ -94,8 +94,6 @@ namespace WEB.Controllers
         {
             Session.Abandon();
             return RedirectToAction("Login");
-        }
-
-        
+        }       
     }
 }
