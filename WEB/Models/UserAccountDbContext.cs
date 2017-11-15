@@ -10,5 +10,13 @@ namespace WEB.Models
     {
         public DbSet<UserAccount> userAccount { get; set; }
         public DbSet<PurchasedItem> purchasedItem { get; set; }
+        public DbSet<Top5> top5Items { get; set; }
+        public DbSet<Top5Item> top5Item { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            Database.SetInitializer<UserAccountDbContext>(null);
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }
