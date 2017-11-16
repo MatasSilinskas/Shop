@@ -11,7 +11,7 @@ namespace WEB.Controllers
     public class AccountController : Controller
     {
         // GET: Account
-
+        List<string> list = new List<string>();
         public ActionResult Index()
         {
             return View();
@@ -82,12 +82,17 @@ namespace WEB.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public ActionResult StoreList(ShopFromList shopFromList)
+        { 
+            return View();
+        }
         public ActionResult Top5()
         {
             var items = new Top5(Convert.ToInt32(Session["UserID"]));
             ViewBag.Warning = items.Warning;
             ViewBag.Shop = items.Recommendation.Key;
-            ViewBag.Price = items.Recommendation.Value;
+            ViewBag.Price = items.Recommendation.Value; 
             return View(items.Items);
         }
         public ActionResult Logout()

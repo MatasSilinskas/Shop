@@ -1,8 +1,11 @@
-﻿
+﻿@model WEB.Models.ShopFromList
+
 @{
 	ViewBag.Title = "StoreList";
 	Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
 }
+@using (Html.BeginForm())
+{
 <ol class="breadcrumb">
 	<li class="breadcrumb-item">
 		<a href="#">Dashboard</a>
@@ -15,20 +18,26 @@
                         <div class="input-group">
                             <input class="form-control" type="text" id="textbox1" placeholder="Add an item to the list...">
                             <span class="input-group-btn">
-                                <button class="btn btn-primary" type="button" id="addBtn" >
-                                    <i class=></i>ADD 
+                                <button class="btn btn-primary" type="button" id="addBtn">
+                                    <i></i>ADD
                                 </button>
                             </span>
-                            <br> 
+                            <br> <br />
                         </div>
+                        <ol id="list">
+                            </ol>
+                        <script type="text/javascript">
+                            document.getElementById("addBtn").addEventListener('click', function () {
+                                var li = document.createElement("LI");
+                                var input = document.getElementById("textbox1");
+                                li.innerHTML = input.value;
+                                input.value = "";
+                                document.getElementById("list").appendChild(li);
+                                
+                            });
+                        </script>
+                        <input id="Submit1" type="submit" value="submit" />
                     </form>
-                    <textarea id="TA1" cols="25" rows="10"></textarea>
-                    <script type="text/javascript">
-                        document.getElementById("addBtn").addEventListener('click', function () {
-                            var text = document.getElementById('textbox1').value;
-                            document.getElementById('TA1').value += text + '\n';
-                        });
-                    </script>
                 </li>
             </ol>        
-   
+}
