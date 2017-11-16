@@ -81,10 +81,12 @@ namespace WEB.Controllers
         public ActionResult StoreList()
         {
             return View();
+
         }
         [HttpPost]
-        public ActionResult StoreList(ShopFromList shopFromList)
-        { 
+        public ActionResult StoreList(ShopFromList shop)
+        {
+            Debug.WriteLine("\n" + shop.item);
             return View();
         }
         public ActionResult Top5()

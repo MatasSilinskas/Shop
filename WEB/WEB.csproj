@@ -244,6 +244,8 @@
     <Content Include="OCRLogic\tessdata\eng.tesseract_cube.nn" />
     <Content Include="OCRLogic\tessdata\eng.traineddata" />
     <Content Include="OCRLogic\tessdata\lit.traineddata" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="x64\liblept172.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -307,11 +309,12 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Dashboard.cshtml" />
-    <Content Include="Views\Account\StoreList.cshtml" />
     <Content Include="Views\Shared\_LayoutDashboard.cshtml" />
     <Content Include="Views\Account\Scan.cshtml" />
     <Content Include="Views\ImageScan\Index.cshtml" />
     <Content Include="Views\Account\Top5.cshtml" />
+    <Content Include="Views\Account\View.cshtml" />
+    <Content Include="Views\Account\StoreList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
