@@ -60,7 +60,7 @@ namespace WEB.Controllers
                     
                     Session["UserID"] = usr.UserID.ToString();
                     Session["Username"] = usr.Username.ToString();
-                    db.purchasedItem.RemoveRange(db.purchasedItem);
+                    db.userAccount.RemoveRange(db.userAccount);
                     db.SaveChanges();
                     return RedirectToAction("Dashboard");
                 }
