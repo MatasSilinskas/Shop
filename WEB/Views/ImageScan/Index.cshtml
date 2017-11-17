@@ -27,7 +27,17 @@
 }
 @if (Model != null && ViewData.ModelState.IsValid)
 {
-	<span>Tekstas: @Model</span>
+	<div class="alert alert-warning" role="alert">
+		<b>Attention!</b>The final output of each line should be like that: [PRODUCT NAME/DESCRIPTION] [WHITESPACE CHARACTERS] [PRICE] [VALUES: A or N]<br>
+		If you see any errors, please fix them manually before submitting!
+	</div>
+
+	using (Html.BeginForm("ValidatedAnswer", "ImageScan", FormMethod.Post, new { id = "uploadOutput" }))
+	{
+		@Html.TextArea("input", Model, htmlAttributes: new { @cols=100, @rows=100} )
+		<input type="submit" name="postedOutput" id="verifyoutput" value="Verify" />
+
+	}
 }
 <script>
 	$(document).ready(function () {

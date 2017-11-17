@@ -4,7 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Drawing;
 using Tesseract;
+using System.Collections;
 using System.IO;
+using System.Diagnostics;
 
 namespace WEB.OCRLogic
 {
@@ -17,24 +19,48 @@ namespace WEB.OCRLogic
 
         public string DoRecognition(byte[] image)
         {
- 
+            string text = "";
             try
             {
-                using (var engine = new TesseractEngine(@"C:\Users\kasparas\Desktop\Universiteto projektai\Shop\WEB\OCRLogic\tessdata", "lit", EngineMode.Default))
+                using (var engine = new TesseractEngine(@"C:\Users\kasparas\Desktop\Universiteto projektai\Shop\WEB\OCRLogic\tessdata", "eng", EngineMode.Default))
                 {
                     using (var img = PixConverter.ToPix((Bitmap)Image.FromStream(new MemoryStream(image))))
                     {
-                        using (var page = engine.Process(img))
+                        using (var page = engine.Process(img,PageSegMode.SingleBlock))
                         {
-                            return page.GetText();
+
+                            using (var iterator = page.GetIterator())
+                            {
+                                iterator.Begin();
+                                do
+                                {
+                                    do
+                                    {
+
+                                        do
+                                        {
+
+                                            if (iterator.IsAtBeginningOf(PageIteratorLevel.TextLine))
+                                            {
+                                                text += iterator.GetText(PageIteratorLevel.Word);
+                                            }
+
+
+                                        } while (iterator.Next(PageIteratorLevel.Word, PageIteratorLevel.Block));
+                                    } while (iterator.Next(PageIteratorLevel.TextLine, PageIteratorLevel.Word));
+                                } while (iterator.Next(PageIteratorLevel.Para, PageIteratorLevel.TextLine));
+                            }
                         }
-                    }
+                               
+                     }
+                    return text;
                 }
+          
 
             }
             catch (Exception e)
             {
-                return "-1";
+                return text;
             }
         }
 

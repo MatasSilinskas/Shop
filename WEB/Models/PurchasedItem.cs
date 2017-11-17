@@ -8,6 +8,7 @@ namespace WEB.Models
 {
     public class PurchasedItem
     {
+        [Key]
         public int PurchasedItemId { get; set; }
 
         [Display(Name = "Shop")]

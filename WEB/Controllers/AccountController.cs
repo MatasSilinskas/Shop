@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WEB.Models;
+using System.Data.Entity;
 
 namespace WEB.Controllers
 {
@@ -57,6 +58,8 @@ namespace WEB.Controllers
                 {
                     Session["UserID"] = usr.UserID.ToString();
                     Session["Username"] = usr.Username.ToString();
+                    db.purchasedItem.RemoveRange(db.purchasedItem);
+                    db.SaveChanges();
                     return RedirectToAction("Dashboard");
                 }
                 else
@@ -71,6 +74,7 @@ namespace WEB.Controllers
         {
             if (Session["UserID"] != null)
             {
+                ViewBag.UserId = Convert.ToInt32(Session["UserID"]);
                 return View();
             }
             else
@@ -99,6 +103,6 @@ namespace WEB.Controllers
         {
             Session.Abandon();
             return RedirectToAction("Login");
-        }       
+        }      
     }
 }
