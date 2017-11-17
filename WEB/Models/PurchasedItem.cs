@@ -18,6 +18,8 @@ namespace WEB.Models
 
         public double Price { get; set; }
 
+        public bool IsChecked { get; set; }
+
         [Display(Name = "Bought at")]
         [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime Date { get; set; }
@@ -26,4 +28,9 @@ namespace WEB.Models
 
         public virtual UserAccount User { get; set; }
     }
+    public class PurchaseList
+    {
+        public List<PurchasedItem> listOfProducts { get; set; }
+    }
+ 
 }

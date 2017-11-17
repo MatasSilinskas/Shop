@@ -286,7 +286,6 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\PurchasedItem.cs" />
     <Compile Include="Models\Receipt.cs" />
-    <Compile Include="Models\ShopFromList.cs" />
     <Compile Include="Models\StringModel.cs" />
     <Compile Include="Models\Top5.cs" />
     <Compile Include="Models\Top5Item.cs" />
@@ -297,6 +296,7 @@
     <Compile Include="OCRLogic\Parser.cs" />
     <Compile Include="OCRLogic\TesseractOCR.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShopFromAListLogic\FromList.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
