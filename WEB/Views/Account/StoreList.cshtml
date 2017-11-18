@@ -1,37 +1,41 @@
-﻿@model WEB.Models.ShopFromList
+﻿@model WEB.Models.PurchaseList
 
 @{
-    ViewBag.Title = "StoreList";
-    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+	ViewBag.Title = "StoreList";
+	Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
 }
-
-<h2>StoreList</h2>
-
-
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>ShopFromList</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.item, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.item, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.item, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
+<ol class="breadcrumb">
+	<li class="breadcrumb-item">
+		<a href="#">Dashboard</a>
+	</li>
+	<li class="breadcrumb-item active">Store List</li>
+</ol>
+           <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <form class="form-inline my-2 my-lg-0 mr-lg-2">
+                            @if(Model!=null)
+                            {
+                                <table>
+                                @for (int i = 0; i < Model.listOfProducts.Count; i++)
+                                {
+                                    @:
+                                    <tr></tr>
+                                    <td>
+                                        @Html.CheckBoxFor(model => model.listOfProducts[i].IsChecked)
+                                        <lable>@Model.listOfProducts[i].ItemName</lable>
+                                        @Html.HiddenFor(model => model.listOfProducts[i].PurchasedItemId)
+                                        @Html.HiddenFor(model => model.listOfProducts[i].ItemName)
+                                    </td>
+                                }
+                                </table>
+                                <input id="Submit1" type="submit" value="submit" />
+                                }
+                        <label>The cheapest store for you is: </label>
+                        <label>@ViewBag.rezult</label>
+                    </form>
+                </li>
+            </ol> 
+            
 }
-
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

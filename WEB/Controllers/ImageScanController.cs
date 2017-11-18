@@ -11,7 +11,6 @@ namespace WEB.Controllers
 {
     public class ImageScanController : Controller
     {
-
         public ActionResult Index(string dummy)
         {
             if (dummy != null)
@@ -23,6 +22,7 @@ namespace WEB.Controllers
                 return View();
             }
         }
+
 
         [HttpPost]
         public ActionResult Index(HttpPostedFileBase postedImage)
@@ -40,13 +40,19 @@ namespace WEB.Controllers
                     }
                     image = memoryStream.ToArray();
                 }
-
-                return View("Index", (object)TesseractOCR.GetOCRObject().DoRecognition(image));
+ 
+                return View("Index", (object)GoogleOCR.GetGoogleOCR().DoRecognition(image));
             }
             else
             {
                 return View();
             }
+        }
+
+        public ActionResult ValidatedAnswer(string input)
+        {
+            Parser.CreateProductsFromString(input, Convert.ToInt32(HttpContext.Session["UserID"]));
+            return RedirectToAction("Index");
         }
     }
 }
