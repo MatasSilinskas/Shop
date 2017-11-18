@@ -52,3 +52,5 @@
 }
 
 <h4>@Html.Raw(ViewBag.Warning)</h4>
+
+@Html.ActionLink("View closest recommended shop in google maps", "Index", "Map", new { shop = @Html.Raw(ViewBag.Shop) }, null)
