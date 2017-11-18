@@ -328,11 +328,13 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ImageScanController.cs" />
     <Compile Include="Controllers\MapController.cs" />
+    <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\PurchasedItem.cs" />
+    <Compile Include="Models\PurchaseList.cs" />
     <Compile Include="Models\Top5.cs" />
     <Compile Include="Models\Top5Item.cs" />
     <Compile Include="Models\UserAccount.cs" />
@@ -360,6 +362,8 @@
     <Content Include="Views\Account\View.cshtml" />
     <Content Include="Views\Account\StoreList.cshtml" />
     <Content Include="Views\Map\Index.cshtml" />
+    <Content Include="Views\Settings\Index.cshtml" />
+    <Content Include="Views\Settings\TimeAndDate.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -369,6 +373,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="SettingsLogic\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

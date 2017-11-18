@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a href="#">Dashboard</a>
+    </li>
+    <li class="breadcrumb-item active">Settings</li>
+</ol>
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <form class="form-inline my-2 my-lg-0 mr-lg-2">
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Settings">
+                <a class="nav-link" href="@Url.Action("AccountSettings","Settings")">
+                    <i class="fa fa-wrench"></i>
+                    <span class="nav-link-text">Account Settings</span>
+                </a>
+            </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Settings">
+                <a class="nav-link" href="@Url.Action("TimeAndDate","Settings")">
+                    <i class="fa fa-wrench"></i>
+                    <span class="nav-link-text">Time and Date Settings</span>
+                </a>
+            </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Settings">
+                <a class="nav-link" href="@Url.Action("Ratings","Settings")">
+                    <i class="fa fa-wrench"></i>
+                    <span class="nav-link-text">Rate My Shops</span>
+                </a>
+            </li>
+        </form>
+    </li>
+</ol>
