@@ -48,9 +48,12 @@
             </tr>
         }
     </table>
-    <h4>It is best for you to shop in: @Html.Raw(ViewBag.Shop). If you buy these top 5 items, you`ll pay @Html.Raw(ViewBag.Price) for them </h4>
+     <h4>It is best for you to shop in: @Html.Raw(ViewBag.Shop). If you buy these top 5 items, you`ll pay @Html.Raw(ViewBag.Price) for them </h4>
 }
-
 <h4>@Html.Raw(ViewBag.Warning)</h4>
 
-@Html.ActionLink("View closest recommended shop in google maps", "Index", "Map", new { shop = @Html.Raw(ViewBag.Shop) }, null)
+@Html.ActionLink(linkText: "View closest recommended shop in google maps",
+    actionName: "Index",
+    controllerName: "Map",
+    routeValues: new { shop = @Html.Raw(ViewBag.Shop) },
+    htmlAttributes: null)

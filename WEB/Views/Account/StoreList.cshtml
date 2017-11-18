@@ -1,41 +1,49 @@
 ﻿@model WEB.Models.PurchaseList
 
 @{
-	ViewBag.Title = "StoreList";
-	Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+    ViewBag.Title = "StoreList";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
 }
 @using (Html.BeginForm())
 {
-<ol class="breadcrumb">
-	<li class="breadcrumb-item">
-		<a href="#">Dashboard</a>
-	</li>
-	<li class="breadcrumb-item active">Store List</li>
-</ol>
-           <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                    <form class="form-inline my-2 my-lg-0 mr-lg-2">
-                            @if(Model!=null)
-                            {
-                                <table>
-                                @for (int i = 0; i < Model.listOfProducts.Count; i++)
-                                {
-                                    @:
-                                    <tr></tr>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Store List</li>
+    </ol>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <form class="form-inline my-2 my-lg-0 mr-lg-2">
+                @if (Model != null)
+                {
+                    <table>
+                        @for (int i = 0; i < Model.listOfProducts.Count; i++)
+                        {
+                            @:
+                            <tr></tr>
                                     <td>
                                         @Html.CheckBoxFor(model => model.listOfProducts[i].IsChecked)
                                         <lable>@Model.listOfProducts[i].ItemName</lable>
                                         @Html.HiddenFor(model => model.listOfProducts[i].PurchasedItemId)
                                         @Html.HiddenFor(model => model.listOfProducts[i].ItemName)
                                     </td>
-                                }
-                                </table>
+                        }
+                    </table>
                                 <input id="Submit1" type="submit" value="submit" />
-                                }
-                        <label>The cheapest store for you is: </label>
-                        <label>@ViewBag.rezult</label>
-                    </form>
-                </li>
-            </ol> 
-            
+                }
+                <label>The cheapest store for you is: </label>
+                @if (ViewBag.rezult != null)
+                {
+                    <label>@ViewBag.rezult</label>
+                        @Html.ActionLink(linkText: "View closest recommended shop in google maps",
+                            actionName: "Index",
+                            controllerName: "Map",
+                            routeValues: new { shop = @Html.Raw(ViewBag.rezult) },
+                            htmlAttributes: null)
+                }
+            </form>
+        </li>
+    </ol>
+
 }

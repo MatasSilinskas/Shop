@@ -60,8 +60,8 @@ namespace WEB.Controllers
                     
                     Session["UserID"] = usr.UserID.ToString();
                     Session["Username"] = usr.Username.ToString();
-                    db.userAccount.RemoveRange(db.userAccount);
-                    db.SaveChanges();
+                    /*db.userAccount.RemoveRange(db.userAccount);
+                    db.SaveChanges();*/
                     return RedirectToAction("Dashboard");
                 }
                 else
@@ -91,7 +91,7 @@ namespace WEB.Controllers
             {
                 purchaseList.listOfProducts = db.purchasedItem.ToList<PurchasedItem>();
             }
-                return View(purchaseList);
+            return View(purchaseList);
         }
         
         [HttpPost]
@@ -118,6 +118,19 @@ namespace WEB.Controllers
         }
         public ActionResult Top5()
         {
+            using (UserAccountDbContext db = new UserAccountDbContext())
+            {
+                /*db.purchasedItem.Add(new PurchasedItem
+                {
+                    Date = new DateTime(2017, 11, 18),
+                    ItemName = "Pienas",
+                    Price = 0.99,
+                    ShopName = "Maxima",
+                    UserId = Convert.ToInt32(Session["UserID"]),
+                    IsChecked = false
+                });
+                db.SaveChanges();*/
+            }
             var items = new Top5(Convert.ToInt32(Session["UserID"]));
             ViewBag.Warning = items.Warning;
             ViewBag.Shop = items.Recommendation.Key;
