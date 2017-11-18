@@ -93,7 +93,7 @@ namespace WEB.Controllers
         [HttpPost]
         public ActionResult StoreList(PurchaseList purchaseList)
         {
-            if (purchaseList != null)
+            if (purchaseList.listOfProducts != null)
             {
                 var _selectedProducts = purchaseList.listOfProducts.Where(x => x.IsChecked == true).ToList<PurchasedItem>();
                 List<string> list = new List<string>();

@@ -344,11 +344,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Interfaces\IUserAccountDbContext.cs" />
     <Compile Include="Models\PurchasedItem.cs" />
-
     <Compile Include="Models\PurchaseList.cs" />
-    <Compile Include="Models\Top5.cs" />
-
-
     <Compile Include="Models\Top5Item.cs" />
     <Compile Include="Models\UserAccount.cs" />
     <Compile Include="Models\UserAccountDbContext.cs" />
