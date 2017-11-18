@@ -29,9 +29,6 @@ namespace WEB.Models
 
         public virtual UserAccount User { get; set; }
     }
-    public class PurchaseList
-    {
-        public List<PurchasedItem> listOfProducts { get; set; }
-    }
+    
  
 }
