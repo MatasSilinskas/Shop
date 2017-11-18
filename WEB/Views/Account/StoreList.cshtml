@@ -35,7 +35,7 @@
                 <label>The cheapest store for you is: </label>
                 @if (ViewBag.rezult != null)
                 {
-                    <label>@ViewBag.rezult</label>
+                    <h5>@ViewBag.rezult</h5>
                         @Html.ActionLink(linkText: "View closest recommended shop in google maps",
                             actionName: "Index",
                             controllerName: "Map",

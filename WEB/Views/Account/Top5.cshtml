@@ -6,10 +6,10 @@
 }
 
 <ol class="breadcrumb">
-	<li class="breadcrumb-item">
-		<a href="#">Dashboard</a>
-	</li>
-	<li class="breadcrumb-item active">Top 5</li>
+    <li class="breadcrumb-item">
+        <a href="#">Dashboard</a>
+    </li>
+    <li class="breadcrumb-item active">Top 5</li>
 </ol>
 @if (Model != null)
 {
@@ -48,12 +48,15 @@
             </tr>
         }
     </table>
-     <h4>It is best for you to shop in: @Html.Raw(ViewBag.Shop). If you buy these top 5 items, you`ll pay @Html.Raw(ViewBag.Price) for them </h4>
+    <h4>It is best for you to shop in: @Html.Raw(ViewBag.Shop). If you buy these top 5 items, you`ll pay @Html.Raw(ViewBag.Price) for them </h4>
 }
 <h4>@Html.Raw(ViewBag.Warning)</h4>
 
-@Html.ActionLink(linkText: "View closest recommended shop in google maps",
-    actionName: "Index",
-    controllerName: "Map",
-    routeValues: new { shop = @Html.Raw(ViewBag.Shop) },
-    htmlAttributes: null)
+@if (@Html.Raw(ViewBag.Shop).Equals(""))
+{
+    Html.ActionLink(linkText: "View closest recommended shop in google maps",
+            actionName: "Index",
+            controllerName: "Map",
+            routeValues: new { shop = @Html.Raw(ViewBag.Shop) },
+            htmlAttributes: null);
+}
