@@ -54,7 +54,6 @@ namespace WEB.Controllers
                     }
                     image = memoryStream.ToArray();
                 }
- 
                 return View("Index", (object)GoogleOCR.GetGoogleOCR().DoRecognition(image));
             }
             else

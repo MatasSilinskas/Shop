@@ -5,15 +5,23 @@ using System.Linq;
 using System.Web;
 using System.Web.Http.Results;
 using System.Web.Mvc;
+using WEB.Interfaces;
 using WEB.Models;
 using WEB.ShopFromAListLogic;
+using WEB.Top5Logic;
 
 namespace WEB.Controllers
 {
     public class AccountController : Controller
     {
-        // GET: Account
         List<string> list = new List<string>();
+        private readonly IUserAccountDbContext _context;
+
+        public AccountController(IUserAccountDbContext context)
+        {
+            _context = context;
+        }
+
         public ActionResult Index()
         {
             return View();
@@ -29,18 +37,13 @@ namespace WEB.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (UserAccountDbContext db = new UserAccountDbContext())
-                {
-                    db.userAccount.Add(user);
-                    db.SaveChanges();
-                }
+                _context.userAccount.Add(user);
+                _context.SaveChanges();
                 ModelState.Clear();
                 ViewBag.Message = user.FirstName + " " + user.LastName + " with username: " + user.Username + " succesfully registered!";
-
-
             }
 
-            return View();
+            return RedirectToAction("Login");
         }
 
         public ActionResult Login()
@@ -51,19 +54,14 @@ namespace WEB.Controllers
         [HttpPost]
         public ActionResult Login(UserAccount user)
         {
-            using (UserAccountDbContext db = new UserAccountDbContext())
-            {
-                var usr = db.userAccount.Where(u => u.Username == user.Username && u.Password == user.Password).FirstOrDefault();
-                
-                if (usr != null)
+
+            var usr = _context.userAccount.Where(u => u.Username == user.Username && u.Password == user.Password).FirstOrDefault();
+
+            if (usr != null)
                 {
                     
                     Session["UserID"] = usr.UserID.ToString();
                     Session["Username"] = usr.Username.ToString();
-                    /*
-                    db.userAccount.RemoveRange(db.userAccount);
-                    db.SaveChanges();
-                    */
                     return RedirectToAction("Dashboard");
                 }
                 else
@@ -71,7 +69,7 @@ namespace WEB.Controllers
                     ModelState.AddModelError("", "Bad Login Credentials");
                     return View();
                 }
-            }
+            
         }
 
         public ActionResult Dashboard()
@@ -89,25 +87,22 @@ namespace WEB.Controllers
         public ActionResult StoreList()
         {
             PurchaseList purchaseList = new PurchaseList();
-            using (UserAccountDbContext db = new UserAccountDbContext())
-            {
-                purchaseList.listOfProducts = db.purchasedItem.ToList<PurchasedItem>();
-            }
-                return View(purchaseList);
+            purchaseList.listOfProducts = _context.purchasedItem.ToList<PurchasedItem>();
+            return View(purchaseList);
         }
-        
+
         [HttpPost]
         public ActionResult StoreList(PurchaseList purchaseList)
         {
-            if (purchaseList != null)
+            if (purchaseList.listOfProducts != null)
             {
-               // var _selectedProducts = purchaseList.listOfProducts.Where(x => x.IsChecked == true).ToList<PurchasedItem>();
+                var _selectedProducts = purchaseList.listOfProducts.Where(x => x.IsChecked == true).ToList<PurchasedItem>();
                 List<string> list = new List<string>();
-              //  foreach (var item in _selectedProducts)
-               // {
-              //      list.Add(item.ItemName);
-             //   }
-                FromList fromList = new FromList(list, DateTime.Now.AddMonths(-1));
+                foreach (var item in _selectedProducts)
+                {
+                    list.Add(item.ItemName);
+                }
+                FromList fromList = new FromList(_context, list, DateTime.Now.AddMonths(-1));
                 ViewBag.rezult = fromList.ReturnStoreName();
                 return View("StoreList");
             }
@@ -116,20 +111,41 @@ namespace WEB.Controllers
                 ViewBag.rezult = "Please some check boxes to add items to your list";
                 return View("StoreList");
             }
-           
+
         }
         public ActionResult Top5()
         {
-            var items = new Top5(Convert.ToInt32(Session["UserID"]));
+
+            /*_context.purchasedItem.Add(new PurchasedItem
+            {
+                Date = new DateTime(2017, 11, 18),
+                ItemName = "Juoda Duona",
+                Price = 0.89,
+                ShopName = "Iki",
+                UserId = Convert.ToInt32(Session["UserID"]),
+                IsChecked = false
+            });
+            _context.SaveChanges();*/
+
+            var items = new Top5(Convert.ToInt32(Session["UserID"]), _context);
             ViewBag.Warning = items.Warning;
-            ViewBag.Shop = items.Recommendation.Key;
-            ViewBag.Price = items.Recommendation.Value; 
+
+            if (items.Recommendation.Key != null)
+            {
+                ViewBag.Shop = items.Recommendation.Key;
+            }
+            else
+            {
+                ViewBag.Shop = "";
+            }
+
+            ViewBag.Price = items.Recommendation.Value;
             return View(items.Items);
         }
         public ActionResult Logout()
         {
             Session.Abandon();
             return RedirectToAction("Login");
-        }      
+        }
     }
 }

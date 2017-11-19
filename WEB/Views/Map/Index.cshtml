@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewBag.Title = "Map";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+
+<h2>Map</h2>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQLXHWQmycLo1SUMT8ddcCx2D2PR81C9U&sensor=false&libraries=places"></script>
+<script> string ah = '@ViewBag.Shop' </script>
+<script type="text/javascript">
+    var map;
+    var infowindow;
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(success);
+    } else {
+        alert("Geo Location is not supported on your current browser!");
+    }
+
+    function success(position) {
+        var currentLoc = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        var shop = @Html.Raw(Json.Encode(ViewBag.Shop))
+
+        map = new google.maps.Map(document.getElementById('gmap'), {
+            center: currentLoc,
+            zoom: 15,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+
+        var marker = new google.maps.Marker({
+            position: currentLoc,
+            map: map,
+            icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+        });
+
+        var request = {
+            location: currentLoc,
+            radius: 800,
+            name: [shop]
+        };
+        infowindow = new google.maps.InfoWindow();
+        var service = new google.maps.places.PlacesService(map);
+        service.nearbySearch(request, callback);
+    }
+
+    function callback(results, status) {
+        if (status == google.maps.places.PlacesServiceStatus.OK) {
+            for (var i = 0; i < results.length; i++) {
+                createMarker(results[i]);
+            }
+        }
+    }
+
+    function createMarker(place) {
+        var placeLoc = place.geometry.location;
+        var marker = new google.maps.Marker({
+            map: map,
+            position: place.geometry.location
+        });
+
+        google.maps.event.addListener(marker, 'click', function () {
+            infowindow.setContent(place.name);
+            infowindow.open(map, this);
+        });
+    }
+</script>
+<div id="gmap" style="width: 80%; height: 500px">
+</div>
+
