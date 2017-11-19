@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.Design;
 using System.Linq;
 using System.Web;
+using WEB.Interfaces;
 
 namespace WEB.Models
 {
@@ -12,6 +13,7 @@ namespace WEB.Models
         [Key]
 
         public int UserID { get; set; }
+
         [Required(ErrorMessage = "Username is required!")]
         public string Username { get; set; }
 
@@ -31,6 +33,7 @@ namespace WEB.Models
 
         [Required(ErrorMessage = "Password Confirmation is required!")]
         [DataType(DataType.Password)]
+        [Compare(nameof(Password), ErrorMessage = "Passwords don't match.")]
         public string ConfirmPassword { get; set; }
 
         public virtual List<PurchasedItem> PurchasedItems { get; set; }

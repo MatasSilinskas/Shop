@@ -9,6 +9,7 @@ using WEB.Interfaces;
 using WEB.Models;
 using WEB.ShopFromAListLogic;
 using WEB.Top5Logic;
+using WEB.RegisterLogic;
 
 namespace WEB.Controllers
 {
@@ -37,6 +38,18 @@ namespace WEB.Controllers
         {
             if (ModelState.IsValid)
             {
+                Register validate = new Register(_context, user.Username, user.Email);
+                if (validate.UsernameExists)
+                {
+                    ModelState.AddModelError("Username", "This Username already exists. Try entering a new one");
+                    return View(user);
+                }
+                if (validate.EmailExists)
+                {
+                    ModelState.AddModelError("Email", "This Email already exists. Try entering a new one");
+                    return View(user);
+                }
+
                 _context.userAccount.Add(user);
                 _context.SaveChanges();
                 ModelState.Clear();
@@ -57,21 +70,22 @@ namespace WEB.Controllers
 
             var usr = _context.userAccount.Where(u => u.Username == user.Username && u.Password == user.Password).FirstOrDefault();
 
+
             if (usr != null)
-                {
-                    
-                    Session["UserID"] = usr.UserID.ToString();
-                    Session["Username"] = usr.Username.ToString();
-                    _context.purchasedItem.RemoveRange(_context.purchasedItem);
-                    _context.SaveChanges();
-                    return RedirectToAction("Dashboard");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Bad Login Credentials");
-                    return View();
-                }
-            
+            {
+                Session["UserID"] = usr.UserID.ToString();
+                Session["Username"] = usr.Username.ToString();
+                _context.purchasedItem.RemoveRange(_context.purchasedItem);
+                _context.userAccount.RemoveRange(_context.userAccount);
+                _context.SaveChanges();
+                return RedirectToAction("Dashboard");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Bad Login Credentials");
+                return View();
+            }
+
         }
 
         public ActionResult Dashboard()

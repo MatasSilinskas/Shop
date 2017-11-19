@@ -356,6 +356,7 @@
     <Compile Include="OCRLogic\Parser.cs" />
     <Compile Include="OCRLogic\TesseractOCR.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegisterLogic\Register.cs" />
     <Compile Include="ShopFromAListLogic\FromList.cs" />
     <Compile Include="Top5Logic\Top5.cs" />
   </ItemGroup>
@@ -377,6 +378,7 @@
     <Content Include="Views\Map\Index.cshtml" />
     <Content Include="Views\Settings\Index.cshtml" />
     <Content Include="Views\Settings\TimeAndDate.cshtml" />
+    <Content Include="Views\Settings\AccountSettings.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -387,6 +389,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="SettingsLogic\" />
+    <Folder Include="Views\Validation\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
