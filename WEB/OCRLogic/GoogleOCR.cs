@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 
 namespace WEB.OCRLogic
 {
-    public class GoogleOCR
+    public class GoogleOCR : IRecognize
     {
         private static GoogleOCR _detector;
         private GoogleOCR()
@@ -18,7 +18,7 @@ namespace WEB.OCRLogic
         }
         public string DoRecognition(byte[] image)
         {
-            string textas = "";
+            string scannedText = String.Empty;
             var imageToScan = Google.Cloud.Vision.V1.Image.FromBytes(image);
             var client = ImageAnnotatorClient.Create();
             ImageContext language = new ImageContext();
@@ -31,11 +31,10 @@ namespace WEB.OCRLogic
                     foreach (var para in block.Paragraphs)
                     {
 
-
                         foreach (var word in para.Words)
                         {
-                            string wordResult = "";
-                            string pattern = "";
+                            string wordResult = String.Empty;
+                            string pattern = String.Empty;
                             JObject json = JObject.Parse(word.ToString());
                            
                             for (var i=0;i<word.Symbols.Count;i++)
@@ -58,13 +57,13 @@ namespace WEB.OCRLogic
                                     }
                                 }
                             }
-                            textas += wordResult;     
+                            scannedText += wordResult;     
                         }
 
                     }
                 }
             }
-            return textas;
+            return scannedText;
 
         }
 

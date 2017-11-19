@@ -19,7 +19,7 @@ namespace WEB.Models
 
         public double Price { get; set; }
 
-        public bool IsChecked { get; set; }
+        /* public bool IsChecked { get; set; } */
 
         [Display(Name = "Bought at")]
         [DisplayFormat(DataFormatString = "{0:d}")]

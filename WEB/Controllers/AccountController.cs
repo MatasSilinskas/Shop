@@ -60,8 +60,10 @@ namespace WEB.Controllers
                     
                     Session["UserID"] = usr.UserID.ToString();
                     Session["Username"] = usr.Username.ToString();
+                    /*
                     db.userAccount.RemoveRange(db.userAccount);
                     db.SaveChanges();
+                    */
                     return RedirectToAction("Dashboard");
                 }
                 else
@@ -99,12 +101,12 @@ namespace WEB.Controllers
         {
             if (purchaseList != null)
             {
-                var _selectedProducts = purchaseList.listOfProducts.Where(x => x.IsChecked == true).ToList<PurchasedItem>();
+               // var _selectedProducts = purchaseList.listOfProducts.Where(x => x.IsChecked == true).ToList<PurchasedItem>();
                 List<string> list = new List<string>();
-                foreach (var item in _selectedProducts)
-                {
-                    list.Add(item.ItemName);
-                }
+              //  foreach (var item in _selectedProducts)
+               // {
+              //      list.Add(item.ItemName);
+             //   }
                 FromList fromList = new FromList(list, DateTime.Now.AddMonths(-1));
                 ViewBag.rezult = fromList.ReturnStoreName();
                 return View("StoreList");

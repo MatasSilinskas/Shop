@@ -170,6 +170,7 @@
     <Content Include="Content\sb-admin.css" />
     <Content Include="Content\sb-admin.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\popup.css" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap-grid.css" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap-grid.min.css" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap-reboot.css" />
@@ -291,6 +292,8 @@
     <Compile Include="Models\UserAccountDbContext.cs" />
     <Compile Include="OCRLogic\GoogleOCR.cs" />
     <Compile Include="OCRLogic\IRecognize.cs" />
+    <Compile Include="OCRLogic\OCRFiredEventArgs.cs" />
+    <Compile Include="OCRLogic\OCRFireHandle.cs" />
     <Compile Include="OCRLogic\Parser.cs" />
     <Compile Include="OCRLogic\TesseractOCR.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
