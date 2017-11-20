@@ -6,19 +6,21 @@ using System.Drawing;
 using System.Diagnostics;
 using Google.Cloud.Vision.V1;
 using Newtonsoft.Json.Linq;
+using System.Configuration;
 
 namespace WEB.OCRLogic
 {
-    public class GoogleOCR
+    public class GoogleOCR : IRecognize
     {
         private static GoogleOCR _detector;
         private GoogleOCR()
         {
-            Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", @"C:\Users\kasparas\Desktop\Universiteto projektai\Shop\WEB\OCRLogic\Recognition-909184a6878c.json");
+           
+            Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", ConfigurationManager.AppSettings["GoogleToken"]);
         }
         public string DoRecognition(byte[] image)
         {
-            string textas = "";
+            string scannedText = String.Empty;
             var imageToScan = Google.Cloud.Vision.V1.Image.FromBytes(image);
             var client = ImageAnnotatorClient.Create();
             ImageContext language = new ImageContext();
@@ -31,11 +33,10 @@ namespace WEB.OCRLogic
                     foreach (var para in block.Paragraphs)
                     {
 
-
                         foreach (var word in para.Words)
                         {
-                            string wordResult = "";
-                            string pattern = "";
+                            string wordResult = String.Empty;
+                            string pattern = String.Empty;
                             JObject json = JObject.Parse(word.ToString());
                            
                             for (var i=0;i<word.Symbols.Count;i++)
@@ -58,13 +59,13 @@ namespace WEB.OCRLogic
                                     }
                                 }
                             }
-                            textas += wordResult;     
+                            scannedText += wordResult;     
                         }
 
                     }
                 }
             }
-            return textas;
+            return scannedText;
 
         }
 

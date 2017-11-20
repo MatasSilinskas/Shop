@@ -224,6 +224,7 @@
     <Content Include="Content\sb-admin.css" />
     <Content Include="Content\sb-admin.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\popup.css" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap-grid.css" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap-grid.min.css" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap-reboot.css" />
@@ -352,12 +353,18 @@
     <Compile Include="Models\UserAccountDbContext.cs" />
     <Compile Include="OCRLogic\GoogleOCR.cs" />
     <Compile Include="OCRLogic\IRecognize.cs" />
+    <Compile Include="OCRLogic\OCRFiredEventArgs.cs" />
+    <Compile Include="OCRLogic\OCRFireHandle.cs" />
     <Compile Include="OCRLogic\Parser.cs" />
     <Compile Include="OCRLogic\TesseractOCR.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+
     <Compile Include="SettingsLogic\RatingAdd.cs" />
     <Compile Include="SettingsLogic\SaveRating.cs" />
     <Compile Include="SettingsLogic\RatingMessage.cs" />
+
+    <Compile Include="RegisterLogic\Register.cs" />
+
     <Compile Include="ShopFromAListLogic\FromList.cs" />
     <Compile Include="Top5Logic\Top5.cs" />
   </ItemGroup>
@@ -379,7 +386,11 @@
     <Content Include="Views\Map\Index.cshtml" />
     <Content Include="Views\Settings\Index.cshtml" />
     <Content Include="Views\Settings\TimeAndDate.cshtml" />
+
     <Content Include="Views\Settings\Ratings.cshtml" />
+
+    <Content Include="Views\Settings\AccountSettings.cshtml" />
+
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -389,6 +400,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+
+    <Folder Include="SettingsLogic\" />
+    <Folder Include="Views\Validation\" />
+
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
