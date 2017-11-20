@@ -343,8 +343,10 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Interfaces\IUserAccountDbContext.cs" />
+    <Compile Include="Models\ListOfRatings.cs" />
     <Compile Include="Models\PurchasedItem.cs" />
     <Compile Include="Models\PurchaseList.cs" />
+    <Compile Include="Models\Shop.cs" />
     <Compile Include="Models\Top5Item.cs" />
     <Compile Include="Models\UserAccount.cs" />
     <Compile Include="Models\UserAccountDbContext.cs" />
@@ -353,6 +355,9 @@
     <Compile Include="OCRLogic\Parser.cs" />
     <Compile Include="OCRLogic\TesseractOCR.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SettingsLogic\RatingAdd.cs" />
+    <Compile Include="SettingsLogic\SaveRating.cs" />
+    <Compile Include="SettingsLogic\RatingMessage.cs" />
     <Compile Include="ShopFromAListLogic\FromList.cs" />
     <Compile Include="Top5Logic\Top5.cs" />
   </ItemGroup>
@@ -374,6 +379,7 @@
     <Content Include="Views\Map\Index.cshtml" />
     <Content Include="Views\Settings\Index.cshtml" />
     <Content Include="Views\Settings\TimeAndDate.cshtml" />
+    <Content Include="Views\Settings\Ratings.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -383,7 +389,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="SettingsLogic\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
