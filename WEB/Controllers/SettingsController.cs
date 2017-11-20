@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using WEB.Interfaces;
 using WEB.Models;
+using WEB.SettingsLogic;
 
 namespace WEB.Controllers
 {
@@ -66,5 +67,48 @@ namespace WEB.Controllers
             }
 
         }
+        public ActionResult Ratings()
+        {
+            ListOfRatings ratings = new ListOfRatings();
+            ratings.list = new List<Ratings>();
+            
+            for(int i = 1; i<=5; i++)
+            {
+                Ratings rateItem = new Ratings();
+                rateItem.rating = i.ToString();
+                rateItem.isChecked = false;
+                ratings.list.Add(rateItem);
+            }
+            
+            return View(ratings);
+        }
+        [HttpPost]
+        public ActionResult Ratings(ListOfRatings listOfRatings)
+        {
+            int ratingAdded =0;
+            string message = "";
+            for(int i = 0; i<5; i++)
+            {
+                if (listOfRatings.list[i].isChecked)
+                {
+                    ratingAdded = i+1;
+                    RatingAdd add = new RatingAdd();
+                    SaveRating counter = new SaveRating(listOfRatings.shopToRate, ratingAdded);
+                    RatingMessage msg = new RatingMessage(listOfRatings.shopToRate);
+                    add.RatingAdded += counter.OnRatingAdded;
+                    add.RatingAdded += msg.OnRatingAdded;
+                    add.Done();
+                    message = msg.ReturnMessage();
+                }
+            }
+            if(ratingAdded ==0)
+            {
+                ViewBag.rezult = "check a box to submit rating";
+            }
+            else
+            ViewBag.rezult = message;
+            return View("Ratings");
+        }
+
     }
 }

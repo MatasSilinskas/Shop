@@ -75,8 +75,10 @@ namespace WEB.Controllers
             {
                 Session["UserID"] = usr.UserID.ToString();
                 Session["Username"] = usr.Username.ToString();
+
                 /*_context.purchasedItem.RemoveRange(_context.purchasedItem);
                 _context.userAccount.RemoveRange(_context.userAccount);
+
                 _context.SaveChanges();
                 */
                 return RedirectToAction("Dashboard");
@@ -111,19 +113,22 @@ namespace WEB.Controllers
         [HttpPost]
         public ActionResult StoreList(PurchaseList purchaseList)
         {
-            if (purchaseList.listOfProducts != null)
-            {
+            try { 
                 var _selectedProducts = purchaseList.listOfProducts.Where(x => x.IsChecked == true).ToList<PurchasedItem>();
                 List<string> list = new List<string>();
                 foreach (var item in _selectedProducts)
                 {
-                    list.Add(item.ItemName);
+                    if(!list.Contains(item.ItemName))
+                    {
+                         list.Add(item.ItemName);
+                    }
+                   
                 }
                 FromList fromList = new FromList(_context, list, DateTime.Now.AddMonths(-1));
                 ViewBag.rezult = fromList.ReturnStoreName();
                 return View("StoreList");
             }
-            else
+            catch(Exception e)
             {
                 ViewBag.rezult = "Please some check boxes to add items to your list";
                 return View("StoreList");
