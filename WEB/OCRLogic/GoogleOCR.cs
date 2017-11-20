@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Diagnostics;
 using Google.Cloud.Vision.V1;
 using Newtonsoft.Json.Linq;
+using System.Configuration;
 
 namespace WEB.OCRLogic
 {
@@ -14,7 +15,8 @@ namespace WEB.OCRLogic
         private static GoogleOCR _detector;
         private GoogleOCR()
         {
-            Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", @"C:\Users\kasparas\Desktop\Universiteto projektai\Shop\WEB\OCRLogic\Recognition-909184a6878c.json");
+           
+            Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", ConfigurationManager.AppSettings["GoogleToken"]);
         }
         public string DoRecognition(byte[] image)
         {

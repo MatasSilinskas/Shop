@@ -16,7 +16,7 @@ namespace WEB.OCRLogic
         public static string pattern = @"\s*-?\d{1,4}\s*,\s*\d{0,3}\s*A\s*$";
         public static string divisionpattern = @"\d{1,3}\s*,\s*\d{0,3}";
         int totalItems;
-        int userid;
+        string _username;
 
         public delegate void OCRdelegate(object sender, OCRFiredEventArgs e);
 
@@ -24,15 +24,15 @@ namespace WEB.OCRLogic
 
         private Parser() { }
 
-        public void CreateProductsFromString(string input, Int32 id)
+        public void CreateProductsFromString(string input, string username)
         {
-           userid = id;
+            _username = username;
            string[] items = input.Split('\n');
            totalItems = items.Length;
 
             try
             {
-                this.CreateItems(items,id);
+                this.CreateItems(items,username);
 
             } catch(SqlException e)
             {
@@ -58,10 +58,12 @@ namespace WEB.OCRLogic
             }
         }
 
-        private void CreateItems(string[] items, int id)
+        private void CreateItems(string[] items, string username)
         {
             using (var db = new UserAccountDbContext())
             {
+                var user = db.userAccount.Where(u => u.Username == username).FirstOrDefault();
+
                 foreach (var item in items)
                 {
                     PurchasedItem purchased = new PurchasedItem();
@@ -73,12 +75,12 @@ namespace WEB.OCRLogic
                     purchased.ShopName = "IKI";
                     purchased.Price = Double.Parse(fixedValue);
                     purchased.Date = DateTime.Now;
-                    purchased.UserId = id;
+                    purchased.UserId = user.UserID;
                     db.purchasedItem.Add(purchased);
                     db.SaveChanges();
 
                 }
-                var user = db.userAccount.Where(u => u.UserID == id).FirstOrDefault();
+               
                 OnOCRFired(this, new OCRFiredEventArgs(totalItems.ToString(), user.Username));
             }
         }

@@ -75,9 +75,10 @@ namespace WEB.Controllers
             {
                 Session["UserID"] = usr.UserID.ToString();
                 Session["Username"] = usr.Username.ToString();
-                _context.purchasedItem.RemoveRange(_context.purchasedItem);
+                /*_context.purchasedItem.RemoveRange(_context.purchasedItem);
                 _context.userAccount.RemoveRange(_context.userAccount);
                 _context.SaveChanges();
+                */
                 return RedirectToAction("Dashboard");
             }
             else

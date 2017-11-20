@@ -29,7 +29,6 @@ namespace WEB.RegisterLogic
             CheckUsername();
             CheckEmail();
 
-            Debug.WriteLine(new JavaScriptSerializer().Serialize(_context));
         }
 
         private void CheckUsername()

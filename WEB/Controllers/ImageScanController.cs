@@ -14,7 +14,7 @@ namespace WEB.Controllers
     {
         public ActionResult TestAjax()
         {
-            
+              
             if (!OCRFireHandle.IsOldUpdate(DateTime.Now) && OCRFireHandle.TimesFired > 0)
             {
                 return Json(OCRFireHandle.GetList, JsonRequestBehavior.AllowGet);
@@ -65,7 +65,7 @@ namespace WEB.Controllers
         public ActionResult ValidatedAnswer(string input)
         {
             Parser.GetParserObject().OCRFired += OCRFireHandle.OCRFiredHandler;
-            Parser.GetParserObject().CreateProductsFromString(input, Convert.ToInt32(HttpContext.Session["UserID"]));
+            Parser.GetParserObject().CreateProductsFromString(input, Convert.ToString(Session["Username"]));
             return RedirectToAction("Index");
         }
     }
