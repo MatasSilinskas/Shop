@@ -19,5 +19,7 @@ namespace WEB.Models
             Database.SetInitializer<UserAccountDbContext>(null);
             base.OnModelCreating(modelBuilder);
         }
+
+        public System.Data.Entity.DbSet<WEB.Models.ForgotPassword> ForgotPasswords { get; set; }
     }
 }

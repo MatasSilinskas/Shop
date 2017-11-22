@@ -9,7 +9,9 @@ using WEB.Interfaces;
 using WEB.Models;
 using WEB.ShopFromAListLogic;
 using WEB.Top5Logic;
-using WEB.RegisterLogic;
+using WEB.RemindPasswordLogic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace WEB.Controllers
 {
@@ -38,13 +40,12 @@ namespace WEB.Controllers
         {
             if (ModelState.IsValid)
             {
-                Register validate = new Register(_context, user.Username, user.Email);
-                if (validate.UsernameExists)
+                if (_context.userAccount.Any(x => x.Username == user.Username))
                 {
                     ModelState.AddModelError("Username", "This Username already exists. Try entering a new one");
                     return View(user);
                 }
-                if (validate.EmailExists)
+                if (_context.userAccount.Any(x => x.Email == user.Email))
                 {
                     ModelState.AddModelError("Email", "This Email already exists. Try entering a new one");
                     return View(user);
@@ -75,6 +76,7 @@ namespace WEB.Controllers
             {
                 Session["UserID"] = usr.UserID.ToString();
                 Session["Username"] = usr.Username.ToString();
+
 
                 /*_context.purchasedItem.RemoveRange(_context.purchasedItem);
                 _context.userAccount.RemoveRange(_context.userAccount);
@@ -113,22 +115,23 @@ namespace WEB.Controllers
         [HttpPost]
         public ActionResult StoreList(PurchaseList purchaseList)
         {
-            try { 
+            try
+            {
                 var _selectedProducts = purchaseList.listOfProducts.Where(x => x.IsChecked == true).ToList<PurchasedItem>();
                 List<string> list = new List<string>();
                 foreach (var item in _selectedProducts)
                 {
-                    if(!list.Contains(item.ItemName))
+                    if (!list.Contains(item.ItemName))
                     {
-                         list.Add(item.ItemName);
+                        list.Add(item.ItemName);
                     }
-                   
+
                 }
                 FromList fromList = new FromList(_context, list, DateTime.Now.AddMonths(-1));
                 ViewBag.rezult = fromList.ReturnStoreName();
                 return View("StoreList");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 ViewBag.rezult = "Please some check boxes to add items to your list";
                 return View("StoreList");
@@ -163,6 +166,37 @@ namespace WEB.Controllers
 
             ViewBag.Price = items.Recommendation.Value;
             return View(items.Items);
+        }
+        public ActionResult RemindPassword()
+        {
+            ViewBag.Alert = "";
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RemindPassword(ForgotPassword forgotPassword)
+        {
+            var user = _context.userAccount.Where(x => x.Email == forgotPassword.Email).FirstOrDefault();
+            if (user == null)
+            {
+                ModelState.AddModelError("Email", "User with this email doesn`t exist. Are you sure you typed it correctly?");
+                return View(forgotPassword);
+            }
+            else
+            {
+                RemindPassword remind = new RemindPassword(_context);
+                remind.SendNewPassword(forgotPassword.Email, user.Username);
+                if(remind.EmailSent)
+                {
+                    ViewBag.Alert = "Message was sent sucessfully!";
+                }
+                else
+                {
+                    ViewBag.Alert = "Some problems occured during message sending. Operation failed :(";
+                }
+                return View(forgotPassword);
+            }
         }
         public ActionResult Logout()
         {
