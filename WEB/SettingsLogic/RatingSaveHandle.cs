@@ -2,30 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using WEB.Interfaces;
 using WEB.Models;
 
 namespace WEB.SettingsLogic
 {
-    public class SaveRating
+    public class RatingSaveHandle
     {
         string _shopName;
         int _rating;
-        double _avg = 0;
-        public SaveRating(string shopName, int rating)
+        private readonly IUserAccountDbContext _context;
+        public RatingSaveHandle(string shopName, int rating, IUserAccountDbContext context)
         {
             _shopName = shopName;
             _rating = rating;
+            _context = context;
         }
         public void OnRatingAdded(object source, EventArgs args)
         {
-            using (UserAccountDbContext db = new UserAccountDbContext())
-            {
                 Shop item = new Shop();
                 item.Rating = _rating;
                 item.ShopName = _shopName;
-                db.shop.Add(item);
-                db.SaveChanges();
-            }
+                _context.shop.Add(item);
+                _context.SaveChanges();
 
         }
     }

@@ -12,6 +12,8 @@ namespace WEB.Models
         [Display(Name = "Date")]
         [DataType(DataType.Date)]
         public DateTime date { get; set; }
+        public string name { get; set; }
+        public double fullPrice { get; set; }
         
     }
 }

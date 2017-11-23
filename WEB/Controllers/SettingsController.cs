@@ -59,13 +59,9 @@ namespace WEB.Controllers
         {
             _date = datemodel.date;
             PurchaseList purchaseList = new PurchaseList();
-            using (UserAccountDbContext db = new UserAccountDbContext())
-            {
-                PurchasedItem purchasedItem = new PurchasedItem();
-                purchaseList.listOfProducts = db.purchasedItem.ToList<PurchasedItem>().Where(x => x.Date >= _date).ToList();
-                return View(purchaseList);
-            }
-
+            PurchasedItem purchasedItem = new PurchasedItem();
+            purchaseList.listOfProducts = _context.purchasedItem.ToList<PurchasedItem>().Where(x => x.Date >= _date).ToList();
+            return View(purchaseList);
         }
         public ActionResult Ratings()
         {
@@ -92,12 +88,12 @@ namespace WEB.Controllers
                 if (listOfRatings.list[i].isChecked)
                 {
                     ratingAdded = i+1;
-                    RatingAdd add = new RatingAdd();
-                    SaveRating counter = new SaveRating(listOfRatings.shopToRate, ratingAdded);
-                    RatingMessage msg = new RatingMessage(listOfRatings.shopToRate);
+                    RatingChosenEvent add = new RatingChosenEvent();
+                    RatingSaveHandle counter = new RatingSaveHandle(listOfRatings.shopToRate, ratingAdded, _context);
+                    RatingMessageHandle msg = new RatingMessageHandle(listOfRatings.shopToRate, _context);
                     add.RatingAdded += counter.OnRatingAdded;
                     add.RatingAdded += msg.OnRatingAdded;
-                    add.Done();
+                    //add.Done();
                     message = msg.ReturnMessage();
                 }
             }

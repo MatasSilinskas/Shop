@@ -8,7 +8,7 @@ using WEB.Models;
 namespace WEB.SettingsLogic
 {
     
-    public class RatingAdd
+    public class RatingChosenEvent
     {
         public delegate void RatingAddedEventHandler(object source, EventArgs args);
         public event RatingAddedEventHandler RatingAdded;   
