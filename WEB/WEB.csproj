@@ -349,6 +349,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Interfaces\IUserAccountDbContext.cs" />
+    <Compile Include="Models\ForgotPassword.cs" />
     <Compile Include="Models\ListOfRatings.cs" />
     <Compile Include="Models\PurchasedItem.cs" />
     <Compile Include="Models\PurchaseList.cs" />
@@ -362,7 +363,11 @@
     <Compile Include="OCRLogic\OCRFireHandle.cs" />
     <Compile Include="OCRLogic\Parser.cs" />
     <Compile Include="OCRLogic\TesseractOCR.cs" />
+    <Compile Include="RemindPasswordLogic\RemindPassword.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SettingsLogic\RatingAdd.cs" />
+    <Compile Include="SettingsLogic\SaveRating.cs" />
+    <Compile Include="SettingsLogic\RatingMessage.cs" />
     <Compile Include="SettingsLogic\RatingChosenEvent.cs" />
     <Compile Include="SettingsLogic\RatingSaveHandle.cs" />
     <Compile Include="SettingsLogic\RatingMessageHandle.cs" />
@@ -390,6 +395,7 @@
     <Content Include="Views\Settings\TimeAndDate.cshtml" />
     <Content Include="Views\Settings\Ratings.cshtml" />
     <Content Include="Views\Settings\AccountSettings.cshtml" />
+    <Content Include="Views\Account\RemindPassword.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
