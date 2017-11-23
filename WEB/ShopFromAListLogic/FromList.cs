@@ -76,17 +76,18 @@ namespace WEB.ShopFromAListLogic
                 _price = Stores.FirstOrDefault(x => x.Value != 0).Value;
             }
         }
-        public string ReturnStoreName()
+        public AnyType ReturnInfo<AnyType>()
         {
             FindCheapestStore();
-            return _name;
+            if (typeof(AnyType) == typeof(string))
+            {
+                return (AnyType)Convert.ChangeType(_name, typeof(AnyType));
+            }
+            else
+            {
+                return (AnyType)Convert.ChangeType(_price, typeof(AnyType));
+            }
         }
-        public double ReturnPrice()
-        {
-            FindCheapestStore();
-            return _price;
-        }
-
     }
 
 }

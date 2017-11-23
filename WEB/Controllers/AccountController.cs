@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -15,6 +15,8 @@ namespace WEB.Controllers
 {
     public class AccountController : Controller
     {
+        DateTime _date;
+        int _userID;
         List<string> list = new List<string>();
         private readonly IUserAccountDbContext _context;
 
@@ -69,7 +71,7 @@ namespace WEB.Controllers
         {
 
             var usr = _context.userAccount.Where(u => u.Username == user.Username && u.Password == user.Password).FirstOrDefault();
-
+            
 
             if (usr != null)
             {
@@ -103,67 +105,32 @@ namespace WEB.Controllers
                 return RedirectToAction("Login");
             }
         }
-        public ActionResult StoreList()
-        {
-            PurchaseList purchaseList = new PurchaseList();
-            purchaseList.listOfProducts = _context.purchasedItem.ToList<PurchasedItem>();
-            return View(purchaseList);
-        }
-
         [HttpPost]
-        public ActionResult StoreList(PurchaseList purchaseList)
+        public ActionResult Dashboard(PurchaseList datemodel, string submitButton)
         {
-            try { 
-                var _selectedProducts = purchaseList.listOfProducts.Where(x => x.IsChecked == true).ToList<PurchasedItem>();
-                List<string> list = new List<string>();
-                foreach (var item in _selectedProducts)
-                {
-                    if(!list.Contains(item.ItemName))
+            _date = datemodel.date;
+            string shopName = datemodel.name;
+            PurchaseList purchaseList = new PurchaseList();
+            PurchasedItem purchasedItem = new PurchasedItem();
+            switch (submitButton)
+            {
+                case "Show My Statement":
+                    purchaseList.fullPrice = 0;
+                    purchaseList.listOfProducts = _context.purchasedItem.ToList<PurchasedItem>().Where(x => x.Date >= _date && x.UserId == Convert.ToInt32(Session["UserID"])).ToList();
+                    foreach(var item in purchaseList.listOfProducts)
                     {
-                         list.Add(item.ItemName);
+                        purchaseList.fullPrice += item.Price; 
                     }
-                   
-                }
-                FromList fromList = new FromList(_context, list, DateTime.Now.AddMonths(-1));
-                ViewBag.rezult = fromList.ReturnStoreName();
-                return View("StoreList");
+                    return View(purchaseList);
+                case "Filter By Shop":
+                    purchaseList.fullPrice = 0;
+                    purchaseList.listOfProducts = _context.purchasedItem.ToList<PurchasedItem>().Where(x => x.Date >= _date && x.ShopName == shopName && x.UserId == Convert.ToInt32(Session["UserID"])).ToList();
+                    return View(purchaseList);
+                default: return View();
             }
-            catch(Exception e)
-            {
-                ViewBag.rezult = "Please some check boxes to add items to your list";
-                return View("StoreList");
-            }
-
         }
-        public ActionResult Top5()
-        {
-
-            /*_context.purchasedItem.Add(new PurchasedItem
-            {
-                Date = new DateTime(2017, 11, 18),
-                ItemName = "Juoda Duona",
-                Price = 0.89,
-                ShopName = "Iki",
-                UserId = Convert.ToInt32(Session["UserID"]),
-                IsChecked = false
-            });
-            _context.SaveChanges();*/
-
-            var items = new Top5(Convert.ToInt32(Session["UserID"]), _context);
-            ViewBag.Warning = items.Warning;
-
-            if (items.Recommendation.Key != null)
-            {
-                ViewBag.Shop = items.Recommendation.Key;
-            }
-            else
-            {
-                ViewBag.Shop = "";
-            }
-
-            ViewBag.Price = items.Recommendation.Value;
-            return View(items.Items);
-        }
+        
+        
         public ActionResult Logout()
         {
             Session.Abandon();

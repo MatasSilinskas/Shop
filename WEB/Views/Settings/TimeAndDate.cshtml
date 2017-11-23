@@ -40,11 +40,13 @@
             <tr></tr>
                     <td>
                         <lable>@Model.listOfProducts[i].ItemName</lable>
+                        <lable>@Model.listOfProducts[i].ShopName</lable>
+                        <lable>@Model.listOfProducts[i].Price</lable>
                         <lable>@Model.listOfProducts[i].Date.ToString("dd/MM/yyyy")</lable>
                     </td>
         }
     </table>
 }
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to Settings", "Index")
 </div>
