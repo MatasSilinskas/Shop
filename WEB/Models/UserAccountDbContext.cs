@@ -13,6 +13,7 @@ namespace WEB.Models
         public DbSet<PurchasedItem> purchasedItem { get; set; }
         public DbSet<Top5Item> top5Item { get; set; }
         public DbSet<Shop> shop { get; set; }
+        public DbSet<Receipt> receipt { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

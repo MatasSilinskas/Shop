@@ -95,7 +95,10 @@ namespace WEB.Controllers
         {
             if (Session["UserID"] != null)
             {
+                int userID = Convert.ToInt32(Session["UserID"]);
                 ViewBag.UserId = Convert.ToInt32(Session["UserID"]);
+                var receipt  = _context.receipt.Where(u => u.UserId == userID).FirstOrDefault();
+                ViewBag.Receipt = receipt;
                 return View();
             }
             else

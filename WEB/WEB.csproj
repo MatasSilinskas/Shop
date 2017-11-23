@@ -368,6 +368,7 @@
     <Compile Include="Models\ListOfRatings.cs" />
     <Compile Include="Models\PurchasedItem.cs" />
     <Compile Include="Models\PurchaseList.cs" />
+    <Compile Include="Models\Receipt.cs" />
     <Compile Include="Models\Shop.cs" />
     <Compile Include="Models\Top5Item.cs" />
     <Compile Include="Models\UserAccount.cs" />
@@ -378,6 +379,7 @@
     <Compile Include="OCRLogic\OCRFiredEventArgs.cs" />
     <Compile Include="OCRLogic\OCRFireHandle.cs" />
     <Compile Include="OCRLogic\Parser.cs" />
+    <Compile Include="OCRLogic\ReceiptCreator.cs" />
     <Compile Include="OCRLogic\TesseractOCR.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SettingsLogic\RatingAdd.cs" />
