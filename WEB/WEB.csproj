@@ -341,9 +341,7 @@
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\StoreListController.cs" />
     <Compile Include="Controllers\Top5Controller.cs" />
-
     <Compile Include="Dashboard\Statement.cs" />
-
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -365,13 +363,9 @@
     <Compile Include="OCRLogic\TesseractOCR.cs" />
     <Compile Include="RemindPasswordLogic\RemindPassword.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SettingsLogic\RatingAdd.cs" />
-    <Compile Include="SettingsLogic\SaveRating.cs" />
-    <Compile Include="SettingsLogic\RatingMessage.cs" />
     <Compile Include="SettingsLogic\RatingChosenEvent.cs" />
     <Compile Include="SettingsLogic\RatingSaveHandle.cs" />
     <Compile Include="SettingsLogic\RatingMessageHandle.cs" />
-    <Compile Include="RegisterLogic\Register.cs" />
     <Compile Include="ShopFromAListLogic\FromList.cs" />
     <Compile Include="Top5Logic\Top5.cs" />
   </ItemGroup>
@@ -405,6 +399,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="RegisterLogic\" />
     <Folder Include="Views\Validation\" />
   </ItemGroup>
   <PropertyGroup>
