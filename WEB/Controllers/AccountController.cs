@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -9,16 +9,23 @@ using WEB.Interfaces;
 using WEB.Models;
 using WEB.ShopFromAListLogic;
 using WEB.Top5Logic;
+
 using WEB.RemindPasswordLogic;
 using System.Threading;
 using System.Threading.Tasks;
+
+using WEB.RegisterLogic;
+using WEB.Dashboard;
+
 
 namespace WEB.Controllers
 {
     public class AccountController : Controller
     {
+        
         List<string> list = new List<string>();
         private readonly IUserAccountDbContext _context;
+        private Lazy<Statement> lazyStatement;
 
         public AccountController(IUserAccountDbContext context)
         {
@@ -70,7 +77,7 @@ namespace WEB.Controllers
         {
 
             var usr = _context.userAccount.Where(u => u.Username == user.Username && u.Password == user.Password).FirstOrDefault();
-
+            
 
             if (usr != null)
             {
@@ -98,6 +105,7 @@ namespace WEB.Controllers
             if (Session["UserID"] != null)
             {
                 ViewBag.UserId = Convert.ToInt32(Session["UserID"]);
+
                 return View();
             }
             else
@@ -105,14 +113,8 @@ namespace WEB.Controllers
                 return RedirectToAction("Login");
             }
         }
-        public ActionResult StoreList()
-        {
-            PurchaseList purchaseList = new PurchaseList();
-            purchaseList.listOfProducts = _context.purchasedItem.ToList<PurchasedItem>();
-            return View(purchaseList);
-        }
-
         [HttpPost]
+
         public ActionResult StoreList(PurchaseList purchaseList)
         {
             try
@@ -139,34 +141,23 @@ namespace WEB.Controllers
 
         }
         public ActionResult Top5()
+
+        public ActionResult Dashboard(PurchaseList datemodel, string submitButton)
+
         {
 
-            /*_context.purchasedItem.Add(new PurchasedItem
+            PurchaseList purchaseList = new PurchaseList();
+            lazyStatement = new Lazy<Statement>(() => new Statement(_context, datemodel.date, datemodel.name));
+            if ((submitButton == "Show My Statement") || (submitButton == "Filter By Shop"))
             {
-                Date = new DateTime(2017, 11, 18),
-                ItemName = "Juoda Duona",
-                Price = 0.89,
-                ShopName = "Iki",
-                UserId = Convert.ToInt32(Session["UserID"]),
-                IsChecked = false
-            });
-            _context.SaveChanges();*/
-
-            var items = new Top5(Convert.ToInt32(Session["UserID"]), _context);
-            ViewBag.Warning = items.Warning;
-
-            if (items.Recommendation.Key != null)
-            {
-                ViewBag.Shop = items.Recommendation.Key;
+                Statement statement = lazyStatement.Value;
+                purchaseList = statement.ShowStatement(submitButton, Convert.ToInt32(Session["UserID"]));
+                return View(purchaseList);
             }
-            else
-            {
-                ViewBag.Shop = "";
-            }
-
-            ViewBag.Price = items.Recommendation.Value;
-            return View(items.Items);
+            else return View();
+ 
         }
+
         public ActionResult RemindPassword()
         {
             ViewBag.Alert = "";
@@ -198,6 +189,10 @@ namespace WEB.Controllers
                 return View(forgotPassword);
             }
         }
+
+        
+        
+
         public ActionResult Logout()
         {
             Session.Abandon();
