@@ -25,11 +25,11 @@ namespace WEB.SettingsLogic
         {
             return _message;
         }
-       public void OnRatingAdded(object source, EventArgs args)
+        public void OnRatingAdded(object source, EventArgs args)
         {
             Count();
-            if (_message== null)
-            _message = "Your rating has been added; " + "Average rating of this shop is: " + _avg.ToString() + "; It has been rated " + _count.ToString() + " times" ;
+            if (_message == null)
+                _message = "Your rating has been added; " + "Average rating of this shop is: " + _avg.ToString() + "; It has been rated " + _count.ToString() + " times";
         }
         public void Count()
         {
@@ -49,7 +49,7 @@ namespace WEB.SettingsLogic
             {
                 _message = "The shop has not been rated yet. Be the first one, slect a rating!";
             }
-            
+
         }
     }
 }

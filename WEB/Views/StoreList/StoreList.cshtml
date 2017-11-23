@@ -22,24 +22,24 @@
                         {
                             @:
                             <tr></tr>
-                                    <td>
-                                        @Html.CheckBoxFor(model => model.listOfProducts[i].IsChecked)
-                                        <lable>@Model.listOfProducts[i].ItemName</lable>
-                                        @Html.HiddenFor(model => model.listOfProducts[i].PurchasedItemId)
-                                        @Html.HiddenFor(model => model.listOfProducts[i].ItemName)
-                                    </td>
+                            <td>
+                                @Html.CheckBoxFor(model => model.listOfProducts[i].IsChecked)
+                                <lable>@Model.listOfProducts[i].ItemName</lable>
+                                @Html.HiddenFor(model => model.listOfProducts[i].PurchasedItemId)
+                                @Html.HiddenFor(model => model.listOfProducts[i].ItemName)
+                            </td>
                         }
                     </table>
-                                <input id="Submit1" type="submit" value="submit" />
+                    <input id="Submit1" type="submit" value="submit" />
                 }
                 <label>The cheapest store for you is: </label>
                 @if (ViewBag.rezult != null)
                 {
                     <h5>@ViewBag.rezult</h5>
-                        @Html.ActionLink(linkText: "View closest recommended shop in google maps",
+                    @Html.ActionLink(linkText: "View closest recommended shop in google maps",
                             actionName: "Index",
                             controllerName: "Map",
-                            routeValues: new { shop = @Html.Raw(ViewBag.rezult) },
+                            routeValues: new { shop = @Html.Raw(ViewBag.Shop) },
                             htmlAttributes: null)
                 }
             </form>

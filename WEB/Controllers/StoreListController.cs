@@ -40,10 +40,11 @@ namespace WEB.Controllers
 
                 }
                 FromList fromList = new FromList(_context, list, DateTime.Now.AddMonths(-1));
-                ViewBag.rezult = fromList.ReturnInfo<string>() + " " + "Final price for your selected items is: " + fromList.ReturnInfo<double>().ToString();
+                ViewBag.rezult = fromList.ReturnInfo<string>() + " Final price for your selected items is: " + fromList.ReturnInfo<double>().ToString();
+                ViewBag.Shop = fromList.ReturnInfo<string>();
                 return View("StoreList");
             }
-            catch (Exception e)
+            catch
             {
                 ViewBag.rezult = "Please some check boxes to add items to your list";
                 return View("StoreList");
