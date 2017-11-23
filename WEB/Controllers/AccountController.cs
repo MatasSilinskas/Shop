@@ -112,7 +112,7 @@ namespace WEB.Controllers
         {
 
             PurchaseList purchaseList = new PurchaseList();
-            lazyStatement = new Lazy<Statement>(() => new Statement(_context, _date, _shopName));
+            lazyStatement = new Lazy<Statement>(() => new Statement(_context, datemodel.date, datemodel.name));
             if ((submitButton == "Show My Statement") || (submitButton == "Filter By Shop"))
             {
                 Statement statement = lazyStatement.Value;
