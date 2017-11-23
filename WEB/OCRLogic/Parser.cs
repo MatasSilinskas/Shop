@@ -12,14 +12,12 @@ namespace WEB.OCRLogic
 {
     public class Parser
     {
+        int totalItems;
+        string _username;
         static Parser _instance;
         public static string pattern = @"\s*-?\d{1,4}\s*,\s*\d{0,3}\s*A\s*$";
         public static string divisionpattern = @"\d{1,3}\s*,\s*\d{0,3}";
-        int totalItems;
-        string _username;
-
         public delegate void OCRdelegate(object sender, OCRFiredEventArgs e);
-
         public event OCRdelegate OCRFired;
 
         private Parser() { }

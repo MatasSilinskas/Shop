@@ -9,6 +9,6 @@ namespace WEB.OCRLogic
 {
     interface IRecognize
     {
-       string DoRecognition(byte[] image);
+       string DoRecognition(Bitmap image);
     }
 }

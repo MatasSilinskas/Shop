@@ -17,42 +17,46 @@ namespace WEB.OCRLogic
 
         private TesseractOCR() { }
 
-        public string DoRecognition(byte[] image)
+        public string DoRecognition(Bitmap image)
         {
             string text = "";
             try
             {
                 using (var engine = new TesseractEngine(@"C:\Users\kasparas\Desktop\Universiteto projektai\Shop\WEB\OCRLogic\tessdata", "eng", EngineMode.Default))
                 {
-                    using (var img = PixConverter.ToPix((Bitmap)Image.FromStream(new MemoryStream(image))))
+                    using (MemoryStream mem = new MemoryStream())
                     {
-                        using (var page = engine.Process(img,PageSegMode.SingleBlock))
+                        image.Save(mem, System.Drawing.Imaging.ImageFormat.Bmp);
+                        using (var img = PixConverter.ToPix((Bitmap)Image.FromStream(mem)))
                         {
-
-                            using (var iterator = page.GetIterator())
+                            using (var page = engine.Process(img, PageSegMode.SingleBlock))
                             {
-                                iterator.Begin();
-                                do
+
+                                using (var iterator = page.GetIterator())
                                 {
+                                    iterator.Begin();
                                     do
                                     {
-
                                         do
                                         {
 
-                                            if (iterator.IsAtBeginningOf(PageIteratorLevel.TextLine))
+                                            do
                                             {
-                                                text += iterator.GetText(PageIteratorLevel.Word);
-                                            }
+
+                                                if (iterator.IsAtBeginningOf(PageIteratorLevel.TextLine))
+                                                {
+                                                    text += iterator.GetText(PageIteratorLevel.Word);
+                                                }
 
 
-                                        } while (iterator.Next(PageIteratorLevel.Word, PageIteratorLevel.Block));
-                                    } while (iterator.Next(PageIteratorLevel.TextLine, PageIteratorLevel.Word));
-                                } while (iterator.Next(PageIteratorLevel.Para, PageIteratorLevel.TextLine));
+                                            } while (iterator.Next(PageIteratorLevel.Word, PageIteratorLevel.Block));
+                                        } while (iterator.Next(PageIteratorLevel.TextLine, PageIteratorLevel.Word));
+                                    } while (iterator.Next(PageIteratorLevel.Para, PageIteratorLevel.TextLine));
+                                }
                             }
+
                         }
-                               
-                     }
+                    }
                     return text;
                 }
           

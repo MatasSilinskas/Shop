@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.IO;
 using WEB.Models;
 using WEB.OCRLogic;
+using System.Drawing;
 using System.Linq.Expressions;
 
 namespace WEB.Controllers
@@ -43,7 +44,7 @@ namespace WEB.Controllers
         {
             if (postedImage != null && postedImage.ContentLength > 0)
             {
-                byte[] image;
+                Bitmap image;
                 using (Stream inputStream = postedImage.InputStream)
                 {
                     MemoryStream memoryStream = inputStream as MemoryStream;
@@ -52,9 +53,19 @@ namespace WEB.Controllers
                         memoryStream = new MemoryStream();
                         inputStream.CopyTo(memoryStream);
                     }
-                    image = memoryStream.ToArray();
+
+                    image = new Bitmap(memoryStream);
                 }
-                return View("Index", (object)GoogleOCR.GetGoogleOCR().DoRecognition(image));
+                if (ImagePreprocessing.GetProcessor().IsValidSize(image))
+                {
+                   
+                    return View("Index", (object)GoogleOCR.GetGoogleOCR().DoRecognition(image));
+                } 
+                else
+                {
+                    Bitmap fixedImage = ImagePreprocessing.GetProcessor().resizeImage(image, 400, 200);
+                    return View("Index", (object)GoogleOCR.GetGoogleOCR().DoRecognition(fixedImage));
+                }
             }
             else
             {
