@@ -93,7 +93,7 @@ namespace WEB.Controllers
                     RatingMessageHandle msg = new RatingMessageHandle(listOfRatings.shopToRate, _context);
                     add.RatingAdded += counter.OnRatingAdded;
                     add.RatingAdded += msg.OnRatingAdded;
-                    add.Done();
+                    //add.Done();
                     message = msg.ReturnMessage();
                 }
             }

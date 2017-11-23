@@ -16,8 +16,7 @@ namespace WEB.Controllers
 {
     public class AccountController : Controller
     {
-        DateTime _date;
-        string _shopName;
+        
         List<string> list = new List<string>();
         private readonly IUserAccountDbContext _context;
         private Lazy<Statement> lazyStatement;
@@ -111,6 +110,7 @@ namespace WEB.Controllers
         [HttpPost]
         public ActionResult Dashboard(PurchaseList datemodel, string submitButton)
         {
+
             PurchaseList purchaseList = new PurchaseList();
             lazyStatement = new Lazy<Statement>(() => new Statement(_context, _date, _shopName));
             if ((submitButton == "Show My Statement") || (submitButton == "Filter By Shop"))
@@ -120,6 +120,7 @@ namespace WEB.Controllers
                 return View(purchaseList);
             }
             else return View();
+ 
         }
         
         
