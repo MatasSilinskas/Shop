@@ -341,6 +341,7 @@
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\StoreListController.cs" />
     <Compile Include="Controllers\Top5Controller.cs" />
+    <Compile Include="Dashboard\Statement.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

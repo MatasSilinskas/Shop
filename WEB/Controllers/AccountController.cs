@@ -10,15 +10,17 @@ using WEB.Models;
 using WEB.ShopFromAListLogic;
 using WEB.Top5Logic;
 using WEB.RegisterLogic;
+using WEB.Dashboard;
 
 namespace WEB.Controllers
 {
     public class AccountController : Controller
     {
         DateTime _date;
-        int _userID;
+        string _shopName;
         List<string> list = new List<string>();
         private readonly IUserAccountDbContext _context;
+        private Lazy<Statement> lazyStatement;
 
         public AccountController(IUserAccountDbContext context)
         {
@@ -98,6 +100,7 @@ namespace WEB.Controllers
             if (Session["UserID"] != null)
             {
                 ViewBag.UserId = Convert.ToInt32(Session["UserID"]);
+
                 return View();
             }
             else
@@ -108,26 +111,15 @@ namespace WEB.Controllers
         [HttpPost]
         public ActionResult Dashboard(PurchaseList datemodel, string submitButton)
         {
-            _date = datemodel.date;
-            string shopName = datemodel.name;
             PurchaseList purchaseList = new PurchaseList();
-            PurchasedItem purchasedItem = new PurchasedItem();
-            switch (submitButton)
+            lazyStatement = new Lazy<Statement>(() => new Statement(_context, _date, _shopName));
+            if ((submitButton == "Show My Statement") || (submitButton == "Filter By Shop"))
             {
-                case "Show My Statement":
-                    purchaseList.fullPrice = 0;
-                    purchaseList.listOfProducts = _context.purchasedItem.ToList<PurchasedItem>().Where(x => x.Date >= _date && x.UserId == Convert.ToInt32(Session["UserID"])).ToList();
-                    foreach(var item in purchaseList.listOfProducts)
-                    {
-                        purchaseList.fullPrice += item.Price; 
-                    }
-                    return View(purchaseList);
-                case "Filter By Shop":
-                    purchaseList.fullPrice = 0;
-                    purchaseList.listOfProducts = _context.purchasedItem.ToList<PurchasedItem>().Where(x => x.Date >= _date && x.ShopName == shopName && x.UserId == Convert.ToInt32(Session["UserID"])).ToList();
-                    return View(purchaseList);
-                default: return View();
+                Statement statement = lazyStatement.Value;
+                purchaseList = statement.ShowStatement(submitButton, Convert.ToInt32(Session["UserID"]));
+                return View(purchaseList);
             }
+            else return View();
         }
         
         
