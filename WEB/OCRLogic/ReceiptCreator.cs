@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Text.RegularExpressions;
 using WEB.Models;
+using System.Configuration;
 using WEB.Interfaces;
 
 namespace WEB.OCRLogic
@@ -13,10 +14,10 @@ namespace WEB.OCRLogic
 
         private static ReceiptCreator _creatorObject;
         private readonly IUserAccountDbContext _context;
-        string _datepattern = @"20[0-9]{2}\s*-[0-1][0-9]\s*-\s*[0-1][0-9]";
-        string _timepattern = @"[0-2][0-9]\s*:\s*[0-5][0-9]\s*:\s*[0-5][0-9]";
-        string _ikipattern = @"(?:\s*UAB\s*PALINK\s*|\s*[iI]{1}[Kk]{1}[iI]{1}\s*)";
-        string _pricepattern = @"-?[0-9]{1,4}\s?,\s?[0-9]{0,2}\s?A\s?";
+        string _datepattern = ConfigurationManager.AppSettings["datepattern"];
+        string _timepattern = ConfigurationManager.AppSettings["timepattern"];
+        string _ikipattern = ConfigurationManager.AppSettings["ikipattern"];
+        string _pricepattern = ConfigurationManager.AppSettings["pricepattern"];
 
         private ReceiptCreator(IUserAccountDbContext context) {
             _context = context;
@@ -26,14 +27,26 @@ namespace WEB.OCRLogic
         {
             Match match = Regex.Match(scannedtext, _datepattern);
             string date = match.Value;
-            return DateTime.Parse(date).Date;
+            try
+            {
+              return DateTime.Parse(date).Date;
+            } catch(FormatException e)
+            {
+                throw new WrongDateException(scannedtext);
+            }
         }
 
         public TimeSpan returnTime(string scannedtext)
         {
             Match match = Regex.Match(scannedtext, _timepattern);
             string time = match.Value;
-            return DateTime.Parse(time).TimeOfDay;
+            try
+            {
+              return DateTime.Parse(time).TimeOfDay;
+            } catch (FormatException e)
+            {
+                throw new WrongTimeException(scannedtext);
+            }
         }
 
         public string returnShop(string scannedtext)
@@ -41,10 +54,11 @@ namespace WEB.OCRLogic
             Match match = Regex.Match(scannedtext, _ikipattern);
             if (match.Length > 0)
             {
-                return "iki";
+                return ConfigurationManager.AppSettings["iki"];
+
             } else
             {
-                return "n\a";
+                throw new WrongShopException(scannedtext);
             }
         }
 
@@ -90,15 +104,9 @@ namespace WEB.OCRLogic
 
         public static ReceiptCreator GetReceiptCreator(IUserAccountDbContext context)
         {
-            if (_creatorObject == null)
-            {
-                _creatorObject = new ReceiptCreator(context);
+
+               _creatorObject = new ReceiptCreator(context);
                 return _creatorObject;
-            }
-            else
-            {
-                return _creatorObject;
-            }
         }
     }
 }

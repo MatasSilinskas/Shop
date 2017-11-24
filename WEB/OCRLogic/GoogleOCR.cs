@@ -8,6 +8,7 @@ using Google.Cloud.Vision.V1;
 using Newtonsoft.Json.Linq;
 using System.Configuration;
 using System.IO;
+using System.Threading.Tasks;
 using System.Drawing.Imaging;
 
 namespace WEB.OCRLogic
@@ -19,10 +20,10 @@ namespace WEB.OCRLogic
         private GoogleOCR()
         {
            
-            Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", ConfigurationManager.AppSettings["GoogleToken"]);
+            Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", System.Web.HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["GoogleToken"]));
         }
 
-            public string DoRecognition(Bitmap image)
+            public async Task<string> DoRecognitionAsync(Bitmap image)
             {
             using (MemoryStream memory = new MemoryStream())
             {
@@ -34,7 +35,7 @@ namespace WEB.OCRLogic
 
                 ImageContext language = new ImageContext();
                 language.LanguageHints.Add("lt");
-                var response = client.DetectDocumentText(imageToScan, language);
+                var response = await client.DetectDocumentTextAsync(imageToScan, language);
 
                 foreach (var page in response.Pages)
                 {

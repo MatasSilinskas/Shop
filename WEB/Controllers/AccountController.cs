@@ -16,7 +16,6 @@ namespace WEB.Controllers
     public class AccountController : Controller
     {
         DateTime _date;
-        int _userID;
         List<string> list = new List<string>();
         private readonly IUserAccountDbContext _context;
 
@@ -78,11 +77,9 @@ namespace WEB.Controllers
                 Session["UserID"] = usr.UserID.ToString();
                 Session["Username"] = usr.Username.ToString();
 
-                /*_context.purchasedItem.RemoveRange(_context.purchasedItem);
-                _context.userAccount.RemoveRange(_context.userAccount);
-
+                _context.purchasedItem.RemoveRange(_context.purchasedItem);
                 _context.SaveChanges();
-                */
+
                 return RedirectToAction("Dashboard");
             }
             else
@@ -99,8 +96,9 @@ namespace WEB.Controllers
             {
                 int userID = Convert.ToInt32(Session["UserID"]);
                 ViewBag.UserId = Convert.ToInt32(Session["UserID"]);
-                var receipt  = _context.receipt.Where(u => u.UserId == userID).FirstOrDefault();
-                ViewBag.Receipt = receipt;
+                ViewBag.Username = Session["Username"];;
+                var receipts = _context.receipt.Where(u => u.UserId == userID);
+                ViewBag.Receipts = receipts;
                 return View();
             }
             else
@@ -115,6 +113,9 @@ namespace WEB.Controllers
             string shopName = datemodel.name;
             PurchaseList purchaseList = new PurchaseList();
             PurchasedItem purchasedItem = new PurchasedItem();
+            int userID = Convert.ToInt32(Session["UserID"]);
+            var receipts = _context.receipt.Where(u => u.UserId == userID);
+            ViewBag.Receipts = receipts;
             switch (submitButton)
             {
                 case "Show My Statement":

@@ -9,6 +9,6 @@ namespace WEB.OCRLogic
 {
     interface IRecognize
     {
-       string DoRecognition(Bitmap image);
+        Task<string> DoRecognitionAsync(Bitmap image);
     }
 }

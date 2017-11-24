@@ -18,7 +18,10 @@ namespace WEB.OCRLogic
 
         public static void OCRFiredHandler(object sender, OCRFiredEventArgs e)
         {
-
+            if (_list.Count > 0)
+            {
+                _list.Clear();
+            }
             _list.Add(e.UserName);
             _list.Add(e.TotalItems);
             _updated = DateTime.Now;
@@ -29,7 +32,7 @@ namespace WEB.OCRLogic
         public static bool IsOldUpdate(DateTime time)
         {
             System.TimeSpan dif = time.Subtract(_updated);
-            if (dif.Seconds > 2)
+            if (dif.Seconds > 1)
             {
                 return true;
             }

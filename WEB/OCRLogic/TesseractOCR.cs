@@ -7,19 +7,20 @@ using Tesseract;
 using System.Collections;
 using System.IO;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace WEB.OCRLogic
 {
-    public class TesseractOCR : IRecognize
+    public class TesseractOCR
     {
 
         static TesseractOCR _ocr;
 
         private TesseractOCR() { }
 
-        public string DoRecognition(Bitmap image)
+        public string DoRecognitionAsync(Bitmap image)
         {
-            string text = "";
+            string text = String.Empty;
             try
             {
                 using (var engine = new TesseractEngine(@"C:\Users\kasparas\Desktop\Universiteto projektai\Shop\WEB\OCRLogic\tessdata", "eng", EngineMode.Default))

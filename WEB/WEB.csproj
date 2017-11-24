@@ -319,6 +319,7 @@
     <Content Include="OCRLogic\tessdata\eng.tesseract_cube.nn" />
     <Content Include="OCRLogic\tessdata\eng.traineddata" />
     <Content Include="OCRLogic\tessdata\lit.traineddata" />
+    <Content Include="Scripts\Chart.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="x64\liblept172.dll">
@@ -383,6 +384,10 @@
     <Compile Include="OCRLogic\Parser.cs" />
     <Compile Include="OCRLogic\ReceiptCreator.cs" />
     <Compile Include="OCRLogic\TesseractOCR.cs" />
+    <Compile Include="OCRLogic\WrongDateException.cs" />
+    <Compile Include="OCRLogic\WrongPriceException.cs" />
+    <Compile Include="OCRLogic\WrongShopException.cs" />
+    <Compile Include="OCRLogic\WrongTimeException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SettingsLogic\RatingChosenEvent.cs" />
     <Compile Include="SettingsLogic\RatingSaveHandle.cs" />
@@ -411,6 +416,7 @@
     <Content Include="Views\Settings\TimeAndDate.cshtml" />
     <Content Include="Views\Settings\Ratings.cshtml" />
     <Content Include="Views\Settings\AccountSettings.cshtml" />
+    <Content Include="Views\Account\Chart.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
