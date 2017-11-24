@@ -119,7 +119,6 @@ namespace WEB.Controllers
             int userID = Convert.ToInt32(Session["UserID"]);
             var receipts = _context.receipt.Where(u => u.UserId == userID);
             ViewBag.Receipts = receipts;
-            switch (submitButton)
             lazyStatement = new Lazy<Statement>(() => new Statement(_context, datemodel.date, datemodel.name));
             if ((submitButton == "Show My Statement") || (submitButton == "Filter By Shop"))
             {
