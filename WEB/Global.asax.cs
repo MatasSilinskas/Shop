@@ -24,23 +24,18 @@ namespace WEB
             GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
-            // Create the container as usual.
             var container = new Container();
             container.Options.DefaultScopedLifestyle = new WebRequestLifestyle();
 
-            // Register your types, for instance:
             container.Register<IUserAccountDbContext, UserAccountDbContext>(Lifestyle.Scoped);
 
-            // This is an extension method from the integration package.
             container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
 
-            // This is an extension method from the integration package as well.
             container.RegisterMvcIntegratedFilterProvider();
 
             container.Verify();
 
             DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
-            // Code that runs on application startup
         }
 
     }

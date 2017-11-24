@@ -7,32 +7,31 @@ using System.Text.RegularExpressions;
 using WEB.Models;
 using System.Data.Entity;
 using System.Data.SqlClient;
+using System.Configuration;
 
 namespace WEB.OCRLogic
 {
     public class Parser
     {
-        static Parser _instance;
-        public static string pattern = @"\s*-?\d{1,4}\s*,\s*\d{0,3}\s*A\s*$";
-        public static string divisionpattern = @"\d{1,3}\s*,\s*\d{0,3}";
         int totalItems;
         string _username;
-
+        static Parser _instance;
+        public static string pattern = ConfigurationManager.AppSettings["pattern"];
+        public static string divisionpattern = ConfigurationManager.AppSettings["divisionpattern"];
         public delegate void OCRdelegate(object sender, OCRFiredEventArgs e);
-
         public event OCRdelegate OCRFired;
 
         private Parser() { }
 
-        public void CreateProductsFromString(string input, string username)
+        public void CreateProductsFromString(Receipt receipt, string username)
         {
             _username = username;
-           string[] items = input.Split('\n');
+           string[] items = receipt.Content.Split('\n');
            totalItems = items.Length;
 
             try
             {
-                this.CreateItems(items,username);
+                this.CreateItems(items,receipt,username);
 
             } catch(SqlException e)
             {
@@ -58,28 +57,39 @@ namespace WEB.OCRLogic
             }
         }
 
-        private void CreateItems(string[] items, string username)
+        private void CreateItems(string[] items, Receipt receipt, string username)
         {
             using (var db = new UserAccountDbContext())
             {
                 var user = db.userAccount.Where(u => u.Username == username).FirstOrDefault();
 
-                foreach (var item in items)
-                {
-                    PurchasedItem purchased = new PurchasedItem();
-                    Match m = Regex.Match(item, pattern);
-                    string[] divided = Regex.Split(item, divisionpattern);
-                    purchased.ItemName = divided[0];
-                    string fixedValue = m.ToString().Replace("A", "").Replace(" ", "").Replace("\r", "");
-                    //Hardcoded for now
-                    purchased.ShopName = "IKI";
-                    purchased.Price = Double.Parse(fixedValue);
-                    purchased.Date = DateTime.Now;
-                    purchased.UserId = user.UserID;
-                    db.purchasedItem.Add(purchased);
-                    db.SaveChanges();
 
-                }
+                    foreach (var item in items)
+                    {
+                    try
+                    {
+                        PurchasedItem purchased = new PurchasedItem();
+                        Match m = Regex.Match(item, pattern);
+                        string[] divided = Regex.Split(item, divisionpattern);
+                        purchased.ItemName = divided[0];
+                        string fixedValue = m.ToString().Replace("A", "").Replace(" ", "").Replace("\r", "").Replace(".", ",");
+                        if (fixedValue.Contains("-"))
+                        {
+                            continue;
+                        }
+                        purchased.ShopName = receipt.ShopName;
+                        purchased.Price = Double.Parse(fixedValue);
+                        purchased.Date = receipt.DatePurchased;
+                        purchased.UserId = user.UserID;
+                        db.purchasedItem.Add(purchased);
+                        db.SaveChanges();
+                    }
+                    catch (FormatException e)
+                    {
+                        throw new WrongPriceException(item);
+                    }
+                    }
+
                
                 OnOCRFired(this, new OCRFiredEventArgs(totalItems.ToString(), user.Username));
             }

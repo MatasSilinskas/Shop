@@ -1,0 +1,64 @@
+﻿@model IQueryable<WEB.Models.Receipt>
+
+@{
+	ViewBag.Title = "Chart";
+	Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+
+<h2 style="display:block;padding:5%;margin:0 auto;text-align:center">Your Scanning Statistics</h2>
+<canvas id="myChart" style="margin-left:-10%;position: relative; height:20vh; width:100vw;display:block"></canvas>
+
+@{Dictionary<int, int> hoursCount = new Dictionary<int, int>();}
+
+@foreach (var receipt in Model)
+{
+	if (hoursCount.ContainsKey(receipt.TimePurchased.Hours))
+	{
+		hoursCount[receipt.TimePurchased.Hours]++;
+	}
+	else
+	{
+		hoursCount.Add(receipt.TimePurchased.Hours, 1);
+	}
+}
+	<script type="text/javascript">
+		var ctx = document.getElementById('myChart').getContext('2d');
+		var chart = new Chart(ctx, {
+			// The type of chart we want to create
+			type: 'bar',
+
+			// The data for our dataset
+			data: {
+				labels: [
+					@for (int i = 0; i < 25; i++) {
+							@Html.Raw(@i.ToString() + ", ")
+						}
+				],
+				datasets: [{
+							label: "Number of times You went shopping",
+					backgroundColor: 'rgb(255, 99, 132)',
+					borderColor: 'rgb(255, 99, 132)',
+					data: [
+				@for (int i = 0; i < 25; i++) {
+					if (hoursCount.ContainsKey(i))
+					{
+						@Html.Raw(hoursCount[i].ToString() + ", ")
+					}
+					else
+					{
+						@Html.Raw(0 + ", ")
+					}
+					}
+					],
+				}]
+			},
+
+			// Configuration options go here
+			options: {
+				title: {
+					display: true,
+					text: 'Your Buying Activity By Day Hours'
+				}
+			}
+		});
+	</script>

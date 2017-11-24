@@ -6,15 +6,25 @@ using System.Web.Mvc;
 using System.IO;
 using WEB.Models;
 using WEB.OCRLogic;
+using WEB.Interfaces;
+using System.Drawing;
+using System.Threading.Tasks;
 using System.Linq.Expressions;
 
 namespace WEB.Controllers
 {
     public class ImageScanController : Controller
     {
-        public ActionResult TestAjax()
+        private readonly IUserAccountDbContext _context;
+
+        public ImageScanController(IUserAccountDbContext context)
         {
-              
+            _context = context;
+        }
+
+        public ActionResult AjaxRequestReceipt()
+        {
+
             if (!OCRFireHandle.IsOldUpdate(DateTime.Now) && OCRFireHandle.TimesFired > 0)
             {
                 return Json(OCRFireHandle.GetList, JsonRequestBehavior.AllowGet);
@@ -25,11 +35,11 @@ namespace WEB.Controllers
             }
         }
 
-        public ActionResult Index(string dummy)
+        public ActionResult Index(string scannedText)
         {
-            if (dummy != null)
+            if (scannedText != null)
             {
-                return View(dummy);
+                return View(scannedText);
             }
             else
             {
@@ -39,11 +49,11 @@ namespace WEB.Controllers
 
 
         [HttpPost]
-        public ActionResult Index(HttpPostedFileBase postedImage)
+        public async Task<ActionResult> Index(HttpPostedFileBase postedImage)
         {
             if (postedImage != null && postedImage.ContentLength > 0)
             {
-                byte[] image;
+                Bitmap image;
                 using (Stream inputStream = postedImage.InputStream)
                 {
                     MemoryStream memoryStream = inputStream as MemoryStream;
@@ -52,9 +62,54 @@ namespace WEB.Controllers
                         memoryStream = new MemoryStream();
                         inputStream.CopyTo(memoryStream);
                     }
-                    image = memoryStream.ToArray();
+
+                    image = new Bitmap(memoryStream);
                 }
-                return View("Index", (object)GoogleOCR.GetGoogleOCR().DoRecognition(image));
+                if (ImagePreprocessing.GetProcessor().IsValidSize(image))
+                {
+                    var scannedResult = await GoogleOCR.GetGoogleOCR().DoRecognitionAsync(image);
+                    try
+                    {
+                        ReceiptCreator.GetReceiptCreator(_context).PutReceipt(scannedResult, Convert.ToInt32(Session["UserID"]));
+                        return View("Index", (object)scannedResult);
+
+                    }
+                    catch (WrongDateException e)
+                    {
+                        return View("Index", (object)("Couldn't detect date!\nInput: " + e.scannedText));
+                    }
+                    catch (WrongTimeException e)
+                    {
+                        return View("Index", (object)("Couldn't detect time!\nInput: " + e.scannedText));
+                    }
+                    catch (WrongShopException e)
+                    {
+                        return View("Index", (object)("Couldn't detect shop!\nInput: " + e.scannedText));
+                    }
+                } 
+                else
+                {
+                    Bitmap fixedImage = ImagePreprocessing.GetProcessor().resizeImage(image, 400, 200);
+                    var scannedResult = await GoogleOCR.GetGoogleOCR().DoRecognitionAsync(fixedImage);
+                    try
+                    {
+                        ReceiptCreator.GetReceiptCreator(_context).PutReceipt(scannedResult, Convert.ToInt32(Session["UserID"]));
+                        return View("Index", (object)scannedResult);
+
+                    }
+                    catch (WrongDateException e)
+                    {
+                        return View("Index", (object)("Couldn't detect date!\nInput: " + e.scannedText));
+                    }
+                    catch (WrongTimeException e)
+                    {
+                        return View("Index", (object)("Couldn't detect time!\nInput: " + e.scannedText));
+                    }
+                    catch (WrongShopException e)
+                    {
+                        return View("Index", (object)("Couldn't detect shop!\nInput: " + e.scannedText));
+                    }
+                }
             }
             else
             {
@@ -64,8 +119,17 @@ namespace WEB.Controllers
 
         public ActionResult ValidatedAnswer(string input)
         {
-            Parser.GetParserObject().OCRFired += OCRFireHandle.OCRFiredHandler;
-            Parser.GetParserObject().CreateProductsFromString(input, Convert.ToString(Session["Username"]));
+            var lastId = _context.receipt.Max(x => x.ReceiptID);
+            var last = _context.receipt.Where(x => x.ReceiptID == lastId).FirstOrDefault();
+            last.Content = input;
+            try
+            {
+                Parser.GetParserObject().OCRFired += OCRFireHandle.OCRFiredHandler;
+                Parser.GetParserObject().CreateProductsFromString(last, Convert.ToString(Session["Username"]));
+            } catch (WrongPriceException e)
+            {
+                return View("Index", (object)("Wrong products format! Input: " + e.Price));
+            }
             return RedirectToAction("Index");
         }
     }

@@ -35,7 +35,10 @@
 
 	using (Html.BeginForm("ValidatedAnswer", "ImageScan", FormMethod.Post, new { id = "uploadOutput" }))
 	{
+		if (!Model.Contains("Couldn't"))
+		{
 		<input type="submit" name="postedOutput" id="verifyoutput" style="display:block;margin:0 auto" value="Verify" /><br>
+		}
 		@Html.TextArea("input", Model, htmlAttributes: new { @cols=60, @rows=20, @style="display:block;margin:0 auto"} )
 		
 

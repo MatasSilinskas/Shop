@@ -17,6 +17,7 @@ namespace WEB.Top5Logic
         private Lazy<KeyValuePair<string, double>> _recommendation;
         public KeyValuePair<string, double> Recommendation => _recommendation.Value;
 
+
         public Top5(int id, IUserAccountDbContext context)
         {
             _context = context;

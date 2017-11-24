@@ -19,7 +19,7 @@ namespace WEB.Controllers
 {
     public class AccountController : Controller
     {
-        
+        DateTime _date;
         List<string> list = new List<string>();
         private readonly IUserAccountDbContext _context;
         private Lazy<Statement> lazyStatement;
@@ -80,6 +80,7 @@ namespace WEB.Controllers
             {
                 Session["UserID"] = usr.UserID.ToString();
                 Session["Username"] = usr.Username.ToString();
+              
                 return RedirectToAction("Dashboard");
             }
             else
@@ -94,7 +95,12 @@ namespace WEB.Controllers
         {
             if (Session["UserID"] != null)
             {
+                int userID = Convert.ToInt32(Session["UserID"]);
                 ViewBag.UserId = Convert.ToInt32(Session["UserID"]);
+
+                ViewBag.Username = Session["Username"];;
+                var receipts = _context.receipt.Where(u => u.UserId == userID);
+                ViewBag.Receipts = receipts;
 
                 return View();
             }
@@ -109,6 +115,11 @@ namespace WEB.Controllers
         {
 
             PurchaseList purchaseList = new PurchaseList();
+            PurchasedItem purchasedItem = new PurchasedItem();
+            int userID = Convert.ToInt32(Session["UserID"]);
+            var receipts = _context.receipt.Where(u => u.UserId == userID);
+            ViewBag.Receipts = receipts;
+            switch (submitButton)
             lazyStatement = new Lazy<Statement>(() => new Statement(_context, datemodel.date, datemodel.name));
             if ((submitButton == "Show My Statement") || (submitButton == "Filter By Shop"))
             {
