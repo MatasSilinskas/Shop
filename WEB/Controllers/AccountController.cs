@@ -9,7 +9,11 @@ using WEB.Interfaces;
 using WEB.Models;
 using WEB.ShopFromAListLogic;
 using WEB.Top5Logic;
-using WEB.RegisterLogic;
+using WEB.RemindPasswordLogic;
+using System.Threading;
+using System.Threading.Tasks;
+using WEB.Dashboard;
+
 
 namespace WEB.Controllers
 {
@@ -18,6 +22,7 @@ namespace WEB.Controllers
         DateTime _date;
         List<string> list = new List<string>();
         private readonly IUserAccountDbContext _context;
+        private Lazy<Statement> lazyStatement;
 
         public AccountController(IUserAccountDbContext context)
         {
@@ -39,13 +44,12 @@ namespace WEB.Controllers
         {
             if (ModelState.IsValid)
             {
-                Register validate = new Register(_context, user.Username, user.Email);
-                if (validate.UsernameExists)
+                if (_context.userAccount.Any(x => x.Username == user.Username))
                 {
                     ModelState.AddModelError("Username", "This Username already exists. Try entering a new one");
                     return View(user);
                 }
-                if (validate.EmailExists)
+                if (_context.userAccount.Any(x => x.Email == user.Email))
                 {
                     ModelState.AddModelError("Email", "This Email already exists. Try entering a new one");
                     return View(user);
@@ -76,10 +80,7 @@ namespace WEB.Controllers
             {
                 Session["UserID"] = usr.UserID.ToString();
                 Session["Username"] = usr.Username.ToString();
-
-                _context.purchasedItem.RemoveRange(_context.purchasedItem);
-                _context.SaveChanges();
-
+              
                 return RedirectToAction("Dashboard");
             }
             else
@@ -96,9 +97,11 @@ namespace WEB.Controllers
             {
                 int userID = Convert.ToInt32(Session["UserID"]);
                 ViewBag.UserId = Convert.ToInt32(Session["UserID"]);
+
                 ViewBag.Username = Session["Username"];;
                 var receipts = _context.receipt.Where(u => u.UserId == userID);
                 ViewBag.Receipts = receipts;
+
                 return View();
             }
             else
@@ -108,33 +111,58 @@ namespace WEB.Controllers
         }
         [HttpPost]
         public ActionResult Dashboard(PurchaseList datemodel, string submitButton)
+
         {
-            _date = datemodel.date;
-            string shopName = datemodel.name;
+
             PurchaseList purchaseList = new PurchaseList();
             PurchasedItem purchasedItem = new PurchasedItem();
             int userID = Convert.ToInt32(Session["UserID"]);
             var receipts = _context.receipt.Where(u => u.UserId == userID);
             ViewBag.Receipts = receipts;
             switch (submitButton)
+            lazyStatement = new Lazy<Statement>(() => new Statement(_context, datemodel.date, datemodel.name));
+            if ((submitButton == "Show My Statement") || (submitButton == "Filter By Shop"))
             {
-                case "Show My Statement":
-                    purchaseList.fullPrice = 0;
-                    purchaseList.listOfProducts = _context.purchasedItem.ToList<PurchasedItem>().Where(x => x.Date >= _date && x.UserId == Convert.ToInt32(Session["UserID"])).ToList();
-                    foreach(var item in purchaseList.listOfProducts)
-                    {
-                        purchaseList.fullPrice += item.Price; 
-                    }
-                    return View(purchaseList);
-                case "Filter By Shop":
-                    purchaseList.fullPrice = 0;
-                    purchaseList.listOfProducts = _context.purchasedItem.ToList<PurchasedItem>().Where(x => x.Date >= _date && x.ShopName == shopName && x.UserId == Convert.ToInt32(Session["UserID"])).ToList();
-                    return View(purchaseList);
-                default: return View();
+                Statement statement = lazyStatement.Value;
+                purchaseList = statement.ShowStatement(submitButton, Convert.ToInt32(Session["UserID"]));
+                return View(purchaseList);
+            }
+            else return View();
+ 
+        }
+
+        public ActionResult RemindPassword()
+        {
+            ViewBag.Alert = "";
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RemindPassword(ForgotPassword forgotPassword)
+        {
+            var user = _context.userAccount.Where(x => x.Email == forgotPassword.Email).FirstOrDefault();
+            if (user == null)
+            {
+                ModelState.AddModelError("Email", "User with this email doesn`t exist. Are you sure you typed it correctly?");
+                return View(forgotPassword);
+            }
+            else
+            {
+                RemindPassword remind = new RemindPassword(_context);
+                remind.SendNewPassword(forgotPassword.Email, user.Username);
+                if(remind.EmailSent)
+                {
+                    ViewBag.Alert = "Message was sent sucessfully!";
+                }
+                else
+                {
+                    ViewBag.Alert = "Some problems occured during message sending. Operation failed :(";
+                }
+                return View(forgotPassword);
             }
         }
-        
-        
+
         public ActionResult Logout()
         {
             Session.Abandon();

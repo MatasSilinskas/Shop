@@ -6,7 +6,6 @@
 
 <h2>Map</h2>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQLXHWQmycLo1SUMT8ddcCx2D2PR81C9U&sensor=false&libraries=places"></script>
-<script> string ah = '@ViewBag.Shop' </script>
 <script type="text/javascript">
     var map;
     var infowindow;
@@ -37,6 +36,7 @@
             radius: 800,
             name: [shop]
         };
+       
         infowindow = new google.maps.InfoWindow();
         var service = new google.maps.places.PlacesService(map);
         service.nearbySearch(request, callback);
