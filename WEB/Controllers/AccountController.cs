@@ -111,9 +111,7 @@ namespace WEB.Controllers
         }
         [HttpPost]
         public ActionResult Dashboard(PurchaseList datemodel, string submitButton)
-
         {
-
             PurchaseList purchaseList = new PurchaseList();
             PurchasedItem purchasedItem = new PurchasedItem();
             int userID = Convert.ToInt32(Session["UserID"]);
