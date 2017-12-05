@@ -4,46 +4,110 @@
     ViewBag.Title = "StoreList";
     Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
 }
-@using (Html.BeginForm())
-{
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-            <a href="#">Dashboard</a>
-        </li>
-        <li class="breadcrumb-item active">Custom Shop List</li>
-    </ol>
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-            <form class="form-inline my-2 my-lg-0 mr-lg-2">
-                @if (Model != null)
-                {
-                    <table>
-                        @for (int i = 0; i < Model.listOfProducts.Count; i++)
-                        {
-                            @:
-                            <tr></tr>
-                            <td>
-                                @Html.CheckBoxFor(model => model.listOfProducts[i].IsChecked)
-                                <lable>@Model.listOfProducts[i].ItemName</lable>
-                                @Html.HiddenFor(model => model.listOfProducts[i].PurchasedItemId)
-                                @Html.HiddenFor(model => model.listOfProducts[i].ItemName)
-                            </td>
-                        }
-                    </table>
-                    <input id="Submit1" type="submit" value="submit" />
-                }
-                <label>The cheapest store for you is: </label>
-                @if (ViewBag.rezult != null)
-                {
-                    <h5>@ViewBag.rezult</h5>
-                    @Html.ActionLink(linkText: "View closest recommended shop in google maps",
-                            actionName: "Index",
-                            controllerName: "Map",
-                            routeValues: new { shop = @Html.Raw(ViewBag.Shop) },
-                            htmlAttributes: null)
-                }
-            </form>
-        </li>
-    </ol>
 
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a href="#">Dashboard</a>
+    </li>
+    <li class="breadcrumb-item active">Custom Shop List</li>
+</ol>
+
+@using (Html.BeginForm("StoreList", "StoreList"))
+{
+    <form id="myForm" class="form-inline my-2 my-lg-0 mr-lg-2">
+        @if (Model != null)
+        {
+            <div class="pull-right">
+                <table>
+                    <tr>
+                        <th>
+                            @Html.TextBox("Search", null, new { @class = "form-control", placeholder = "Type the name of an item here...", style = "width:270px" })
+
+                        </th>
+                        <th>
+                            <a href="@Url.Action("Search")" data-form-method="post">
+                                <input type="button" value="Search" class="btn btn-info ml-1" />
+                            </a>
+                        </th>
+                    </tr>
+                </table>
+            </div>
+            <table class="table">
+                <tr>
+                    <th>
+                        Check
+                    </th>
+                    <th>
+                        Item
+                    </th>
+                </tr>
+                @for (int i = 0; i < Model.listOfProducts.Count; i++)
+                    {
+                    <tr>
+                        <td>
+                            @Html.CheckBoxFor(model => model.listOfProducts[i].IsChecked)
+                        </td>
+                        <td>
+                            @Model.listOfProducts[i].ItemName
+                            @Html.HiddenFor(model => model.listOfProducts[i].PurchasedItemId)
+                            @Html.HiddenFor(model => model.listOfProducts[i].ItemName)
+                        </td>
+                    </tr>
+                }
+            </table>
+            <div class="row-fluid text-center">
+                <div class="span12">
+                    @if (ViewBag.Page > 0)
+                    {
+                        <div class="pull-left">
+                            <a href="@Url.Action("PreviousPage")" data-form-method="post"
+                               class="btn btn-default inline">
+                                &laquo; Prev
+                            </a>
+                        </div>
+                    }
+
+                    <label class="inline">@(ViewBag.Page + 1) page out of @(ViewBag.MaxPage + 1)</label>
+
+                    @if (ViewBag.Page < ViewBag.MaxPage)
+                    {
+                        <div class="pull-right">
+                            <a href="@Url.Action("NextPage")" data-form-method="post"
+                               class="btn btn-default inline">
+                                Next &raquo;
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+            <p style="padding-top: 18px">
+                <input type="submit" value="Calculate the chepeaset shop" class="btn btn-info" />
+            </p>
+        }
+        @if (ViewBag.rezult != null)
+        {
+            <h5>@ViewBag.rezult</h5>
+            if (ViewBag.Shop != null)
+            {
+                @Html.ActionLink(linkText: "View closest recommended shop in google maps",
+                        actionName: "Index",
+                        controllerName: "Map",
+                        routeValues: new { shop = @Html.Raw(ViewBag.Shop) },
+                        htmlAttributes: null)
+            }
+        }
+    </form>
 }
+<script>
+    $("a[data-form-method='post']").click(function (event) {
+        event.preventDefault();
+        var element = $(this);
+        var action = element.attr("href");
+        element.closest("form").each(function () {
+            var form = $(this);
+            form.attr("action", action);
+            form.submit();
+        });
+    });
+</script>
