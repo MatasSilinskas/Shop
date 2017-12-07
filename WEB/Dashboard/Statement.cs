@@ -9,42 +9,44 @@ namespace WEB.Dashboard
 {
     public class Statement
     {
-        DateTime _date;
-        string _shopName;
+        private int _userID;
+        private DateTime _date;
+        private string _shopName;
         private readonly IUserAccountDbContext _context;
-        public Statement(IUserAccountDbContext context, DateTime date, string shopName)
+        public Statement(IUserAccountDbContext context, DateTime date, string shopName, int userID)
         {
+            _userID = userID;
             _date = date;
             _shopName = shopName;
             _context = context;
         }
-        public PurchaseList ShowStatement(string submitButton, int UserID)
+        private PurchaseList CalculatePrice(PurchaseList purchaseList)
         {
-            PurchaseList purchaseList = new PurchaseList();
-            PurchasedItem purchasedItem = new PurchasedItem();
-            switch (submitButton)
+            purchaseList.fullPrice = 0;
+            purchaseList.date = _date;
+            purchaseList.listOfProducts.ForEach(item => purchaseList.fullPrice += item.Price);
+            return (purchaseList);
+        }
+
+        public PurchaseList FilterByShop()
+        {
+            PurchaseList purchaseList = new PurchaseList
             {
-                case "Show My Statement":
-                    purchaseList.fullPrice = 0;
-                    purchaseList.listOfProducts = _context.purchasedItem.ToList<PurchasedItem>().Where(x => x.Date >= _date && x.UserId == UserID).ToList();
-                    foreach (var item in purchaseList.listOfProducts)
-                    {
-                        purchaseList.fullPrice += item.Price;
-                    }
-                    return (purchaseList);
-                case "Filter By Shop":
-                    purchaseList.fullPrice = 0;
-                    purchaseList.listOfProducts = _context.purchasedItem.ToList<PurchasedItem>().Where(x => x.Date >= _date && x.ShopName == _shopName && x.UserId == UserID).ToList();
-                    foreach (var item in purchaseList.listOfProducts)
-                    {
-                        purchaseList.fullPrice += item.Price;
-                    }
-                    return (purchaseList);
-                default: return(purchaseList);
-            }
+                listOfProducts = _context.purchasedItem.ToList<PurchasedItem>()
+                    .Where(x => x.Date >= _date && x.ShopName == _shopName && x.UserId == _userID)
+                    .ToList()
+            };
+            return CalculatePrice(purchaseList);
+        }
+        public PurchaseList FilterByDate()
+        {
+            PurchaseList purchaseList = new PurchaseList
+            {
+                listOfProducts = _context.purchasedItem.ToList<PurchasedItem>()
+                    .Where(x => x.Date >= _date && x.UserId == _userID)
+                    .ToList()
+            };
+            return CalculatePrice(purchaseList);
         }
     }
-
 }
-
-  

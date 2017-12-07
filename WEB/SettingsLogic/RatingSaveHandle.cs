@@ -20,12 +20,13 @@ namespace WEB.SettingsLogic
         }
         public void OnRatingAdded(object source, EventArgs args)
         {
-            Shop item = new Shop();
-            item.Rating = _rating;
-            item.ShopName = _shopName;
+            Shop item = new Shop
+            {
+                Rating = _rating,
+                ShopName = _shopName
+            };
             _context.shop.Add(item);
             _context.SaveChanges();
-
         }
     }
 }

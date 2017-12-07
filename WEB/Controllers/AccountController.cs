@@ -19,10 +19,8 @@ namespace WEB.Controllers
 {
     public class AccountController : Controller
     {
-        DateTime _date;
         List<string> list = new List<string>();
         private readonly IUserAccountDbContext _context;
-        private Lazy<Statement> lazyStatement;
 
         public AccountController(IUserAccountDbContext context)
         {
@@ -72,60 +70,20 @@ namespace WEB.Controllers
         [HttpPost]
         public ActionResult Login(UserAccount user)
         {
-
             var usr = _context.userAccount.Where(u => u.Username == user.Username && u.Password == user.Password).FirstOrDefault();
             
-
             if (usr != null)
             {
                 Session["UserID"] = usr.UserID.ToString();
                 Session["Username"] = usr.Username.ToString();
               
-                return RedirectToAction("Dashboard");
+                return RedirectToAction("Dashboard", "Dashboard");
             }
             else
             {
                 ModelState.AddModelError("", "Bad Login Credentials");
                 return View();
             }
-
-        }
-
-        public ActionResult Dashboard()
-        {
-            if (Session["UserID"] != null)
-            {
-                int userID = Convert.ToInt32(Session["UserID"]);
-                ViewBag.UserId = Convert.ToInt32(Session["UserID"]);
-
-                ViewBag.Username = Session["Username"];;
-                var receipts = _context.receipt.Where(u => u.UserId == userID);
-                ViewBag.Receipts = receipts;
-
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("Login");
-            }
-        }
-        [HttpPost]
-        public ActionResult Dashboard(PurchaseList datemodel, string submitButton)
-        {
-            PurchaseList purchaseList = new PurchaseList();
-            PurchasedItem purchasedItem = new PurchasedItem();
-            int userID = Convert.ToInt32(Session["UserID"]);
-            var receipts = _context.receipt.Where(u => u.UserId == userID);
-            ViewBag.Receipts = receipts;
-            lazyStatement = new Lazy<Statement>(() => new Statement(_context, datemodel.date, datemodel.name));
-            if ((submitButton == "Show My Statement") || (submitButton == "Filter By Shop"))
-            {
-                Statement statement = lazyStatement.Value;
-                purchaseList = statement.ShowStatement(submitButton, Convert.ToInt32(Session["UserID"]));
-                return View(purchaseList);
-            }
-            else return View();
- 
         }
 
         public ActionResult RemindPassword()

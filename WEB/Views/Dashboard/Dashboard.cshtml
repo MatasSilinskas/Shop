@@ -1,0 +1,107 @@
+﻿@model WEB.Models.PurchaseList
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+
+@using PagedList;
+@using PagedList.Mvc;
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a href="#">Dashboard</a>
+    </li>
+    <li class="breadcrumb-item active">Dashboard</li>
+</ol>
+
+
+<h2 style="padding:20px">Welcome, @ViewBag.Username</h2>
+
+@using (Html.BeginForm("FilterByShop", "Dashboard"))
+            {
+    <table class="table border-0">
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.date)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.date, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.date)
+            </td>
+            <td>
+                <a href="@Url.Action("FilterByDate")" data-form-method="post">
+                    <input type="button" value="Show my statement" class="btn btn-info" />
+                </a>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.name)
+            </td>
+            <td>
+                @Html.DropDownListFor(model => model.name, new SelectList(ViewBag.Shops), (string)ViewBag.SelectedShop, new { @class = "form-control" })
+            </td>
+            <td>
+                <input type="submit" name="submitButton" value="Filter by shop" class="btn btn-info" />
+            </td>
+        </tr>
+    </table>
+
+    if (Model != null)
+    {
+        <h3>Your full expenses: @Model.fullPrice</h3>
+
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.listOfProducts.First().ItemName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.listOfProducts.First().ShopName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.listOfProducts.First().Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.listOfProducts.First().Date)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in ViewBag.OnePageOfProducts)
+            {
+                <tr>
+                    <td>
+                        @item.ItemName
+                    </td>
+                    <td>
+                        @item.ShopName
+                    </td>
+                    <td>
+                        @item.Price
+                    </td>
+                    <td>
+                        @item.Date
+                    </td>
+                </tr>
+            }
+
+        </table>
+        @Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("Pages", new { page = page }))
+    }
+}
+@Html.Partial("Chart", (object)ViewBag.receipts);
+
+<script>
+    $("a[data-form-method='post']").click(function (event) {
+        event.preventDefault();
+        var element = $(this);
+        var action = element.attr("href");
+        element.closest("form").each(function () {
+            var form = $(this);
+            form.attr("action", action);
+            form.submit();
+        });
+    });
+</script>

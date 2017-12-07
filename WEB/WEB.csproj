@@ -121,6 +121,9 @@
     <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
     </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="SimpleInjector, Version=4.0.12.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
       <HintPath>..\packages\SimpleInjector.4.0.12\lib\net45\SimpleInjector.dll</HintPath>
     </Reference>
@@ -247,6 +250,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\images\scan_button.jpg" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\sb-admin.css" />
     <Content Include="Content\sb-admin.min.css" />
     <Content Include="Content\Site.css" />
@@ -364,6 +368,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\ImageScanController.cs" />
     <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
@@ -413,19 +418,18 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Dashboard.cshtml" />
+    <Content Include="Views\Dashboard\Dashboard.cshtml" />
     <Content Include="Views\Shared\_LayoutDashboard.cshtml" />
     <Content Include="Views\Account\Scan.cshtml" />
     <Content Include="Views\ImageScan\Index.cshtml" />
     <Content Include="Views\Top5\Top5.cshtml" />
-    <Content Include="Views\Account\View.cshtml" />
     <Content Include="Views\StoreList\StoreList.cshtml" />
     <Content Include="Views\Map\Index.cshtml" />
     <Content Include="Views\Settings\Index.cshtml" />
     <Content Include="Views\Settings\TimeAndDate.cshtml" />
     <Content Include="Views\Settings\Ratings.cshtml" />
     <Content Include="Views\Settings\AccountSettings.cshtml" />
-    <Content Include="Views\Account\Chart.cshtml" />
+    <Content Include="Views\Dashboard\Chart.cshtml" />
     <Content Include="Views\Account\RemindPassword.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
