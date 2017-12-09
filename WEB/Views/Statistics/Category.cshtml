@@ -1,0 +1,43 @@
+﻿@model IEnumerable<WEB.Models.PurchasedItem>
+
+@{
+    var categoryAndPrice = new Dictionary<string, double>();
+    foreach (var item in ViewBag.Categories)
+    {
+        double sum = Model.Where(x => x.Category == item).Sum(x => x.Price);
+        if (sum != 0)
+        {
+            categoryAndPrice.Add(item, sum);
+        }
+    }
+}
+<div id="categoryChart" style="width: 45%; height: 300px;display: inline-block;"></div>
+
+<script type="text/javascript">
+    var chart = new CanvasJS.Chart("categoryChart", {
+        title: {
+            text: "Money spent on each item category"
+        },
+        animationEnabled: true,
+        theme: "theme2",
+        data: [
+            {
+                type: "pie",
+                indexLabelFontFamily: "Garamond",
+                indexLabelFontSize: 20,
+                indexLabel: "{label} {y}",
+                startAngle: -20,
+                dataPoints: [
+                    @foreach (var item in categoryAndPrice)
+                    {
+                        <text>
+                            { y:  @Html.Raw(Json.Encode(item.Value)), label: '@item.Key' },
+                        </text>
+                    }
+                ]
+            }
+        ]
+    });
+
+    chart.render();
+</script>

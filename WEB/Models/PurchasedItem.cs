@@ -27,6 +27,12 @@ namespace WEB.Models
 
         public int UserId { get; set; }
 
+        public string Category { get; set; }
+
+        public string Contains { get; set; }
+
+        public bool? IsHealthy { get; set; }
+
         public virtual UserAccount User { get; set; }
     }
     

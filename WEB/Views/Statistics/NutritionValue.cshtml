@@ -1,0 +1,52 @@
+﻿@model IEnumerable<WEB.Models.PurchasedItem>
+
+@{
+    var nutritionAndCount = new Dictionary<string, double>();
+    int all = 0;
+
+    foreach (var item in ViewBag.Nutrition)
+    {
+        all += Model.Where(x => x.Contains.Contains(item)).Count();
+    }
+
+    foreach (var item in ViewBag.Nutrition)
+    {
+        int count = Model.Where(x => x.Contains.Contains(item)).Count();
+        if (count != 0)
+        {
+            double percentage = 100 * count / all;
+            nutritionAndCount.Add(item, percentage);
+        }
+    }
+}
+
+<div id="nutritionChart" style="width: 45%; height: 300px;display: inline-block;"></div>
+
+<script type="text/javascript">
+    var chart = new CanvasJS.Chart("nutritionChart", {
+        title: {
+            text: "Nutrition value of your food"
+        },
+        animationEnabled: true,
+        theme: "theme2",
+        data: [
+            {
+                type: "pie",
+                indexLabelFontFamily: "Garamond",
+                indexLabelFontSize: 20,
+                indexLabel: "{label} {y}%",
+                startAngle: -20,
+                dataPoints: [
+                    @foreach (var item in nutritionAndCount)
+                    {
+                        <text>
+                            { y: @Html.Raw(Json.Encode(item.Value)), label: '@item.Key' },
+                        </text>
+                    }
+                ]
+            }
+        ]
+    });
+
+    chart.render();
+</script>

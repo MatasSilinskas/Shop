@@ -89,5 +89,4 @@ namespace WEB.ShopFromAListLogic
             }
         }
     }
-
 }
