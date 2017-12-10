@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Web;
@@ -26,9 +27,9 @@ namespace WEB.Controllers
             return View();
         }
         public ActionResult AccountSettings()
-        {
+        {           
             int id = Convert.ToInt32(Session["UserID"]);
-            var user = _context.userAccount.Where(x => x.UserID == id).FirstOrDefault();
+            var user = _context.userAccount.SqlQuery("SELECT * FROM dbo.UserAccounts WHERE UserID=" + id).FirstOrDefault();
             return View(user);
         }
 

@@ -123,5 +123,15 @@ namespace WEB.Controllers
             Session.Abandon();
             return RedirectToAction("Login");
         }
+
+        public ActionResult Delete()
+        {
+            int id = Convert.ToInt32(Session["UserID"]);
+            _context.Database.ExecuteSqlCommand("DELETE FROM dbo.UserAccounts WHERE UserID=" + id);
+            _context.Database.ExecuteSqlCommand("DELETE FROM dbo.PurchasedItems WHERE UserId=" + id);
+            _context.Database.ExecuteSqlCommand("DELETE FROM dbo.Receipts WHERE UserId=" + id);
+            return RedirectToAction("Logout");
+
+        }
     }
 }

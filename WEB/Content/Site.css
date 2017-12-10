@@ -16,3 +16,12 @@ textarea {
     max-width: 280px;
 }
 
+.head_menu {
+    display: none;
+    width: auto;
+    position: absolute;
+    top: 30px;
+    padding: 0px;
+    margin: 0px;
+    right: -15px;
+}

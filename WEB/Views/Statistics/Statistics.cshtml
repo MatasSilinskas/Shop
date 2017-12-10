@@ -7,14 +7,16 @@
 
 <!DOCTYPE html>
 
+<h2 style="padding:20px" class="text-center">Statistics of your bought items</h2>
+
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </head>
 <body>
-    @Html.Partial("Category", Model);
-    @Html.Partial("Health", Model);
-    @Html.Partial("NutritionValue", Model);
+    @Html.Partial("Category", Model)
+    @Html.Partial("Health", Model)
+    @Html.Partial("NutritionValue", Model)
 </body>
 </html>

@@ -16,6 +16,8 @@ namespace WEB.Interfaces
         DbSet<Top5Item> top5Item { get; set; }
         DbSet<Shop> shop { get; set; }
         DbSet<Receipt> receipt { get; set; }
+        Database Database { get; }
+
         int SaveChanges();
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }

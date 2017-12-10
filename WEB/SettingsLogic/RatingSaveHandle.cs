@@ -20,12 +20,13 @@ namespace WEB.SettingsLogic
         }
         public void OnRatingAdded(object source, EventArgs args)
         {
-            Shop item = new Shop
+            /*Shop item = new Shop
             {
                 Rating = _rating,
                 ShopName = _shopName
-            };
-            _context.shop.Add(item);
+            };*/
+            //_context.shop.Add(item);
+            _context.Database.ExecuteSqlCommand("INSERT INTO dbo.Shops (ShopName, Rating) VALUES ('"+ _shopName + "', " + _rating + ")");
             _context.SaveChanges();
         }
     }
