@@ -1,0 +1,33 @@
+﻿@model IEnumerable<WEB.Models.PurchasedItem>
+
+@{
+    int healthy = Model.Where(x => x.IsHealthy == true).Count();
+    int all = Model.Where(x => x.IsHealthy != null).Count();
+    double healthPercentage = 100 * healthy / all;
+}
+
+<div id="healthChart" style="width: 45%; height: 300px;display: inline-block;"></div><br/>
+
+<script type="text/javascript">
+    var chart2 = new CanvasJS.Chart("healthChart", {
+        title: {
+            text: "Percentage of items that are healthy"
+        },
+        animationEnabled: true,
+        theme: "theme2",
+        data: [
+            {
+                type: "pie",
+                indexLabelFontFamily: "Garamond",
+                indexLabelFontSize: 20,
+                indexLabel: "{label} {y}%",
+                startAngle: -20,
+                dataPoints: [
+                    { y:  @Html.Raw(Json.Encode(healthPercentage)), label: "Sveiki produktai" },
+                    { y:  100 - @Html.Raw(Json.Encode(healthPercentage)), label: "Nesveiki produktai"}
+                ]
+            }
+        ]
+    });
+    chart2.render();
+</script>

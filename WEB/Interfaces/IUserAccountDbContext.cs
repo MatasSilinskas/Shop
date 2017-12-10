@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -17,6 +17,7 @@ namespace WEB.Interfaces
         DbSet<Shop> shop { get; set; }
         DbSet<Receipt> receipt { get; set; }
         DbSet<Discounts> discounts { get; set; }
+        Database Database { get; }
         int SaveChanges();
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }

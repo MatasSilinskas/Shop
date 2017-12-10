@@ -19,9 +19,15 @@ namespace WEB.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             Database.SetInitializer<UserAccountDbContext>(null);
+            modelBuilder.Entity<UserAccount>().ToTable("dbo.UserAccounts");
+            modelBuilder.Entity<PurchasedItem>().ToTable("dbo.PurchasedItems");
+            modelBuilder.Entity<Receipt>().ToTable("dbo.Receipts");
+            modelBuilder.Entity<Shop>().ToTable("dbo.Shops");
             base.OnModelCreating(modelBuilder);
         }
 
         public System.Data.Entity.DbSet<WEB.Models.ForgotPassword> ForgotPasswords { get; set; }
+
+        
     }
 }

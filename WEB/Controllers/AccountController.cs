@@ -19,10 +19,8 @@ namespace WEB.Controllers
 {
     public class AccountController : Controller
     {
-        DateTime _date;
         List<string> list = new List<string>();
         private readonly IUserAccountDbContext _context;
-        private Lazy<Statement> lazyStatement;
 
         public AccountController(IUserAccountDbContext context)
         {
@@ -108,9 +106,10 @@ namespace WEB.Controllers
 
             if (usr1 != null)
             {
-                Session["UserID"] = usr1.UserID.ToString();
-                Session["Username"] = usr1.Username.ToString();
-                return RedirectToAction("Dashboard");
+                Session["UserID"] = usr.UserID.ToString();
+                Session["Username"] = usr.Username.ToString();
+              
+                return RedirectToAction("Dashboard", "Dashboard");
             }
             else
             {
@@ -125,6 +124,7 @@ namespace WEB.Controllers
                 ModelState.AddModelError("", "Bad Login Credentials");
                 return View();
             }
+
 
         }
         public ActionResult ShopDashboard()
@@ -178,7 +178,7 @@ namespace WEB.Controllers
                 return View(purchaseList);
             }
             else return View();
- 
+
         }
 
         public ActionResult RemindPassword()
@@ -217,6 +217,16 @@ namespace WEB.Controllers
         {
             Session.Abandon();
             return RedirectToAction("Login");
+        }
+
+        public ActionResult Delete()
+        {
+            int id = Convert.ToInt32(Session["UserID"]);
+            _context.Database.ExecuteSqlCommand("DELETE FROM dbo.UserAccounts WHERE UserID=" + id);
+            _context.Database.ExecuteSqlCommand("DELETE FROM dbo.PurchasedItems WHERE UserId=" + id);
+            _context.Database.ExecuteSqlCommand("DELETE FROM dbo.Receipts WHERE UserId=" + id);
+            return RedirectToAction("Logout");
+
         }
     }
 }
