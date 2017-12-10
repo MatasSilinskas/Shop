@@ -25,13 +25,13 @@ namespace WEB.ShopFromAListLogic
         }
         public void AssignStoresAndPrices()
         {
-                foreach (var item in _context.purchasedItem)
+            foreach (var item in _context.purchasedItem)
+            {
+                if (!Stores.ContainsKey(item.ShopName))
                 {
-                    if (!Stores.ContainsKey(item.ShopName))
-                    {
-                        Stores.Add(item.ShopName, CalculatePrice(item.ShopName));
-                    }
+                    Stores.Add(item.ShopName, CalculatePrice(item.ShopName));
                 }
+            }
         }
         public double CalculatePrice(string store)
         {
@@ -41,18 +41,18 @@ namespace WEB.ShopFromAListLogic
             int count = _itemsFromList.Count();
             List<string> items = new List<string>(_itemsFromList);
 
-                foreach (var item in _context.purchasedItem)
+            foreach (var item in _context.purchasedItem)
+            {
+                if ((store == item.ShopName) && (items.Contains(item.ItemName)) && (_date <= item.Date))
                 {
-                    if ((store == item.ShopName) && (items.Contains(item.ItemName)) && (_date <= item.Date))
-                    {
-                        price += item.Price;
-                        foundItemsInStore++;
-                        items.Remove(item.ItemName);
-                    }
+                    price += item.Price;
+                    foundItemsInStore++;
+                    items.Remove(item.ItemName);
                 }
-                if (count == foundItemsInStore)
-                    return price;
-                else return 0;
+            }
+            if (count == foundItemsInStore)
+                return price;
+            else return 0;
 
         }
         public void FindCheapestStore()
@@ -89,5 +89,4 @@ namespace WEB.ShopFromAListLogic
             }
         }
     }
-
 }

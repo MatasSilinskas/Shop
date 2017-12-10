@@ -1,0 +1,76 @@
+﻿@model IEnumerable<WEB.Models.Discounts>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutShopDashboard.cshtml";
+}
+
+<h2>Manage discounts</h2>
+@using (Html.BeginForm())
+{
+
+<p>
+    <div class="col-md-offset-2 col-md-10">
+        @Html.ActionLink("Show all discounts", "Manage") |
+        @Html.ActionLink("Show current discounts", "ManageToday")
+    </div>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Discount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PriceBefore)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PriceAfter)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MoreInfo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ItemName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Discount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PriceBefore)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PriceAfter)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateCreated.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MoreInfo)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.ItemId }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ItemId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ItemId })
+        </td>
+    </tr>
+}
+
+</table>
+}

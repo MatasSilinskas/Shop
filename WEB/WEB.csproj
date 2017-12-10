@@ -364,6 +364,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DiscountController.cs" />
     <Compile Include="Controllers\ImageScanController.cs" />
     <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
@@ -375,6 +376,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Interfaces\IUserAccountDbContext.cs" />
+    <Compile Include="Models\Discounts.cs" />
     <Compile Include="Models\ForgotPassword.cs" />
     <Compile Include="Models\ListOfRatings.cs" />
     <Compile Include="Models\PurchasedItem.cs" />
@@ -401,8 +403,8 @@
     <Compile Include="SettingsLogic\RatingChosenEvent.cs" />
     <Compile Include="SettingsLogic\RatingSaveHandle.cs" />
     <Compile Include="SettingsLogic\RatingMessageHandle.cs" />
-    <Compile Include="ShopFromAListLogic\FromList.cs" />
     <Compile Include="ShopFromAListLogic\DataForPagedTable.cs" />
+    <Compile Include="ShopFromAListLogic\FromList.cs" />
     <Compile Include="Top5Logic\Top5.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -427,6 +429,16 @@
     <Content Include="Views\Settings\AccountSettings.cshtml" />
     <Content Include="Views\Account\Chart.cshtml" />
     <Content Include="Views\Account\RemindPassword.cshtml" />
+    <Content Include="Views\Account\RegisterType.cshtml" />
+    <Content Include="Views\Account\RegisterShop.cshtml" />
+    <Content Include="Views\Account\ShopDashboard.cshtml" />
+    <Content Include="Views\Shared\_LayoutShopDashboard.cshtml" />
+    <Content Include="Views\Discount\AddNew.cshtml" />
+    <Content Include="Views\Discount\Delete.cshtml" />
+    <Content Include="Views\Discount\Details.cshtml" />
+    <Content Include="Views\Discount\Edit.cshtml" />
+    <Content Include="Views\Discount\Manage.cshtml" />
+    <Content Include="Views\Discount\ManageToday.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

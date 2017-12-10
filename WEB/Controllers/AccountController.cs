@@ -44,17 +44,16 @@ namespace WEB.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (_context.userAccount.Any(x => x.Username == user.Username))
+                if ((_context.userAccount.Any(x => x.Username == user.Username))||(_context.shop.Any(x => x.Username == user.Username)))
                 {
                     ModelState.AddModelError("Username", "This Username already exists. Try entering a new one");
                     return View(user);
                 }
-                if (_context.userAccount.Any(x => x.Email == user.Email))
+                if ((_context.userAccount.Any(x => x.Email == user.Email))||(_context.shop.Any(x => x.Email == user.Email)))
                 {
                     ModelState.AddModelError("Email", "This Email already exists. Try entering a new one");
                     return View(user);
                 }
-
                 _context.userAccount.Add(user);
                 _context.SaveChanges();
                 ModelState.Clear();
@@ -63,7 +62,38 @@ namespace WEB.Controllers
 
             return RedirectToAction("Login");
         }
+        public ActionResult RegisterShop()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult RegisterShop(Shop shop)
+        {
+            if (ModelState.IsValid)
+            {
+                if ((_context.shop.Any(x => x.Username == shop.Username))||(_context.userAccount.Any(x => x.Username == shop.Username)))
+                {
+                    ModelState.AddModelError("Username", "This Username already exists. Try entering a new one");
+                    return View(shop);
+                }
+                if ((_context.shop.Any(x => x.Email == shop.Email))||(_context.userAccount.Any(x => x.Email == shop.Email)))
+                {
+                    ModelState.AddModelError("Email", "This Email already exists. Try entering a new one");
+                    return View(shop);
+                }
 
+                _context.shop.Add(shop);
+                _context.SaveChanges();
+                ModelState.Clear();
+                ViewBag.Message = shop.ShopName + " with username: " + shop.Username + " succesfully registered!";
+            }
+
+            return RedirectToAction("Login");
+        }
+        public ActionResult RegisterType()
+        {
+            return View();
+        }
         public ActionResult Login()
         {
             return View();
@@ -72,26 +102,49 @@ namespace WEB.Controllers
         [HttpPost]
         public ActionResult Login(UserAccount user)
         {
+            var userName = user.Username;
+            var password = user.Password;
+            var usr1 = _context.userAccount.Where(u => u.Username == user.Username && u.Password == user.Password).FirstOrDefault();
 
-            var usr = _context.userAccount.Where(u => u.Username == user.Username && u.Password == user.Password).FirstOrDefault();
-            
-
-            if (usr != null)
+            if (usr1 != null)
             {
-                Session["UserID"] = usr.UserID.ToString();
-                Session["Username"] = usr.Username.ToString();
-              
+                Session["UserID"] = usr1.UserID.ToString();
+                Session["Username"] = usr1.Username.ToString();
                 return RedirectToAction("Dashboard");
             }
             else
             {
+                var usr2 = _context.shop.Where(u => u.Username == userName && u.Password == password).FirstOrDefault();
+                if (usr2 != null)
+                {
+                    Session["ShopID"] = usr2.ShopID.ToString();
+                    Session["Username"] = usr2.Username.ToString();
+
+                    return RedirectToAction("ShopDashboard"); 
+                }
                 ModelState.AddModelError("", "Bad Login Credentials");
                 return View();
             }
 
         }
+        public ActionResult ShopDashboard()
+        {
+            if (Session["ShopID"] != null)
+            {
+                int userID = Convert.ToInt32(Session["ShopID"]);
+                ViewBag.UserId = Convert.ToInt32(Session["ShopID"]);
 
-        public ActionResult Dashboard()
+                ViewBag.Username = Session["Username"]; 
+
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+        }
+
+            public ActionResult Dashboard()
         {
             if (Session["UserID"] != null)
             {
