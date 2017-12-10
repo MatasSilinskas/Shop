@@ -60,7 +60,7 @@ namespace WEB.ShopFromAListLogic
             CountMaxPage();
 
         }
-        
+
         private void CountMaxPage()
         {
             var count = ProductList.Count();
