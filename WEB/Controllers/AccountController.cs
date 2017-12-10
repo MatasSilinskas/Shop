@@ -106,8 +106,8 @@ namespace WEB.Controllers
 
             if (usr1 != null)
             {
-                Session["UserID"] = usr.UserID.ToString();
-                Session["Username"] = usr.Username.ToString();
+                Session["UserID"] = usr1.UserID.ToString();
+                Session["Username"] = usr1.Username.ToString();
               
                 return RedirectToAction("Dashboard", "Dashboard");
             }
@@ -143,44 +143,7 @@ namespace WEB.Controllers
                 return RedirectToAction("Login");
             }
         }
-
-            public ActionResult Dashboard()
-        {
-            if (Session["UserID"] != null)
-            {
-                int userID = Convert.ToInt32(Session["UserID"]);
-                ViewBag.UserId = Convert.ToInt32(Session["UserID"]);
-
-                ViewBag.Username = Session["Username"];;
-                var receipts = _context.receipt.Where(u => u.UserId == userID);
-                ViewBag.Receipts = receipts;
-
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("Login");
-            }
-        }
-        [HttpPost]
-        public ActionResult Dashboard(PurchaseList datemodel, string submitButton)
-        {
-            PurchaseList purchaseList = new PurchaseList();
-            PurchasedItem purchasedItem = new PurchasedItem();
-            int userID = Convert.ToInt32(Session["UserID"]);
-            var receipts = _context.receipt.Where(u => u.UserId == userID);
-            ViewBag.Receipts = receipts;
-            lazyStatement = new Lazy<Statement>(() => new Statement(_context, datemodel.date, datemodel.name));
-            if ((submitButton == "Show My Statement") || (submitButton == "Filter By Shop"))
-            {
-                Statement statement = lazyStatement.Value;
-                purchaseList = statement.ShowStatement(submitButton, Convert.ToInt32(Session["UserID"]));
-                return View(purchaseList);
-            }
-            else return View();
-
-        }
-
+        
         public ActionResult RemindPassword()
         {
             ViewBag.Alert = "";

@@ -17,17 +17,17 @@ namespace WEB.Models
         public string Discount { get; set; }
 
         [Display(Name = "Price before discount (optional)")]
-        public double PriceBefore{ get; set; }
+        public double? PriceBefore{ get; set; }
 
         [Display(Name = "Price now (optional)")]
-        public double PriceAfter { get; set; }
+        public double? PriceAfter { get; set; }
 
         public DateTime DateCreated
         {
             get
             {
                 return dateCreated.HasValue
-                   ? dateCreated.Value
+                   ? dateCreated.Value.Date
                    : DateTime.Today.Date;
             }
 

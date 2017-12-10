@@ -375,17 +375,15 @@
     <Compile Include="Classification\HealthCheck.cs" />
     <Compile Include="Classification\NutritionValue.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-
     <Compile Include="Controllers\DiscountController.cs" />
-
     <Compile Include="Controllers\DashboardController.cs" />
-
     <Compile Include="Controllers\ImageScanController.cs" />
     <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Controllers\StoreListController.cs" />
     <Compile Include="Controllers\Top5Controller.cs" />
+    <Compile Include="Controllers\ViewDiscountController.cs" />
     <Compile Include="Dashboard\Statement.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -444,7 +442,6 @@
     <Content Include="Views\Settings\AccountSettings.cshtml" />
     <Content Include="Views\Dashboard\Chart.cshtml" />
     <Content Include="Views\Account\RemindPassword.cshtml" />
-
     <Content Include="Views\Account\RegisterType.cshtml" />
     <Content Include="Views\Account\RegisterShop.cshtml" />
     <Content Include="Views\Account\ShopDashboard.cshtml" />
@@ -455,12 +452,12 @@
     <Content Include="Views\Discount\Edit.cshtml" />
     <Content Include="Views\Discount\Manage.cshtml" />
     <Content Include="Views\Discount\ManageToday.cshtml" />
-
     <Content Include="Views\Statistics\Statistics.cshtml" />
     <Content Include="Views\Statistics\Category.cshtml" />
     <Content Include="Views\Statistics\Health.cshtml" />
     <Content Include="Views\Statistics\NutritionValue.cshtml" />
-
+    <Content Include="Views\ViewDiscount\ViewDiscount.cshtml" />
+    <Content Include="Views\ViewDiscount\ViewDiscountToday.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

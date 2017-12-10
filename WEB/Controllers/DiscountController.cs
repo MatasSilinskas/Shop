@@ -20,8 +20,7 @@ namespace WEB.Controllers
         {
             _context = context;
         }
-
-        // GET: Discount
+        
         public ActionResult AddNew()
         {
             return View();
