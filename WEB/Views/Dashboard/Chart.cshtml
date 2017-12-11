@@ -5,8 +5,10 @@
 	Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
 }
 
+<hr />
 <h2 style="display:block;padding:5%;margin:0 auto;text-align:center">Your Scanning Statistics</h2>
-<canvas id="myChart" style="margin-left:-10%;position: relative; height:20vh; width:100vw;display:block"></canvas>
+<canvas id="myChart" style="width:500px;" width="600"></canvas>
+<hr />
 
 @{Dictionary<int, int> hoursCount = new Dictionary<int, int>();}
 
@@ -54,7 +56,15 @@
 			},
 
 			// Configuration options go here
-			options: {
+            options: {
+                responsive: true,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                },
 				title: {
 					display: true,
 					text: 'Your Buying Activity By Day Hours'

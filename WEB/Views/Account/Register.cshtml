@@ -7,10 +7,10 @@
 <h2>Shop CSE Registration Form</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Fill in required data for valid Registration</h4>
         <hr />
@@ -65,14 +65,14 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-info" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Login Now", "Login")
+    @Html.ActionLink("Login Now", "Login", "AccountController", new { @class="links"})
 </div>
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>

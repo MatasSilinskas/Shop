@@ -1,0 +1,90 @@
+﻿h2 {
+    text-align:center;
+    margin-bottom:5%;
+}
+
+h4 {
+    text-align:center;
+}
+
+img {
+    display:block;
+    margin: 0 auto;
+    width:60%;
+}
+
+input {
+    display:block;
+    width:100%;
+    height: 5em;
+}
+
+.control-label {
+    text-align: center;
+    font-size: 1.5em
+}
+
+.form-control {
+    display: block;
+    margin: 0 auto;
+    height:5em;
+}
+
+.links {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    font-size:1.5em;
+    margin-top:5%;
+    margin-bottom:5%;
+}
+
+footer {
+    display:block;
+    margin:0 auto;
+    text-align:center;
+}
+
+/* Desktop CSS*/
+
+@media (min-width: 992px) {
+
+    hr {
+        width: 50%;
+    }
+    h2 {
+        display:none;
+    }
+
+    h4 {
+    }
+
+    img {
+        display: block;
+        width: 20%;
+    }
+    .form-control {
+        display: block;
+        margin: 0 auto;
+        width:50%;
+    }
+
+    .control-label {
+        display:none;
+        text-align:center;
+        margin:0 auto;
+    }
+
+    .submitas {
+        margin: 0 auto;
+        display:block;
+        width:20%;
+    }
+
+    .links {
+        display:block;
+        margin:0 auto;
+        text-align:center;
+    }
+
+}

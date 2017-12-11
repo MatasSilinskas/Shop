@@ -99,7 +99,9 @@ body.fixed-nav {
   #mainNav .navbar-collapse .navbar-nav > .nav-item.dropdown .dropdown-menu > .dropdown-item > .dropdown-message {
     overflow: hidden;
     max-width: none;
-    text-overflow: ellipsis; }
+    text-overflow: ellipsis;
+  }
+
 
 @media (min-width: 992px) {
   #mainNav .navbar-brand {

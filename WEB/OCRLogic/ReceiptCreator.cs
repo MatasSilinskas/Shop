@@ -87,11 +87,31 @@ namespace WEB.OCRLogic
             receipt.DatePurchased = this.returnDate(scannedtext);
             receipt.TimePurchased = this.returnTime(scannedtext);
             receipt.ShopName = this.returnShop(scannedtext);
-            receipt.Content = scannedtext;
+            receipt.Content = FilterContent(scannedtext);
             receipt.UserId = userID;
             receipt.Value = this.returnPrice(scannedtext);
-
             return receipt;
+        }
+
+        private string FilterContent(string scannedtext)
+        {
+            string endpattern = ConfigurationManager.AppSettings["ikiendpattern"];
+            string bankaccount = ConfigurationManager.AppSettings["bankaccountpattern"];
+            Regex re = new Regex(bankaccount);
+            Match match = re.Match(scannedtext);
+            int position = match.Index;
+            int endpointer = scannedtext.IndexOf(endpattern);
+            if (endpointer >= 0)
+            {
+                var filteredtext = scannedtext.Substring(0, endpointer);
+                filteredtext = filteredtext.Substring(position + 12);
+                return filteredtext;
+            } else
+            {
+                scannedtext = scannedtext.Substring(position + 12);
+                return scannedtext;
+                
+            }
         }
 
         public void PutReceipt(string scannedtext, int userID)

@@ -71,7 +71,9 @@ namespace WEB.Controllers
                     try
                     {
                         ReceiptCreator.GetReceiptCreator(_context).PutReceipt(scannedResult, Convert.ToInt32(Session["UserID"]));
-                        return View("Index", (object)scannedResult);
+                        var lastId = _context.receipt.Max(x => x.ReceiptID);
+                        var last = _context.receipt.Where(x => x.ReceiptID == lastId).FirstOrDefault();
+                        return View("Index", (object)last.Content);
 
                     }
                     catch (WrongDateException e)
@@ -94,7 +96,9 @@ namespace WEB.Controllers
                     try
                     {
                         ReceiptCreator.GetReceiptCreator(_context).PutReceipt(scannedResult, Convert.ToInt32(Session["UserID"]));
-                        return View("Index", (object)scannedResult);
+                        var lastId = _context.receipt.Max(x => x.ReceiptID);
+                        var last = _context.receipt.Where(x => x.ReceiptID == lastId).FirstOrDefault();
+                        return View("Index", (object)last.Content);
 
                     }
                     catch (WrongDateException e)

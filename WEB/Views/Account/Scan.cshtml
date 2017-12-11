@@ -1,7 +1,7 @@
 ﻿
 @{
 	ViewBag.Title = "Scan";
-	Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+	//Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
 }
 
 <ol class="breadcrumb">
@@ -18,9 +18,8 @@ Please select "SCAN" button in order to open your Camera!
 	@Html.AntiForgeryToken()
 
 	<div class="form-horizontal">
-		<h4>Scan Form</h4>
-		<img id="scanImage" src="~/Content/images/scan_button.jpg" style="cursor:pointer;display:block;margin:0 auto" />
-		<input type="file" id="imagetoscan" style="display:none" accept="image/*" capture="camera" value="Scan" /> 
+		<h4>Scan Form</h4>dsfdsf
+		<input type="file" class="btn btn-info" id="imagetoscan" style="display:block" accept="image/*" capture="camera" value="Scan" /> 
 	</div>
 }
 <script>

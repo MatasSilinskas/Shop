@@ -13,7 +13,7 @@
 </ol>
 @if (Model != null)
 {
-    <table class="table">
+    <table id="top5table" class="table table-striped">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Item)
@@ -48,7 +48,7 @@
             </tr>
         }
     </table>
-    <h4>It is best for you to shop in: @Html.Raw(ViewBag.Shop). If you buy these top 5 items, you`ll pay @Html.Raw(ViewBag.Price) for them </h4>
+    <h4 style="text-align:justify">It is best for you to shop in: <i style="color:green">@Html.Raw(ViewBag.Shop).</i> If you buy these top 5 items, you`ll pay <i style="color:green"> @Html.Raw(ViewBag.Price)</i> for them </h4>
 }
 <h4>@Html.Raw(ViewBag.Warning)</h4>
 

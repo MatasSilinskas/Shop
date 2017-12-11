@@ -5,13 +5,13 @@
     int all = Model.Where(x => x.IsHealthy != null).Count();
     double healthPercentage = 100 * healthy / all;
 }
-
-<div id="healthChart" style="width: 45%; height: 300px;display: inline-block;"></div><br/>
+<link rel="stylesheet" href="~/Content/dashboard.css" />
+<div id="healthChart"></div><br/>
 
 <script type="text/javascript">
     var chart2 = new CanvasJS.Chart("healthChart", {
         title: {
-            text: "Money spent on each item category"
+            text: "Your diet (Healthy/Unhealthy)"
         },
         animationEnabled: true,
         theme: "theme2",

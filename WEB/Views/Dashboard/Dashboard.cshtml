@@ -91,7 +91,7 @@
         @Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("Pages", new { page = page }))
     }
 }
-@Html.Partial("Chart", (object)ViewBag.receipts);
+@Html.Partial("Chart", (object)ViewBag.receipts)
 
 <script>
     $("a[data-form-method='post']").click(function (event) {

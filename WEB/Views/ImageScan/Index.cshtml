@@ -1,60 +1,57 @@
 ﻿@model string
 
 @{
-	ViewBag.Title = "Scan";
-	Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+    ViewBag.Title = "Scan";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
 }
 
 <ol class="breadcrumb">
-	<li class="breadcrumb-item">
-		<a href="#">Dashboard</a>
-	</li>
-	<li class="breadcrumb-item active">Scan Receipt</li>
+    <li class="breadcrumb-item">
+        <a href="#">Dashboard</a>
+    </li>
+    <li class="breadcrumb-item active">Scan Receipt</li>
 </ol>
 <div class="alert alert-info" role="alert">
-	Please select "SCAN" button in order to open your Camera!
+    Please select "SCAN" button in order to open your Camera!
 </div>
-@using (Html.BeginForm("Index", "ImageScan", FormMethod.Post, new { enctype = "multipart/form-data", id = "uploadForm" }))
-{
-	@Html.AntiForgeryToken()
-
-	<div class="form-horizontal">
-		<h4>Scan Form</h4>
-		<img id="scanImage" src="~/Content/images/scan_button.jpg" style="cursor:pointer;display:block;margin:0 auto" /><br>
-		<input type="file" name="postedImage" id="imagetoscan" style="display:none" accept="image/*" capture="camera" value="Scan" />
-	</div>
-
-}
 @if (Model != null && ViewData.ModelState.IsValid)
 {
-	<div class="alert alert-warning" role="alert">
-		<b>Attention!</b>The final output of each line should be like that: [PRODUCT NAME/DESCRIPTION] [WHITESPACE CHARACTERS] [PRICE] [VALUES: A or N]<br>
-		If you see any errors, please fix them manually before submitting!<br>
-		<b>Example:&nbsp;</b> <i>productname1 1,25 A</i>
-	</div>
+    <div class="alert alert-warning" role="alert">
+        <b>Attention!</b>The final output of each line should be like that: [PRODUCT NAME/DESCRIPTION] [WHITESPACE CHARACTERS] [PRICE] [VALUES: A or N]<br>
+        If you see any errors, please fix them manually before submitting!<br>
+        <b>Example:&nbsp;</b> <i>productname1 1,25 A</i>
+    </div>
 
-	using (Html.BeginForm("ValidatedAnswer", "ImageScan", FormMethod.Post, new { id = "uploadOutput" }))
-	{
-		if (!Model.Contains("Couldn't"))
-		{
-		<input type="submit" name="postedOutput" id="verifyoutput" style="display:block;margin:0 auto" value="Verify" /><br>
-		}
-		@Html.TextArea("input", Model, htmlAttributes: new { @cols=60, @rows=20, @style="display:block;margin:0 auto"} )
-		
+    using (Html.BeginForm("ValidatedAnswer", "ImageScan", FormMethod.Post, new { id = "uploadOutput" }))
+    {
+        if (!Model.Contains("Couldn't"))
+        {
+            <input type="submit" class="btn btn-success" name="postedOutput" id="verifyoutput" style="margin:0 auto; width:100%;height:5em;margin-bottom:5%;" value="Verify" /><br>
+        }
+        @Html.TextArea("input", Model, htmlAttributes: new { @cols = 60, @rows = 20, @class="textField" })
+    }
+}
+@using (Html.BeginForm("Index", "ImageScan", FormMethod.Post, new { enctype = "multipart/form-data", id = "uploadForm" }))
+{
+    @Html.AntiForgeryToken()
 
-	}
+    <div class="form-horizontal">
+        <a class="btn btn-info" cursor="pointer" id="scanImage"><span>SCAN</span></a>
+        <input type="file" name="postedImage" id="imagetoscan" style="display:none" accept="image/*" capture="camera" value="Scan" />
+    </div>
+
 }
 <script>
-	$(document).ready(function () {
-		$("#scanImage").click(function () {
-			$("#imagetoscan").trigger('click');
-		});
-	});
+    $(document).ready(function () {
+        $("#scanImage").click(function () {
+            $("#imagetoscan").trigger('click');
+        });
+    });
 </script>
-<script type="text/javascript">
-	$(function () {
-		$("input:file").change(function () {
-			$("#uploadForm").submit();
-		});
-	});
+<script>
+    $(document).ready(function () {
+        $("#imagetoscan").change(function () {
+            $("#uploadForm").submit();
+        });
+    });
 </script>

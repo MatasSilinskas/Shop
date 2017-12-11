@@ -16,7 +16,5 @@ namespace WEB.Models
         public TimeSpan TimePurchased { get; set; }
         public string Content { get; set; }
         public int UserId { get; set; }
-
-
     }
 }
