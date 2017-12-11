@@ -14,6 +14,14 @@
             @Html.ActionLink("Show current discounts", "ViewDiscountToday")
         </div>
     </p>
+    <th>
+        @Html.TextBox("SearchToday", null, new { @class = "form-control", placeholder = "Type the name of an item here...", style = "width:270px" })
+    </th>
+    <th>
+        <a href="@Url.Action("SearchToday")" data-form-method="post">
+            <input type="button" value="Search" class="btn btn-info ml-1" />
+        </a>
+    </th>
     <table class="table">
         <tr>
             <th>
@@ -70,3 +78,15 @@
 
     </table>
 }
+<script>
+    $("a[data-form-method='post']").click(function (event) {
+        event.preventDefault();
+        var element = $(this);
+        var action = element.attr("href");
+        element.closest("form").each(function () {
+            var form = $(this);
+            form.attr("action", action);
+            form.submit();
+        });
+    });
+</script>
