@@ -36,7 +36,7 @@ namespace WEB.Controllers
             healthCheck.CategorizeAllByCategories();
 
             var id = Convert.ToInt32(Session["UserID"]);
-            var items = _context.purchasedItem/*.Where(x => x.UserId == id)*/.ToList();
+            var items = _context.purchasedItem.Where(x => x.UserId == id).ToList();
 
             return View(items);
         }

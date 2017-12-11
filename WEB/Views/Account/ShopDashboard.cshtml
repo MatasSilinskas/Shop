@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "ShopDashboard";
+    Layout = "~/Views/Shared/_LayoutShopDashboard.cshtml";
+}
+@using (Html.BeginForm())
+{
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Shop Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">My Dashboard</li>
+    </ol>
+    <h2 style="padding:20px">Welcome, @ViewBag.Username</h2>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <form class="form-inline my-2 my-lg-0 mr-lg-2">
+            </form>
+        </li>
+    </ol>
+
+}

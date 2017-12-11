@@ -16,7 +16,7 @@ namespace WEB.Models
 
         [Required(ErrorMessage = "Username is required!")]
         public string Username { get; set; }
-
+ 
         [Required(ErrorMessage = "Name is required!")]
         [Display(Name = "First name")]
         public string FirstName { get; set; }
@@ -38,7 +38,7 @@ namespace WEB.Models
         [Compare(nameof(Password), ErrorMessage = "Passwords don't match.")]
         [Display(Name = "Confirm password")]
         public string ConfirmPassword { get; set; }
-
+        
         public virtual List<PurchasedItem> PurchasedItems { get; set; }
     }
 }
