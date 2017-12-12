@@ -4,7 +4,8 @@
     Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
 }
 
-<h2>Manage discounts</h2>
+<h2>Discounts</h2>
+<label>Don't forget to let us know, if you see any wrong discounts!</label>
 @using (Html.BeginForm())
 {
 
@@ -54,6 +55,7 @@
         @foreach (var item in Model)
         {
             <tr>
+                
                 <td>
                     @Html.DisplayFor(modelItem => item.Shop.ShopName)
                 </td>
@@ -79,8 +81,8 @@
                     @Html.DisplayFor(modelItem => item.MoreInfo)
                 </td>
                 <td>
-                    <a href="@Url.Action("Report")" data-form-method="post">
-                        <input type="button" value="Search" class="btn btn-info ml-1" />
+                    <a href="@Url.Action("Report", new { id = item.ItemId })" data-form-method="post">
+                        <input type="button" value="Report"  />
                     </a>
                 </td>
                 

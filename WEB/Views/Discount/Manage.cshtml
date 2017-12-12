@@ -42,28 +42,54 @@
 
                 @foreach (var item in Model)
                 {
+                    var txtcolor = "black";
+                    if ((item.TimesReported > 0)&&(item.TimesReported <10))
+                    {
+                        txtcolor = "pink";
+                    }
+                    else if (item.TimesReported >= 10)
+                    {
+                        txtcolor = "red";
+                    }
+                    else
+                    {
+                        txtcolor = "black";
+                    }
                     <tr>
-
-                        <td ng-class='{red : item.TimesReported > 0}'>
-                            @Html.DisplayFor(modelItem => item.ItemName)
+                        <td>
+                            <font color="@txtcolor">
+                                @Html.DisplayFor(modelItem => item.ItemName)
+                            </font>
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Discount)
+                            <font color="@txtcolor">
+                                @Html.DisplayFor(modelItem => item.Discount)
+                            </font>
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.PriceBefore)
+                            <font color="@txtcolor">
+                                @Html.DisplayFor(modelItem => item.PriceBefore)
+                            </font>
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.PriceAfter)
+                            <font color="@txtcolor">
+                                @Html.DisplayFor(modelItem => item.PriceAfter)
+                            </font>
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.DateCreated.Date)
+                            <font color="@txtcolor">
+                                @Html.DisplayFor(modelItem => item.DateCreated.Date)
+                            </font>
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Date)
+                            <font color="@txtcolor">
+                                @Html.DisplayFor(modelItem => item.Date)
+                            </font>
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.MoreInfo)
+                            <font color="@txtcolor">
+                                @Html.DisplayFor(modelItem => item.MoreInfo)
+                            </font>
                         </td>
                         <td>
                             @Html.ActionLink("Edit", "Edit", new { id = item.ItemId }) |

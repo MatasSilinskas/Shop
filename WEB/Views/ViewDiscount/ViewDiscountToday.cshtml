@@ -4,7 +4,8 @@
     Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
 }
 
-<h2>Manage discounts</h2>
+<h2>Discounts</h2>
+<label>Don't forget to let us know, if you see any wrong discounts!</label>
 @using (Html.BeginForm())
 {
 
@@ -24,6 +25,9 @@
     </th>
     <table class="table">
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Shop.ShopName)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.ItemName)
             </th>
@@ -52,6 +56,9 @@
         {
             <tr>
                 <td>
+                    @Html.DisplayFor(modelItem => item.Shop.ShopName)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.ItemName)
                 </td>
                 <td>
@@ -72,7 +79,11 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.MoreInfo)
                 </td>
-                
+                <td>
+                    <a href="@Url.Action("ReportToday", new { id = item.ItemId })" data-form-method="post">
+                        <input type="button" value="Report" />
+                    </a>
+                </td>
             </tr>
         }
 
