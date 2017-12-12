@@ -36,5 +36,20 @@ namespace WEB.Controllers
             var discount = db.discounts.Where(x => x.Shop.ShopName == Shop).Where(x => x.Date >= DateTime.Today).ToList();
             return View("ViewDiscountToday", discount);
         }
+        [HttpPost, ActionName("Report")]
+        public ActionResult Report(int? id)
+        {
+            var query =
+                    from discount in db.discounts
+                    where discount.ItemId == id
+                    select discount;
+            foreach (Discounts discount in query)
+            {
+                discount.TimesReported++;
+               
+            }
+            db.SaveChanges();
+            return RedirectToAction("ViewDiscount", db.discounts.ToList());
+        }
     }
 }
