@@ -39,6 +39,8 @@ namespace WEB.Models
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }
 
+        public int TimesReported { get; set; }
+
         [Display(Name = "Additional information (optional)")]
         public string MoreInfo { get; set; }
         public virtual Shop Shop { get; set; }
