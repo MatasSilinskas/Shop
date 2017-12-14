@@ -28,7 +28,7 @@
         {
             <input type="submit" class="btn btn-success" name="postedOutput" id="verifyoutput" style="margin:0 auto; width:100%;height:5em;margin-bottom:5%;" value="Verify" /><br>
         }
-        @Html.TextArea("input", Model, htmlAttributes: new { @cols = 60, @rows = 20, @class="textField" })
+        @Html.TextArea("input", Model, htmlAttributes: new { @cols = 60, @rows = 20, @class="textField" , @style="font-size:0.8em;"})
     }
 }
 @using (Html.BeginForm("Index", "ImageScan", FormMethod.Post, new { enctype = "multipart/form-data", id = "uploadForm" }))

@@ -9,13 +9,14 @@ namespace WEB.Models
 {
     public class UserAccountDbContext : DbContext, IUserAccountDbContext
     {
+        public UserAccountDbContext() { }
         public DbSet<UserAccount> userAccount { get; set; }
         public DbSet<PurchasedItem> purchasedItem { get; set; }
         public DbSet<Top5Item> top5Item { get; set; }
         public DbSet<Shop> shop { get; set; }
         public DbSet<Discounts> discounts { get; set; }
         public DbSet<Receipt> receipt { get; set; }
-
+        public DbSet<ForgotPassword> ForgotPasswords { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             Database.SetInitializer<UserAccountDbContext>(null);
@@ -24,10 +25,6 @@ namespace WEB.Models
             modelBuilder.Entity<Receipt>().ToTable("dbo.Receipts");
             modelBuilder.Entity<Shop>().ToTable("dbo.Shops");
             base.OnModelCreating(modelBuilder);
-        }
-
-        public System.Data.Entity.DbSet<WEB.Models.ForgotPassword> ForgotPasswords { get; set; }
-
-        
+        }        
     }
 }

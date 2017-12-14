@@ -62,7 +62,7 @@ namespace WEB.OCRLogic
             using (var db = new UserAccountDbContext())
             {
                 var user = db.userAccount.Where(u => u.Username == username).FirstOrDefault();
-
+                int userID = user.UserID;
 
                     foreach (var item in items)
                     {
@@ -72,7 +72,7 @@ namespace WEB.OCRLogic
                         Match m = Regex.Match(item, pattern);
                         string[] divided = Regex.Split(item, divisionpattern);
                         purchased.ItemName = divided[0];
-                        string fixedValue = m.ToString().Replace("A", "").Replace(" ", "").Replace("\r", "").Replace(".", ",");
+                        string fixedValue = m.ToString().Replace("A", "").Replace(" ", "").Replace("\r", "").Replace(",", ".").Replace("\n","");
                         if (fixedValue.Contains("-"))
                         {
                             continue;
@@ -80,7 +80,7 @@ namespace WEB.OCRLogic
                         purchased.ShopName = receipt.ShopName;
                         purchased.Price = Double.Parse(fixedValue);
                         purchased.Date = receipt.DatePurchased;
-                        purchased.UserId = user.UserID;
+                        purchased.UserId = userID;
                         db.purchasedItem.Add(purchased);
                         db.SaveChanges();
                     }

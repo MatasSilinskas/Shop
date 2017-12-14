@@ -10,6 +10,7 @@ using Emgu.CV;
 using Emgu.CV.Structure;
 using Emgu.CV.CvEnum;
 using Emgu.Util;
+using System.Configuration;
 
 namespace WEB.OCRLogic
 {
@@ -46,12 +47,14 @@ namespace WEB.OCRLogic
                 graphics.DrawImage(image, 0, 0, newWidth, newHeight);
             }
 
-                return image;
+
+                newImage.Save(System.Web.HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["OCRpath"]));
+                return newImage;
         }
 
         public bool IsValidSize(Bitmap image)
         {
-                return  image.Width > 400 && image.Height > 200 ? false : true;
+                return  image.Width > 1000 && image.Height > 500 ? false : true;
         }
 
         public Bitmap BinarizeImage (Bitmap image)

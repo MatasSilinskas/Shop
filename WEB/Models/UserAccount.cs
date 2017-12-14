@@ -11,7 +11,6 @@ namespace WEB.Models
     public class UserAccount
     {
         [Key]
-
         public int UserID { get; set; }
 
         [Required(ErrorMessage = "Username is required!")]

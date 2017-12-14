@@ -91,7 +91,7 @@ namespace WEB.Controllers
                 } 
                 else
                 {
-                    Bitmap fixedImage = ImagePreprocessing.GetProcessor().resizeImage(image, 400, 200);
+                    Bitmap fixedImage = ImagePreprocessing.GetProcessor().resizeImage(image, 1000, 1100);
                     var scannedResult = await GoogleOCR.GetGoogleOCR().DoRecognitionAsync(fixedImage);
                     try
                     {
