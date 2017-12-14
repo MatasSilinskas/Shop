@@ -1,4 +1,4 @@
-﻿ using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -13,7 +13,7 @@ using WEB.RemindPasswordLogic;
 using System.Threading;
 using System.Threading.Tasks;
 using WEB.Dashboard;
-
+using System.Data.Entity;
 
 namespace WEB.Controllers
 {
@@ -42,12 +42,12 @@ namespace WEB.Controllers
         {
             if (ModelState.IsValid)
             {
-                if ((_context.userAccount.Any(x => x.Username == user.Username))||(_context.shop.Any(x => x.Username == user.Username)))
+                if ((_context.userAccount.Any(x => x.Username == user.Username)) || (_context.shop.Any(x => x.Username == user.Username)))
                 {
                     ModelState.AddModelError("Username", "This Username already exists. Try entering a new one");
                     return View(user);
                 }
-                if ((_context.userAccount.Any(x => x.Email == user.Email))||(_context.shop.Any(x => x.Email == user.Email)))
+                if ((_context.userAccount.Any(x => x.Email == user.Email)) || (_context.shop.Any(x => x.Email == user.Email)))
                 {
                     ModelState.AddModelError("Email", "This Email already exists. Try entering a new one");
                     return View(user);
@@ -69,12 +69,12 @@ namespace WEB.Controllers
         {
             if (ModelState.IsValid)
             {
-                if ((_context.shop.Any(x => x.Username == shop.Username))||(_context.userAccount.Any(x => x.Username == shop.Username)))
+                if ((_context.shop.Any(x => x.Username == shop.Username)) || (_context.userAccount.Any(x => x.Username == shop.Username)))
                 {
                     ModelState.AddModelError("Username", "This Username already exists. Try entering a new one");
                     return View(shop);
                 }
-                if ((_context.shop.Any(x => x.Email == shop.Email))||(_context.userAccount.Any(x => x.Email == shop.Email)))
+                if ((_context.shop.Any(x => x.Email == shop.Email)) || (_context.userAccount.Any(x => x.Email == shop.Email)))
                 {
                     ModelState.AddModelError("Email", "This Email already exists. Try entering a new one");
                     return View(shop);
@@ -108,7 +108,7 @@ namespace WEB.Controllers
             {
                 Session["UserID"] = usr1.UserID.ToString();
                 Session["Username"] = usr1.Username.ToString();
-              
+
                 return RedirectToAction("Dashboard", "Dashboard");
             }
             else
@@ -119,7 +119,7 @@ namespace WEB.Controllers
                     Session["ShopID"] = usr2.ShopID.ToString();
                     Session["Username"] = usr2.Username.ToString();
 
-                    return RedirectToAction("ShopDashboard"); 
+                    return RedirectToAction("ShopDashboard");
                 }
                 ModelState.AddModelError("", "Bad Login Credentials");
                 return View();
@@ -134,7 +134,7 @@ namespace WEB.Controllers
                 int userID = Convert.ToInt32(Session["ShopID"]);
                 ViewBag.UserId = Convert.ToInt32(Session["ShopID"]);
 
-                ViewBag.Username = Session["Username"]; 
+                ViewBag.Username = Session["Username"];
 
                 return View();
             }
@@ -143,7 +143,7 @@ namespace WEB.Controllers
                 return RedirectToAction("Login");
             }
         }
-        
+
         public ActionResult RemindPassword()
         {
             ViewBag.Alert = "";
@@ -164,7 +164,7 @@ namespace WEB.Controllers
             {
                 RemindPassword remind = new RemindPassword(_context);
                 remind.SendNewPassword(forgotPassword.Email, user.Username);
-                if(remind.EmailSent)
+                if (remind.EmailSent)
                 {
                     ViewBag.Alert = "Message was sent sucessfully!";
                 }
@@ -185,9 +185,11 @@ namespace WEB.Controllers
         public ActionResult Delete()
         {
             int id = Convert.ToInt32(Session["UserID"]);
-            _context.Database.ExecuteSqlCommand("DELETE FROM dbo.UserAccounts WHERE UserID=" + id);
-            _context.Database.ExecuteSqlCommand("DELETE FROM dbo.PurchasedItems WHERE UserId=" + id);
-            _context.Database.ExecuteSqlCommand("DELETE FROM dbo.Receipts WHERE UserId=" + id);
+            var user = new UserAccount { UserID = id };
+            _context.Entry(user).State = EntityState.Deleted;
+            _context.purchasedItem.RemoveRange(_context.purchasedItem.Where(x => x.UserId == id).AsEnumerable());
+            _context.receipt.RemoveRange(_context.receipt.Where(x => x.UserId == id).AsEnumerable());
+            _context.SaveChanges();
             return RedirectToAction("Logout");
 
         }

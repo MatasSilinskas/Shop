@@ -29,7 +29,7 @@ namespace WEB.Controllers
         public ActionResult AccountSettings()
         {           
             int id = Convert.ToInt32(Session["UserID"]);
-            var user = _context.userAccount.SqlQuery("SELECT * FROM dbo.UserAccounts WHERE UserID=" + id).FirstOrDefault();
+            var user = _context.userAccount.Where(x => x.UserID == id).FirstOrDefault();
             return View(user);
         }
 
@@ -43,7 +43,8 @@ namespace WEB.Controllers
             }
             else if (ModelState.IsValid)
             {
-                TryUpdateModel(userInDb);
+                //TryUpdateModel(userInDb);
+                _context.Entry(user).State = System.Data.Entity.EntityState.Modified;
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }

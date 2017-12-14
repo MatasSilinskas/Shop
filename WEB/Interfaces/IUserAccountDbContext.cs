@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -13,11 +14,13 @@ namespace WEB.Interfaces
     {
         DbSet<UserAccount> userAccount { get; set; }
         DbSet<PurchasedItem> purchasedItem { get; set; }
-        DbSet<Top5Item> top5Item { get; set; }
         DbSet<Shop> shop { get; set; }
         DbSet<Receipt> receipt { get; set; }
         DbSet<Discounts> discounts { get; set; }
-        Database Database { get; }
+
+        DbEntityEntry<TEntity> Entry<TEntity>(
+    TEntity entity
+) where TEntity : class;
         int SaveChanges();
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
