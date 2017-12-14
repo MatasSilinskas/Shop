@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
@@ -43,8 +44,7 @@ namespace WEB.Controllers
             }
             else if (ModelState.IsValid)
             {
-                //TryUpdateModel(userInDb);
-                _context.Entry(user).State = System.Data.Entity.EntityState.Modified;
+                _context.Entry(userInDb).CurrentValues.SetValues(user);
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
