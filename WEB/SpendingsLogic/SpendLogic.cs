@@ -26,12 +26,17 @@ namespace WEB.SpendingsLogic
         public bool userHasLimitsSet()
         {
             var user = _context.spendings.Where(x => x.UserAccount.UserID == _userid).FirstOrDefault();
-            return user == null ? true : false;
+            return user == null ? false : true;
         }
 
         public Models.Spending getUserSpendings()
         {
             return _context.spendings.Where(x => x.UserAccountID == _userid).FirstOrDefault();
+        }
+
+        public Models.UserAccount getUser()
+        {
+            return _context.userAccount.Where(x => x.UserID == _userid).FirstOrDefault();
         }
 
         public double userSpentPerPeriod(string period)

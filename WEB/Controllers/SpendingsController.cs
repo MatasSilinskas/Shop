@@ -23,13 +23,13 @@ namespace WEB.Controllers
             ViewBag.Year = spendLogic.userSpentPerPeriod("year");
             ViewBag.Month = spendLogic.userSpentPerPeriod("month");
             ViewBag.Day = spendLogic.userSpentPerPeriod("week");
-            if (!spendLogic.userHasLimitsSet())
+            if (spendLogic.userHasLimitsSet())
             {
                 return View(spendLogic.getUserSpendings());
             } else
             {
                 Spending spend = new Spending();
-                spendLogic.getUserSpendings().UserAccount.Spending = spend;
+                spendLogic.getUser().Spending = spend;
                 _context.SaveChanges();
                 return View(spendLogic.getUserSpendings());
             }
