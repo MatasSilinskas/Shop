@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
@@ -29,7 +30,7 @@ namespace WEB.Controllers
         public ActionResult AccountSettings()
         {           
             int id = Convert.ToInt32(Session["UserID"]);
-            var user = _context.userAccount.SqlQuery("SELECT * FROM dbo.UserAccounts WHERE UserID=" + id).FirstOrDefault();
+            var user = _context.userAccount.Where(x => x.UserID == id).FirstOrDefault();
             return View(user);
         }
 
@@ -43,7 +44,7 @@ namespace WEB.Controllers
             }
             else if (ModelState.IsValid)
             {
-                TryUpdateModel(userInDb);
+                _context.Entry(userInDb).CurrentValues.SetValues(user);
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }

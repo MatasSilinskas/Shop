@@ -12,7 +12,6 @@ namespace WEB.Models
         public UserAccountDbContext() { }
         public DbSet<UserAccount> userAccount { get; set; }
         public DbSet<PurchasedItem> purchasedItem { get; set; }
-        public DbSet<Top5Item> top5Item { get; set; }
         public DbSet<Shop> shop { get; set; }
         public DbSet<Discounts> discounts { get; set; }
         public DbSet<Receipt> receipt { get; set; }
