@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="54949650a3024e44a9185848244d9737" Name="Diagram1" ZoomLevel="74">
+        <EntityTypeShape EntityType="WEB.Models.UserAccountDbContextModel.Discount" Width="1.5" PointX="8" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="WEB.Models.UserAccountDbContextModel.PurchasedItem" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WEB.Models.UserAccountDbContextModel.Receipt" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WEB.Models.UserAccountDbContextModel.Shop" Width="1.5" PointX="5.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WEB.Models.UserAccountDbContextModel.Spending" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WEB.Models.UserAccountDbContextModel.UserAccount" Width="1.5" PointX="0.75" PointY="2.625" IsExpanded="true" />
+        <AssociationConnector Association="WEB.Models.UserAccountDbContextModel.FK_dbo_Discounts_dbo_Shops_Shop_ShopID" ManuallyRouted="false" />
+        <AssociationConnector Association="WEB.Models.UserAccountDbContextModel.FK_dbo_PurchasedItems_dbo_UserAccounts_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="WEB.Models.UserAccountDbContextModel.FK_dbo_Spendings_dbo_UserAccounts_UserAccountID" ManuallyRouted="false" />
+        <AssociationConnector Association="WEB.Models.UserAccountDbContextModel.FK_dbo_Receipts_dbo_UserAccounts_UserId" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

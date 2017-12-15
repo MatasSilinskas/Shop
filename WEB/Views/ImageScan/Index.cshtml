@@ -1,10 +1,10 @@
 ﻿@model string
 
 @{
+
     ViewBag.Title = "Scan";
     Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
 }
-
 <ol class="breadcrumb">
     <li class="breadcrumb-item">
         <a href="#">Dashboard</a>
@@ -13,6 +13,13 @@
 </ol>
 <div class="alert alert-info" role="alert">
     Please select "SCAN" button in order to open your Camera!
+</div>
+<div id="loading">
+    <div id="loadingcontent">
+        <p id="loadingspinner">
+            Searching things...
+        </p>
+    </div>
 </div>
 @if (Model != null && ViewData.ModelState.IsValid)
 {
@@ -28,7 +35,7 @@
         {
             <input type="submit" class="btn btn-success" name="postedOutput" id="verifyoutput" style="margin:0 auto; width:100%;height:5em;margin-bottom:5%;" value="Verify" /><br>
         }
-        @Html.TextArea("input", Model, htmlAttributes: new { @cols = 60, @rows = 20, @class="textField" , @style="font-size:0.8em;"})
+        @Html.TextArea("input", Model, htmlAttributes: new { @cols = 60, @rows = 20, @class = "textField", @style = "font-size:0.8em;" })
     }
 }
 @using (Html.BeginForm("Index", "ImageScan", FormMethod.Post, new { enctype = "multipart/form-data", id = "uploadForm" }))
@@ -41,6 +48,7 @@
     </div>
 
 }
+
 <script>
     $(document).ready(function () {
         $("#scanImage").click(function () {
@@ -48,9 +56,20 @@
         });
     });
 </script>
-<script>
+<script type="text/javascript">
     $(document).ready(function () {
         $("#imagetoscan").change(function () {
+            $("body").waitMe({
+                effect: 'orbit',
+                text: '',
+                // bg: rgba(255, 255, 255, 0.7),
+                maxSize: '',
+                waitTime: -1,
+                textPos: 'vertical',
+                fontSize: '',
+                source: '',
+                onClose: function () { }
+            });
             $("#uploadForm").submit();
         });
     });

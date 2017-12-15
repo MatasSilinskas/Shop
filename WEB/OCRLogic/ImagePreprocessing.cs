@@ -49,7 +49,7 @@ namespace WEB.OCRLogic
 
 
                 newImage.Save(System.Web.HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["OCRpath"]));
-                return newImage;
+                return image;
         }
 
         public bool IsValidSize(Bitmap image)

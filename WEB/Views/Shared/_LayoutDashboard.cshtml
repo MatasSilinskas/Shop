@@ -22,36 +22,40 @@
     <!-- Custom styles for this template-->
     <link href="~/Content/sb-admin.css" rel="stylesheet" />
     <link href="~/Content/dashboard.css" rel="stylesheet" />
+    <link href="~/Content/waitMe.css" rel="stylesheet" />
+
     <!-- Bootstrap core JavaScript-->
     <script src="~/Content/vendor/jquery/jquery.min.js"></script>
     <script src="~/Scripts/Chart.min.js"></script>
     <script type="text/javascript">
-		$(document).ready(function () {
+        $(document).ready(function () {
 
-			setInterval(getNotifification, 1000);
+            setInterval(getNotifification, 1000);
 
-			function getNotifification() {
+            function getNotifification() {
 
-				$.ajax({
-					type: "GET",
-					url: '@Url.Action("AjaxRequestReceipt", "ImageScan")',
-					contentType: "application/json; charset=utf-8",
-					dataType: "json",
-					success: function (data) { fade(data); },
-					error: function () { fade(null); }
-				});
+                $.ajax({
+                    type: "GET",
+                    /**/
+                    url: '@Url.Action("AjaxRequestReceipt", "ImageScan")',
+        /**/
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) { fade(data); },
+        error: function () { fade(null); }
+    });
 
-			}
+}
 
-		function fade(data) {
+function fade(data) {
 
-			if (data!=null) {
-				$("#popup").fadeIn(2000);
-				$("#popup").html("User " + data[0] + " just scanned " + data[1] + " items");
-				setTimeout($("#popup").fadeOut(2000), 2000);
-			}
-		}
-		});
+    if (data != null) {
+        $("#popup").fadeIn(2000);
+        $("#popup").html("User " + data[0] + " just scanned " + data[1] + " items");
+        setTimeout($("#popup").fadeOut(2000), 2000);
+    }
+}
+});
     </script>
 </head>
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -97,6 +101,12 @@
                     <a class="nav-link" href="@Url.Action("OpenNew","StoreList")">
                         <i class="fa fa-shopping-cart"></i>
                         <span class="nav-link-text">Custom Shop List</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Spendings">
+                    <a class="nav-link" href="@Url.Action("Index","Spendings")">
+                        <i class="fa fa-eur"></i>
+                        <span class="nav-link-text">Spendings</span>
                     </a>
                 </li>
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Custom Shop List">
@@ -198,40 +208,40 @@
         </div>
     </nav>
 	<div class="content-wrapper">
-		<div class="container-fluid">
-			<div id="popup" style="display:none"></div>
-			@RenderBody()
-			<!-- /.container-fluid-->
-			<!-- /.content-wrapper-->
-			<footer class="sticky-footer">
-				<div class="container">
-					<div class="text-center">
-						<small>Developed by Elena, Matas, Kasparas. Copyright © CSE Shop 2017</small>
-					</div>
-				</div>
-			</footer>
-			<!-- Scroll to Top Button-->
-			<a class="scroll-to-top rounded" href="#page-top">
-				<i class="fa fa-angle-up"></i>
-			</a>
-			<!-- Logout Modal-->
-			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-							<button class="close" type="button" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">×</span>
-							</button>
-						</div>
-						<div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-						<div class="modal-footer">
+        <div class="container-fluid">
+            <div id="popup" style="display:none"></div>
+            @RenderBody()
+            <!-- /.container-fluid-->
+            <!-- /.content-wrapper-->
+            <footer class="sticky-footer">
+                <div class="container">
+                    <div class="text-center">
+                        <small>Developed by Elena, Matas, Kasparas. Copyright © CSE Shop 2017</small>
+                    </div>
+                </div>
+            </footer>
+            <!-- Scroll to Top Button-->
+            <a class="scroll-to-top rounded" href="#page-top">
+                <i class="fa fa-angle-up"></i>
+            </a>
+            <!-- Logout Modal-->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                        <div class="modal-footer">
                             @Html.ActionLink("Logout", "Logout", "Account", new object { }, new { @class = "btn btn-primary" })
-							<button class="btn btn-secondary btn-danger" type="button" data-dismiss="modal">Cancel</button>
-						</div>
-					</div>
-				</div>
-			</div>
+                            <button class="btn btn-secondary btn-danger" type="button" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- Delete Modal-->
             <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -249,20 +259,21 @@
                     </div>
                 </div>
             </div>
-			<script src="~/Content/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-			<!-- Core plugin JavaScript-->
-			<script src="~/Content/vendor/jquery-easing/jquery.easing.min.js"></script>
-			<!-- Page level plugin JavaScript-->
-			<script src="~/Content/vendor/chart.js/Chart.min.js"></script>
-			<script src="~/Content/vendor/datatables/jquery.dataTables.js"></script>
-			<script src="~/Content/vendor/datatables/dataTables.bootstrap4.js"></script>
-			<!-- Custom scripts for all pages-->
-			<script src="~/Scripts/sb-admin.min.js"></script>
-			<!-- Custom scripts for this page-->
-			<script src="~/Scripts/sb-admin-datatables.min.js"></script>
-			<script src="~/Scripts/sb-admin.min.js"></script>
-			<script src="~/Scripts/sb-admin-charts.min.js"></script>
-		</div>
+            <script src="~/Content/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <!-- Core plugin JavaScript-->
+            <script src="~/Content/vendor/jquery-easing/jquery.easing.min.js"></script>
+            <!-- Page level plugin JavaScript-->
+            <script src="~/Content/vendor/chart.js/Chart.min.js"></script>
+            <script src="~/Content/vendor/datatables/jquery.dataTables.js"></script>
+            <script src="~/Content/vendor/datatables/dataTables.bootstrap4.js"></script>
+            <!-- Custom scripts for all pages-->
+            <script src="~/Scripts/sb-admin.min.js"></script>
+            <!-- Custom scripts for this page-->
+            <script src="~/Scripts/sb-admin-datatables.min.js"></script>
+            <script src="~/Scripts/sb-admin.min.js"></script>
+            <script src="~/Scripts/sb-admin-charts.min.js"></script>
+            <script src="~/Scripts/waitMe.js"></script>
+        </div>
 		@RenderSection("scripts", required: false)
 </body>
 </html>

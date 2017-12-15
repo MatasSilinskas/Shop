@@ -39,5 +39,8 @@ namespace WEB.Models
         public string ConfirmPassword { get; set; }
         
         public virtual List<PurchasedItem> PurchasedItems { get; set; }
+        public virtual List<Receipt> Receipts { get; set; }
+
+        public virtual Spending Spending { get; set; }
     }
 }

@@ -1,0 +1,200 @@
+﻿@model WEB.Models.Spending
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a href="#">Dashboard</a>
+    </li>
+    <li class="breadcrumb-item active">Spendings</li>
+</ol>
+
+<div style="padding: 2rem 1rem;" class="jumbotron">
+    <div class="alert alert-primary" role="alert">
+        Welcome, <i>@Html.DisplayFor(x => x.UserAccount.FirstName) @Html.DisplayFor(x => x.UserAccount.LastName)</i> this is your Spendings section
+    </div>
+    @if ((double)ViewBag.Day / Model.WeeklyLimit < 0.5)
+    {
+        <div class="alert alert-success" role="alert">
+            <span><b>Congratulations! You're keeping to your  WEEKLY plan! </b></span>Your expenses this WEEK: <b>@ViewBag.Day EUROS</b> It is approximately <b>@((ViewBag.Day / Model.WeeklyLimit) * 100)</b>% of your PLAN
+        </div>
+    }
+    else
+    {
+        if (!Double.IsNaN((double)(ViewBag.Day / Model.WeeklyLimit)) && !Double.IsInfinity((double)(ViewBag.Year / Model.YearlyLimit)))
+        {
+            <div class="alert alert-danger" role="alert">
+                <span><b>Attention! You're nearing to your WEEKLY limit plan! Consider saving more. </b></span>Your expenses this WEEK: <b>@ViewBag.Day EUROS</b> It is approximately <b>@((ViewBag.Day / Model.WeeklyLimit) * 100)</b>% of your PLAN
+            </div>
+        }
+    }
+    @if ((double)ViewBag.Month / Model.MonthlyLimit < 0.5)
+    {
+        <div class="alert alert-success" role="alert">
+            <span><b>Congratulations! You're keeping to your  MONTHLY plan! </b></span>Your expenses this MONTH: <b>@ViewBag.Month  EUROS</b> It is approximately <b>@Math.Round(((ViewBag.Month / Model.MonthlyLimit) * 100))</b>% of your PLAN
+        </div>
+    }
+    else
+    {
+        if (!Double.IsNaN((double)(ViewBag.Month / Model.MonthlyLimit)) && !Double.IsInfinity((double)(ViewBag.Year / Model.YearlyLimit)))
+        {
+            <div class="alert alert-danger" role="alert">
+                <span><b>Attention! You're nearing to your MONTHLY limit plan! Consider saving more. </b></span>Your expenses this MONTH: <b>@ViewBag.Month EUROS</b> It is approximately <b>@Math.Round(((ViewBag.Month / Model.MonthlyLimit) * 100))</b>% of your PLAN
+            </div>
+        }
+    }
+    @if ((double)ViewBag.Year / Model.YearlyLimit < 0.5)
+    {
+        <div class="alert alert-success" role="alert">
+            <span><b>Congratulations! You're keeping to your YEARLY plan! </b></span>Your expenses this YEARLY: <b>@ViewBag.Year  EUROS</b> It is approximately <b>@Math.Round(((ViewBag.Year / Model.YearlyLimit) * 100))</b>% of your PLAN
+        </div>
+    }
+    else
+    {
+        if (!Double.IsNaN((double)(ViewBag.Year / Model.YearlyLimit)) && !Double.IsInfinity((double)(ViewBag.Year / Model.YearlyLimit)))
+        {
+            <div class="alert alert-danger" role="alert">
+                <span><b>Attention! You're nearing to your YEARLY limit plan! Consider saving more. </b></span>Your expenses this YEAR: <b>@ViewBag.Year EUROS</b> It is approximately <b>@Math.Round(((ViewBag.Year / Model.YearlyLimit) * 100))</b>% of your PLAN
+            </div>
+        }
+    }
+    <h1 style="padding:0;">Users Spendings Feature&nbsp;<span class="badge badge-secondary">New</span></h1>
+    @using (Html.BeginForm("Index", "Spendings", FormMethod.Post, new { id = "spendingsForm" }))
+    {
+        @Html.LabelFor(x => x.WeeklyLimit)
+        @Html.TextBoxFor(x => x.WeeklyLimit)
+
+        @Html.LabelFor(x => x.MonthlyLimit)
+        @Html.TextBoxFor(x => x.MonthlyLimit)
+
+        @Html.LabelFor(x => x.YearlyLimit)
+        @Html.TextBoxFor(x => x.YearlyLimit)
+        <input type="submit" class="btn btn-success" name="submitSpendings" id="submitSpendings" style="" value="Update" /><br>
+    }
+
+    <h2 class="overview">Week Overview:</h2>
+    <canvas id="myChart" width="400" height="400"></canvas>
+    <script>
+    var ctx = document.getElementById("myChart").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ["Already Spent", "Allowed Weekly Limit"],
+            datasets: [{
+                label: 'Spent',
+                data: [@ViewBag.Day, @Model.WeeklyLimit],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            }
+        }
+    });
+    </script>
+    <h2 class="overview">Month Overview:</h2>
+    <canvas id="myChart1" width="400" height="400"></canvas>
+    <script>
+    var ctx = document.getElementById("myChart1").getContext('2d');
+    var myChart1 = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ["Already Spent", "Allowed Monthly Limit"],
+            datasets: [{
+                label: 'Spent',
+                data: [@ViewBag.Month, @Model.MonthlyLimit],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            }
+        }
+    });
+    </script>
+    <h2 class="overview">Year Overview:</h2>
+    <canvas id="myChart2" width="400" height="400"></canvas>
+    <script>
+    var ctx = document.getElementById("myChart2").getContext('2d');
+    var myChart2 = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ["Already Spent", "Allowed Yearly Limit"],
+            datasets: [{
+                label: 'Spent',
+                data: [@ViewBag.Year, @Model.YearlyLimit],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            }
+        }
+    });
+    </script>
+</div>

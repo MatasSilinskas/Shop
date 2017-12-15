@@ -17,6 +17,7 @@ namespace WEB.Models
         public DbSet<Discounts> discounts { get; set; }
         public DbSet<Receipt> receipt { get; set; }
         public DbSet<ForgotPassword> ForgotPasswords { get; set; }
+        public DbSet<Spending> spendings { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             Database.SetInitializer<UserAccountDbContext>(null);
@@ -24,6 +25,7 @@ namespace WEB.Models
             modelBuilder.Entity<PurchasedItem>().ToTable("dbo.PurchasedItems");
             modelBuilder.Entity<Receipt>().ToTable("dbo.Receipts");
             modelBuilder.Entity<Shop>().ToTable("dbo.Shops");
+            modelBuilder.Entity<Spending>().ToTable("dbo.Spendings");
             base.OnModelCreating(modelBuilder);
         }        
     }

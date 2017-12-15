@@ -3,7 +3,14 @@
 @{
     int healthy = Model.Where(x => x.IsHealthy == true).Count();
     int all = Model.Where(x => x.IsHealthy != null).Count();
-    double healthPercentage = 100 * healthy / all;
+    double healthPercentage;
+    try
+    {
+        healthPercentage = 100 * healthy / all;
+    } catch(DivideByZeroException)
+    {
+        healthPercentage = 0;
+    }
 }
 <link rel="stylesheet" href="~/Content/dashboard.css" />
 <div id="healthChart"></div><br/>

@@ -134,5 +134,17 @@ namespace WEB.Controllers
             }
             base.Dispose(disposing);
         }
+
+        protected override void OnAuthorization(System.Web.Mvc.AuthorizationContext filterContext)
+        {
+            //lets say you set session value to a positive integer
+            var LoginType = Convert.ToInt32(filterContext.HttpContext.Session["UserID"]);
+            if (LoginType == 0)
+            {
+                filterContext.HttpContext.Response.Redirect(url: "~/");
+            }
+
+            base.OnAuthorization(filterContext);
+        }
     }
 }

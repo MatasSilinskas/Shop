@@ -1,0 +1,432 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="WEB.Models.UserAccountDbContextModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Discounts">
+          <Key>
+            <PropertyRef Name="ItemId" />
+          </Key>
+          <Property Name="ItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemName" Type="nvarchar(max)" />
+          <Property Name="Discount" Type="nvarchar(max)" />
+          <Property Name="PriceBefore" Type="float" />
+          <Property Name="PriceAfter" Type="float" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="MoreInfo" Type="nvarchar(max)" />
+          <Property Name="Shop_ShopID" Type="int" />
+          <Property Name="TimesReported" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PurchasedItems">
+          <Key>
+            <PropertyRef Name="PurchasedItemId" />
+          </Key>
+          <Property Name="PurchasedItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ShopName" Type="nvarchar(max)" />
+          <Property Name="ItemName" Type="nvarchar(max)" />
+          <Property Name="Price" Type="float" Nullable="false" />
+          <Property Name="IsChecked" Type="bit" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Category" Type="nvarchar(max)" />
+          <Property Name="Contains" Type="nvarchar(max)" />
+          <Property Name="IsHealthy" Type="bit" />
+        </EntityType>
+        <EntityType Name="Receipts">
+          <Key>
+            <PropertyRef Name="ReceiptID" />
+          </Key>
+          <Property Name="ReceiptID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ShopName" Type="nvarchar(max)" />
+          <Property Name="Value" Type="float" Nullable="false" />
+          <Property Name="DatePurchased" Type="datetime" Nullable="false" />
+          <Property Name="TimePurchased" Type="time" Precision="7" Nullable="false" />
+          <Property Name="Content" Type="nvarchar(max)" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Shops">
+          <Key>
+            <PropertyRef Name="ShopID" />
+          </Key>
+          <Property Name="ShopID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ShopName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Rating" Type="int" Nullable="false" />
+          <Property Name="Username" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ConfirmPassword" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Spendings">
+          <Key>
+            <PropertyRef Name="UserAccountID" />
+          </Key>
+          <Property Name="UserAccountID" Type="int" Nullable="false" />
+          <Property Name="WeeklyLimit" Type="int" Nullable="false" />
+          <Property Name="YearlyLimit" Type="int" Nullable="false" />
+          <Property Name="MonthlyLimit" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserAccounts">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ConfirmPassword" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_dbo_Discounts_dbo_Shops_Shop_ShopID">
+          <End Role="Shops" Type="Self.Shops" Multiplicity="0..1" />
+          <End Role="Discounts" Type="Self.Discounts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shops">
+              <PropertyRef Name="ShopID" />
+            </Principal>
+            <Dependent Role="Discounts">
+              <PropertyRef Name="Shop_ShopID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_PurchasedItems_dbo_UserAccounts_UserId">
+          <End Role="UserAccounts" Type="Self.UserAccounts" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PurchasedItems" Type="Self.PurchasedItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccounts">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="PurchasedItems">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Receipts_dbo_UserAccounts_UserId">
+          <End Role="UserAccounts" Type="Self.UserAccounts" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Receipts" Type="Self.Receipts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccounts">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Receipts">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Spendings_dbo_UserAccounts_UserAccountID">
+          <End Role="UserAccounts" Type="Self.UserAccounts" Multiplicity="1" />
+          <End Role="Spendings" Type="Self.Spendings" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccounts">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Spendings">
+              <PropertyRef Name="UserAccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WEBModelsUserAccountDbContextModelStoreContainer">
+          <EntitySet Name="Discounts" EntityType="Self.Discounts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PurchasedItems" EntityType="Self.PurchasedItems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Receipts" EntityType="Self.Receipts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Shops" EntityType="Self.Shops" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Spendings" EntityType="Self.Spendings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserAccounts" EntityType="Self.UserAccounts" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_Discounts_dbo_Shops_Shop_ShopID" Association="Self.FK_dbo_Discounts_dbo_Shops_Shop_ShopID">
+            <End Role="Shops" EntitySet="Shops" />
+            <End Role="Discounts" EntitySet="Discounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_PurchasedItems_dbo_UserAccounts_UserId" Association="Self.FK_dbo_PurchasedItems_dbo_UserAccounts_UserId">
+            <End Role="UserAccounts" EntitySet="UserAccounts" />
+            <End Role="PurchasedItems" EntitySet="PurchasedItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Receipts_dbo_UserAccounts_UserId" Association="Self.FK_dbo_Receipts_dbo_UserAccounts_UserId">
+            <End Role="UserAccounts" EntitySet="UserAccounts" />
+            <End Role="Receipts" EntitySet="Receipts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Spendings_dbo_UserAccounts_UserAccountID" Association="Self.FK_dbo_Spendings_dbo_UserAccounts_UserAccountID">
+            <End Role="UserAccounts" EntitySet="UserAccounts" />
+            <End Role="Spendings" EntitySet="Spendings" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WEB.Models.UserAccountDbContextModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Discount">
+          <Key>
+            <PropertyRef Name="ItemId" />
+          </Key>
+          <Property Name="ItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Discount1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PriceBefore" Type="Double" />
+          <Property Name="PriceAfter" Type="Double" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MoreInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Shop_ShopID" Type="Int32" />
+          <Property Name="TimesReported" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Shop" Relationship="Self.FK_dbo_Discounts_dbo_Shops_Shop_ShopID" FromRole="Discounts" ToRole="Shops" />
+        </EntityType>
+        <EntityType Name="PurchasedItem">
+          <Key>
+            <PropertyRef Name="PurchasedItemId" />
+          </Key>
+          <Property Name="PurchasedItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ShopName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ItemName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="IsChecked" Type="Boolean" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Category" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Contains" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsHealthy" Type="Boolean" />
+          <NavigationProperty Name="UserAccount" Relationship="Self.FK_dbo_PurchasedItems_dbo_UserAccounts_UserId" FromRole="PurchasedItems" ToRole="UserAccounts" />
+        </EntityType>
+        <EntityType Name="Receipt">
+          <Key>
+            <PropertyRef Name="ReceiptID" />
+          </Key>
+          <Property Name="ReceiptID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ShopName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Value" Type="Double" Nullable="false" />
+          <Property Name="DatePurchased" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TimePurchased" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="UserAccount" Relationship="WEB.Models.UserAccountDbContextModel.FK_dbo_Receipts_dbo_UserAccounts_UserId" FromRole="Receipt" ToRole="UserAccount" />
+        </EntityType>
+        <EntityType Name="Shop">
+          <Key>
+            <PropertyRef Name="ShopID" />
+          </Key>
+          <Property Name="ShopID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ShopName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Rating" Type="Int32" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ConfirmPassword" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Discounts" Relationship="Self.FK_dbo_Discounts_dbo_Shops_Shop_ShopID" FromRole="Shops" ToRole="Discounts" />
+        </EntityType>
+        <EntityType Name="Spending">
+          <Key>
+            <PropertyRef Name="UserAccountID" />
+          </Key>
+          <Property Name="UserAccountID" Type="Int32" Nullable="false" />
+          <Property Name="WeeklyLimit" Type="Int32" Nullable="false" />
+          <Property Name="YearlyLimit" Type="Int32" Nullable="false" />
+          <Property Name="MonthlyLimit" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="UserAccount" Relationship="Self.FK_dbo_Spendings_dbo_UserAccounts_UserAccountID" FromRole="Spendings" ToRole="UserAccounts" />
+        </EntityType>
+        <EntityType Name="UserAccount">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ConfirmPassword" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="PurchasedItems" Relationship="Self.FK_dbo_PurchasedItems_dbo_UserAccounts_UserId" FromRole="UserAccounts" ToRole="PurchasedItems" />
+          <NavigationProperty Name="Spending" Relationship="Self.FK_dbo_Spendings_dbo_UserAccounts_UserAccountID" FromRole="UserAccounts" ToRole="Spendings" />
+          <NavigationProperty Name="Receipts" Relationship="WEB.Models.UserAccountDbContextModel.FK_dbo_Receipts_dbo_UserAccounts_UserId" FromRole="UserAccount" ToRole="Receipt" />
+        </EntityType>
+        <Association Name="FK_dbo_Discounts_dbo_Shops_Shop_ShopID">
+          <End Role="Shops" Type="Self.Shop" Multiplicity="0..1" />
+          <End Role="Discounts" Type="Self.Discount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shops">
+              <PropertyRef Name="ShopID" />
+            </Principal>
+            <Dependent Role="Discounts">
+              <PropertyRef Name="Shop_ShopID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_PurchasedItems_dbo_UserAccounts_UserId">
+          <End Role="UserAccounts" Type="Self.UserAccount" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PurchasedItems" Type="Self.PurchasedItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccounts">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="PurchasedItems">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Spendings_dbo_UserAccounts_UserAccountID">
+          <End Role="UserAccounts" Type="Self.UserAccount" Multiplicity="1" />
+          <End Role="Spendings" Type="Self.Spending" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccounts">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Spendings">
+              <PropertyRef Name="UserAccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Discounts" EntityType="Self.Discount" />
+          <EntitySet Name="PurchasedItems" EntityType="Self.PurchasedItem" />
+          <EntitySet Name="Receipts" EntityType="Self.Receipt" />
+          <EntitySet Name="Shops" EntityType="Self.Shop" />
+          <EntitySet Name="Spendings" EntityType="Self.Spending" />
+          <EntitySet Name="UserAccounts" EntityType="Self.UserAccount" />
+          <AssociationSet Name="FK_dbo_Discounts_dbo_Shops_Shop_ShopID" Association="Self.FK_dbo_Discounts_dbo_Shops_Shop_ShopID">
+            <End Role="Shops" EntitySet="Shops" />
+            <End Role="Discounts" EntitySet="Discounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_PurchasedItems_dbo_UserAccounts_UserId" Association="Self.FK_dbo_PurchasedItems_dbo_UserAccounts_UserId">
+            <End Role="UserAccounts" EntitySet="UserAccounts" />
+            <End Role="PurchasedItems" EntitySet="PurchasedItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Spendings_dbo_UserAccounts_UserAccountID" Association="Self.FK_dbo_Spendings_dbo_UserAccounts_UserAccountID">
+            <End Role="UserAccounts" EntitySet="UserAccounts" />
+            <End Role="Spendings" EntitySet="Spendings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Receipts_dbo_UserAccounts_UserId" Association="WEB.Models.UserAccountDbContextModel.FK_dbo_Receipts_dbo_UserAccounts_UserId">
+            <End Role="UserAccount" EntitySet="UserAccounts" />
+            <End Role="Receipt" EntitySet="Receipts" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_dbo_Receipts_dbo_UserAccounts_UserId">
+          <End Type="WEB.Models.UserAccountDbContextModel.UserAccount" Role="UserAccount" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="WEB.Models.UserAccountDbContextModel.Receipt" Role="Receipt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccount">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Receipt">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WEBModelsUserAccountDbContextModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Discounts">
+            <EntityTypeMapping TypeName="WEB.Models.UserAccountDbContextModel.Discount">
+              <MappingFragment StoreEntitySet="Discounts">
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="Discount1" ColumnName="Discount" />
+                <ScalarProperty Name="PriceBefore" ColumnName="PriceBefore" />
+                <ScalarProperty Name="PriceAfter" ColumnName="PriceAfter" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="MoreInfo" ColumnName="MoreInfo" />
+                <ScalarProperty Name="Shop_ShopID" ColumnName="Shop_ShopID" />
+                <ScalarProperty Name="TimesReported" ColumnName="TimesReported" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PurchasedItems">
+            <EntityTypeMapping TypeName="WEB.Models.UserAccountDbContextModel.PurchasedItem">
+              <MappingFragment StoreEntitySet="PurchasedItems">
+                <ScalarProperty Name="PurchasedItemId" ColumnName="PurchasedItemId" />
+                <ScalarProperty Name="ShopName" ColumnName="ShopName" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="IsChecked" ColumnName="IsChecked" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Contains" ColumnName="Contains" />
+                <ScalarProperty Name="IsHealthy" ColumnName="IsHealthy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Receipts">
+            <EntityTypeMapping TypeName="WEB.Models.UserAccountDbContextModel.Receipt">
+              <MappingFragment StoreEntitySet="Receipts">
+                <ScalarProperty Name="ReceiptID" ColumnName="ReceiptID" />
+                <ScalarProperty Name="ShopName" ColumnName="ShopName" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="DatePurchased" ColumnName="DatePurchased" />
+                <ScalarProperty Name="TimePurchased" ColumnName="TimePurchased" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Shops">
+            <EntityTypeMapping TypeName="WEB.Models.UserAccountDbContextModel.Shop">
+              <MappingFragment StoreEntitySet="Shops">
+                <ScalarProperty Name="ShopID" ColumnName="ShopID" />
+                <ScalarProperty Name="ShopName" ColumnName="ShopName" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="ConfirmPassword" ColumnName="ConfirmPassword" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Spendings">
+            <EntityTypeMapping TypeName="WEB.Models.UserAccountDbContextModel.Spending">
+              <MappingFragment StoreEntitySet="Spendings">
+                <ScalarProperty Name="UserAccountID" ColumnName="UserAccountID" />
+                <ScalarProperty Name="WeeklyLimit" ColumnName="WeeklyLimit" />
+                <ScalarProperty Name="YearlyLimit" ColumnName="YearlyLimit" />
+                <ScalarProperty Name="MonthlyLimit" ColumnName="MonthlyLimit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserAccounts">
+            <EntityTypeMapping TypeName="WEB.Models.UserAccountDbContextModel.UserAccount">
+              <MappingFragment StoreEntitySet="UserAccounts">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="ConfirmPassword" ColumnName="ConfirmPassword" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

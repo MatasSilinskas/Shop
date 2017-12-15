@@ -113,19 +113,26 @@ namespace WEB.OCRLogic
 
         private string FilterContent(string scannedtext, string detectedshop)
         {
-            if (detectedshop == ConfigurationManager.AppSettings["rimi"])
+            try
             {
-                return RimiShopParsing(scannedtext);
-            } else
-            {
-                if (detectedshop == ConfigurationManager.AppSettings["iki"])
+                if (detectedshop == ConfigurationManager.AppSettings["rimi"])
                 {
-                    return IkiShopParsing(scannedtext);
+                    return RimiShopParsing(scannedtext);
                 }
                 else
                 {
-                    return scannedtext;
+                    if (detectedshop == ConfigurationManager.AppSettings["iki"])
+                    {
+                        return IkiShopParsing(scannedtext);
+                    }
+                    else
+                    {
+                        return scannedtext;
+                    }
                 }
+            } catch(ArgumentOutOfRangeException e)
+            {
+                return "Wrong shop interpretation";
             }
         }
 

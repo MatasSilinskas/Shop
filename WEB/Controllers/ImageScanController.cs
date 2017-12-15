@@ -65,54 +65,64 @@ namespace WEB.Controllers
 
                     image = new Bitmap(memoryStream);
                 }
-                if (ImagePreprocessing.GetProcessor().IsValidSize(image))
+                try
                 {
-                    var scannedResult = await GoogleOCR.GetGoogleOCR().DoRecognitionAsync(image);
-                    try
+                    if (ImagePreprocessing.GetProcessor().IsValidSize(image))
                     {
-                        ReceiptCreator.GetReceiptCreator(_context).PutReceipt(scannedResult, Convert.ToInt32(Session["UserID"]));
-                        var lastId = _context.receipt.Max(x => x.ReceiptID);
-                        var last = _context.receipt.Where(x => x.ReceiptID == lastId).FirstOrDefault();
-                        return View("Index", (object)last.Content);
+                        var scannedResult = await GoogleOCR.GetGoogleOCR().DoRecognitionAsync(image);
+                        try
+                        {
+                            ReceiptCreator.GetReceiptCreator(_context).PutReceipt(scannedResult, Convert.ToInt32(Session["UserID"]));
+                            var lastId = _context.receipt.Max(x => x.ReceiptID);
+                            var last = _context.receipt.Where(x => x.ReceiptID == lastId).FirstOrDefault();
+                            return View("Index", (object)last.Content);
 
+                        }
+                        catch (WrongDateException e)
+                        {
+                            return View("Index", (object)("Couldn't detect date!\nInput: " + e.scannedText));
+                        }
+                        catch (WrongTimeException e)
+                        {
+                            return View("Index", (object)("Couldn't detect time!\nInput: " + e.scannedText));
+                        }
+                        catch (WrongShopException e)
+                        {
+                            return View("Index", (object)("Couldn't detect shop!\nInput: " + e.scannedText));
+                        }
                     }
-                    catch (WrongDateException e)
+                    else
                     {
-                        return View("Index", (object)("Couldn't detect date!\nInput: " + e.scannedText));
+                        Bitmap fixedImage = ImagePreprocessing.GetProcessor().resizeImage(image, 1000, 1100);
+                        var scannedResult = await GoogleOCR.GetGoogleOCR().DoRecognitionAsync(fixedImage);
+                        try
+                        {
+                            ReceiptCreator.GetReceiptCreator(_context).PutReceipt(scannedResult, Convert.ToInt32(Session["UserID"]));
+                            var lastId = _context.receipt.Max(x => x.ReceiptID);
+                            var last = _context.receipt.Where(x => x.ReceiptID == lastId).FirstOrDefault();
+                            return View("Index", (object)last.Content);
+
+                        }
+                        catch (WrongDateException e)
+                        {
+                            return View("Index", (object)("Couldn't detect date!\nInput: " + e.scannedText));
+                        }
+                        catch (WrongTimeException e)
+                        {
+                            return View("Index", (object)("Couldn't detect time!\nInput: " + e.scannedText));
+                        }
+                        catch (WrongShopException e)
+                        {
+                            return View("Index", (object)("Couldn't detect shop!\nInput: " + e.scannedText));
+                        }
                     }
-                    catch (WrongTimeException e)
-                    {
-                        return View("Index", (object)("Couldn't detect time!\nInput: " + e.scannedText));
-                    }
-                    catch (WrongShopException e)
-                    {
-                        return View("Index", (object)("Couldn't detect shop!\nInput: " + e.scannedText));
-                    }
-                } 
-                else
+                } catch(Grpc.Core.RpcException e)
                 {
-                    Bitmap fixedImage = ImagePreprocessing.GetProcessor().resizeImage(image, 1000, 1100);
-                    var scannedResult = await GoogleOCR.GetGoogleOCR().DoRecognitionAsync(fixedImage);
-                    try
-                    {
-                        ReceiptCreator.GetReceiptCreator(_context).PutReceipt(scannedResult, Convert.ToInt32(Session["UserID"]));
-                        var lastId = _context.receipt.Max(x => x.ReceiptID);
-                        var last = _context.receipt.Where(x => x.ReceiptID == lastId).FirstOrDefault();
-                        return View("Index", (object)last.Content);
-
-                    }
-                    catch (WrongDateException e)
-                    {
-                        return View("Index", (object)("Couldn't detect date!\nInput: " + e.scannedText));
-                    }
-                    catch (WrongTimeException e)
-                    {
-                        return View("Index", (object)("Couldn't detect time!\nInput: " + e.scannedText));
-                    }
-                    catch (WrongShopException e)
-                    {
-                        return View("Index", (object)("Couldn't detect shop!\nInput: " + e.scannedText));
-                    }
+                    return View("Index", (object)("Vision API: Image Size is Too Large! Consider reducing quality."));
+                }
+                catch(System.Data.Entity.Validation.DbEntityValidationException)
+                {
+                    return View("Index", (object)("Please fix products and prices format!"));
                 }
             }
             else
@@ -134,7 +144,23 @@ namespace WEB.Controllers
             {
                 return View("Index", (object)("Wrong products format! Input: " + e.Price));
             }
+            catch (System.Data.Entity.Validation.DbEntityValidationException)
+            {
+                return View("Index", (object)("Please fix products and prices format!"));
+            }
             return RedirectToAction("Index");
+        }
+
+        protected override void OnAuthorization(System.Web.Mvc.AuthorizationContext filterContext)
+        {
+            //lets say you set session value to a positive integer
+            var LoginType = Convert.ToInt32(filterContext.HttpContext.Session["UserID"]);
+            if (LoginType == 0)
+            {
+                filterContext.HttpContext.Response.Redirect(url: "~/");
+            }
+
+            base.OnAuthorization(filterContext);
         }
     }
 }

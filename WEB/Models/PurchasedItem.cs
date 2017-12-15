@@ -15,6 +15,7 @@ namespace WEB.Models
         public string ShopName { get; set; }
 
         [Display(Name = "Item")]
+        [Required]
         public string ItemName { get; set; }
 
         public double Price { get; set; }
